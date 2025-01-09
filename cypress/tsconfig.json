@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src",
+      "sourceMap": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true
+    },
+    "exclude": [
+      "node_modules",
+      "cypress"
+    ]
+}
