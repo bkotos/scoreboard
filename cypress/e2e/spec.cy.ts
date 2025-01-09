@@ -15,7 +15,7 @@ describe('Scoreboard app', () => {
 
       // assert
       cy.contains('Team 2').should('have.id', 'team2')
-      cy.contains('0').should('have.attr', 'aria-labelledby', 'team2')
+      cy.contains('[aria-labelledby="team2"]', '0')
     })
   })
 })
