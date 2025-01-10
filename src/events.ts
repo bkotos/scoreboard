@@ -16,12 +16,11 @@ const safelyRenderTeamName = (team: Team) => {
 }
 
 export const listenToEventsForTeam = (team: Team) => {
-    let score = 0
     document.getElementById(`btn-add-${team.id}`).onclick = () => {
-        document.getElementById(`score-${team.id}`).innerText = `${++score}`
+        document.getElementById(`score-${team.id}`).innerText = `${++team.score}`
     }
     document.getElementById(`btn-subtract-${team.id}`).onclick = () => {
-        if (score > 0) document.getElementById(`score-${team.id}`).innerText = `${--score}`
+        if (team.score > 0) document.getElementById(`score-${team.id}`).innerText = `${--team.score}`
     }
     document.getElementById(`btn-edit-teamName-${team.id}`).onclick = () => {
         enableTeamNameEditing(team.id)

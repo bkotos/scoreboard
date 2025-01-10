@@ -33,7 +33,8 @@ const setUpTeam = (teamName: string) => {
     const teamId = `team${++teamCount}`
     const team: Team = {
         id: teamId,
-        name: teamName
+        name: teamName,
+        score: 0,
     }
     renderTeamCard(team)
     listenToEventsForTeam(team)
