@@ -41,4 +41,13 @@ describe('Scoreboard app', () => {
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 2)
   })
+
+  it('should display a score of one for team 1 when I click the add button twice and click the subtract button once', () => {
+    // act
+    cy.get('[aria-label="Add one point for Team 1"]').dblclick()
+    cy.get('[aria-label="Subtract one point for Team 1"]').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
+  })
 })
