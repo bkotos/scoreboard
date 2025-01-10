@@ -91,7 +91,7 @@ describe('Scoreboard app', () => {
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
 
-    it('should disable team name editing when I type enter', () => {
+    it('should disable team name editing when I type *ENTER*', () => {
       // arrange
       cy.get('[aria-label="Change name of Team 1"]').click()
 
@@ -111,6 +111,19 @@ describe('Scoreboard app', () => {
 
       // assert
       cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    })
+
+    it('should change the team name when I type a new name and then type *ENTER*', () => {
+      // arrange
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // act
+      cy.focused().type('{selectall}')
+      cy.focused().type('New name')
+      cy.focused().type('{enter}')
+
+      // assert
+      cy.contains(/^New name$/)
     })
   })
 })
