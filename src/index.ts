@@ -1,3 +1,6 @@
+import { listenToEventsForTeam } from "./events"
+import { Team } from "./model"
+
 const renderTeamCard = (team: Team) => {
     const html = `
             <div class="card">
@@ -23,52 +26,6 @@ const renderTeamCard = (team: Team) => {
     card.innerHTML = html
     card.classList.add('column')
     document.getElementById('teams').appendChild(card)
-}
-
-const enableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.add('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
-}
-const disableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.remove('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
-}
-const focusOnTeamNameInput = (teamId: string) => {
-    document.getElementById(`edit-teamName-${teamId}`).focus()
-}
-const safelyRenderTeamName = (team: Team) => {
-    document.getElementById(`teamName-${team.id}`).innerText = team.name
-}
-
-const listenToEventsForTeam = (team: Team) => {
-    let score = 0
-    document.getElementById(`btn-add-${team.id}`).onclick = () => {
-        document.getElementById(`score-${team.id}`).innerText = `${++score}`
-    }
-    document.getElementById(`btn-subtract-${team.id}`).onclick = () => {
-        if (score > 0) document.getElementById(`score-${team.id}`).innerText = `${--score}`
-    }
-    document.getElementById(`btn-edit-teamName-${team.id}`).onclick = () => {
-        enableTeamNameEditing(team.id)
-        focusOnTeamNameInput(team.id)
-    }
-    document.getElementById(`edit-teamName-${team.id}`).onkeydown = (e) => {
-        if (e.code === 'Enter') {
-            disableTeamNameEditing(team.id)
-        }
-    }
-
-    document.getElementById(`edit-teamName-${team.id}`).onblur = () => {
-        disableTeamNameEditing(team.id)
-        const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
-        team.name = value
-        safelyRenderTeamName(team)
-    }
-}
-
-interface Team {
-    id: string
-    name: string
 }
 
 let teamCount = 0
