@@ -28,6 +28,9 @@ const makeTeamNameEditable = (teamId: string) => {
     document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
     document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
 }
+const focusOnTeamNameInput = (teamId: string) => {
+    document.getElementById(`edit-teamName-${teamId}`).focus()
+}
 
 const listenToEventsForTeam = (teamId: string, team: string) => {
     let score = 0
@@ -39,7 +42,7 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
     }
     document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
         makeTeamNameEditable(teamId)
-        document.getElementById(`edit-teamName-${teamId}`).focus()
+        focusOnTeamNameInput(teamId)
     }
 }
 
