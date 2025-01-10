@@ -58,7 +58,7 @@ const listenToEventsForTeam = (team: Team) => {
         disableTeamNameEditing(team.id)
         const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
         team.name = value
-        document.getElementById(`teamName-${team.id}`).innerHTML = team.name
+        document.getElementById(`teamName-${team.id}`).innerText = team.name
     }
 }
 
