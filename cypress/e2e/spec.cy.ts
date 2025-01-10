@@ -140,5 +140,18 @@ describe('Scoreboard app', () => {
         expect(stub.getCalls().length).to.equal(0)
       })
     })
+
+    it('should reset the name if you delete the content and type *ENTER*', () => {
+      // arrange
+      const stub = cy.stub()
+      cy.on('window:alert', stub)
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // act
+      cy.focused().type('{selectAll}{backspace}{enter}')
+
+      // assert
+      cy.contains(/^Team 1$/)
+    })
   })
 })
