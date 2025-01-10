@@ -30,4 +30,15 @@ describe('Scoreboard app', () => {
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
   })
+
+  it('should increase the score by 2 for team 1 when click the add button twice', () => {
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
+
+    // act
+    cy.get('[aria-label="Add one point for Team 1"]').click().click()
+
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 2)
+  })
 })
