@@ -5,8 +5,8 @@ const assertTeamAndScoreDisplayed = (teamName: string, score: number) => {
     cy.contains(`[aria-labelledby="${teamNameLabelId}"]`, score)
   })
 }
-const clickAddButtonForTeam1 = () => cy.get('[aria-label="Add one point for Team 1"]').click()
-const clickSubtractButtonForTeam1 = () => cy.get('[aria-label="Subtract one point for Team 1"]').click()
+const clickAddButton = (teamName: string) => cy.get(`[aria-label="Add one point for ${teamName}"]`).click()
+const clickSubtractButton = (teamName: string) => cy.get(`[aria-label="Subtract one point for ${teamName}"]`).click()
 
 describe('Scoreboard app', () => {
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed(teamName, 0)
     
         // act
-        clickAddButtonForTeam1()
+        clickAddButton(teamName)
     
         // assert
         assertTeamAndScoreDisplayed(teamName, 1)
@@ -43,8 +43,8 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed(teamName, 0)
     
         // act
-        clickAddButtonForTeam1()
-        clickAddButtonForTeam1()
+        clickAddButton(teamName)
+        clickAddButton(teamName)
     
         // assert
         assertTeamAndScoreDisplayed(teamName, 2)
@@ -52,9 +52,9 @@ describe('Scoreboard app', () => {
     
       it('should display a score of one for when I click the add button twice and click the subtract button once', () => {
         // act
-        clickAddButtonForTeam1()
-        clickAddButtonForTeam1()
-        clickSubtractButtonForTeam1()
+        clickAddButton(teamName)
+        clickAddButton(teamName)
+        clickSubtractButton(teamName)
     
         // assert
         assertTeamAndScoreDisplayed(teamName, 1)
@@ -62,7 +62,7 @@ describe('Scoreboard app', () => {
     
       it('should not reduce the score below 0 for when I click the subtract button once before any scores have been added', () => {
         // act
-        clickSubtractButtonForTeam1()
+        clickSubtractButton(teamName)
     
         // assert
         assertTeamAndScoreDisplayed(teamName, 0)
