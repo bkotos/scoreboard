@@ -53,6 +53,9 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
             disableTeamNameEditing(teamId)
         }
     }
+    document.getElementById(`edit-teamName-${teamId}`).onblur = () => {
+        disableTeamNameEditing(teamId)
+    }
 }
 
 let teamCount = 0
