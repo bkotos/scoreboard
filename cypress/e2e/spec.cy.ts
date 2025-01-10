@@ -2,6 +2,8 @@ const assertTeamAndScoreDisplayed = (id: string, label: string, score: number) =
   cy.contains(label).should('have.id', id)
   cy.contains(`[aria-labelledby="${id}"]`, score)
 }
+const clickAddButtonForTeam1 = () => cy.get('[aria-label="Add one point for Team 1"]').click()
+const clickSubtractButtonForTeam1 = () => cy.get('[aria-label="Subtract one point for Team 1"]').click()
 
 describe('Scoreboard app', () => {
   beforeEach(() => {
@@ -25,7 +27,7 @@ describe('Scoreboard app', () => {
     assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
 
     // act
-    cy.get('[aria-label="Add one point for Team 1"]').click()
+    clickAddButtonForTeam1()
 
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
@@ -36,7 +38,8 @@ describe('Scoreboard app', () => {
     assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
 
     // act
-    cy.get('[aria-label="Add one point for Team 1"]').click().click()
+    clickAddButtonForTeam1()
+    clickAddButtonForTeam1()
 
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 2)
@@ -44,8 +47,9 @@ describe('Scoreboard app', () => {
 
   it('should display a score of one for team 1 when I click the add button twice and click the subtract button once', () => {
     // act
-    cy.get('[aria-label="Add one point for Team 1"]').dblclick()
-    cy.get('[aria-label="Subtract one point for Team 1"]').click()
+    clickAddButtonForTeam1()
+    clickAddButtonForTeam1()
+    clickSubtractButtonForTeam1()
 
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
@@ -53,7 +57,7 @@ describe('Scoreboard app', () => {
 
   it('should not reduce the score below 0 for team 1 when I click the subtract button once before any scores have been added', () => {
     // act
-    cy.get('[aria-label="Subtract one point for Team 1"]').click()
+    clickSubtractButtonForTeam1()
 
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
