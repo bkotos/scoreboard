@@ -82,5 +82,13 @@ describe('Scoreboard app', () => {
       cy.contains('Team 1').should('not.be.visible')
       cy.get('input[aria-label="Change team name"]').should('be.visible').should('have.value', 'Team 1')
     })
+
+    it('should be focused on the team name text field when I click edit', () => {
+      // act
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // assert
+      cy.focused().should('have.attr', 'aria-label', 'Change team name')
+    })
   })
 })
