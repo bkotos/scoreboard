@@ -50,4 +50,12 @@ describe('Scoreboard app', () => {
     // assert
     assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
   })
+
+  it('should not reduce the score below 0 for team 1 when I click the subtract button once before any scores have been added', () => {
+    // act
+    cy.get('[aria-label="Subtract one point for Team 1"]').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
+  })
 })
