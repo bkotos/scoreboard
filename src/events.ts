@@ -1,19 +1,5 @@
+import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName } from "./view"
 import { Team } from "./model"
-
-const enableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.add('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
-}
-const disableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.remove('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
-}
-const focusOnTeamNameInput = (teamId: string) => {
-    document.getElementById(`edit-teamName-${teamId}`).focus()
-}
-const safelyRenderTeamName = (team: Team) => {
-    document.getElementById(`teamName-${team.id}`).innerText = team.name
-}
 
 const onScoreAddClick = (team: Team) => {
     document.getElementById(`score-${team.id}`).innerText = `${++team.score}`
