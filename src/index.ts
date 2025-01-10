@@ -2,8 +2,12 @@ const renderTeamCard = (teamId: string, teamName: string) => {
     const html = `
         <div class="card">
             <div class="card-content">
-            <p class="title" id="${teamId}">${teamName}</p>
-            <p class="subtitle" aria-labelledby="${teamId}" id="score-${teamId}">0</p>
+                <p class="title" id="teamName-${teamId}">
+                    ${teamName}
+                    <button id="btn-edit-teamName-${teamId}" class="button is-small" aria-label="Change name of ${teamName}">Edit</button>
+                </p>
+                <input id="edit-teamName-${teamId}" type="text" class="title is-hidden" value="${teamName}" aria-label="Change team name" />
+                <p class="subtitle" aria-labelledby="teamName-${teamId}" id="score-${teamId}">0</p>
             </div>
             <footer class="card-footer">
             <button class="card-footer-item" aria-label="Subtract one point for ${teamName}" id="btn-subtract-${teamId}">
@@ -27,6 +31,10 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
     }
     document.getElementById(`btn-subtract-${teamId}`).onclick = () => {
         if (score > 0) document.getElementById(`score-${teamId}`).innerText = `${--score}`
+    }
+    document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
+        document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
+        document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
     }
 }
 
