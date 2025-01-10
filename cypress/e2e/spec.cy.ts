@@ -72,4 +72,15 @@ describe('Scoreboard app', () => {
 
   itShouldDoScoreChangesForTeam('Team 1')
   itShouldDoScoreChangesForTeam('Team 2')
+
+  describe('changing team name', () => {
+    it('should change the team name to a text field when I click edit', () => {
+      // act
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // assert
+      cy.contains('Team 1').should('not.be.visible')
+      cy.get('input[aria-label="Change team name"]').should('be.visible').should('have.value', 'Team 1')
+    })
+  })
 })
