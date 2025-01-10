@@ -35,6 +35,9 @@ const disableTeamNameEditing = (teamId: string) => {
 const focusOnTeamNameInput = (teamId: string) => {
     document.getElementById(`edit-teamName-${teamId}`).focus()
 }
+const safelyRenderTeamName = (team: Team) => {
+    document.getElementById(`teamName-${team.id}`).innerText = team.name
+}
 
 const listenToEventsForTeam = (team: Team) => {
     let score = 0
@@ -58,7 +61,7 @@ const listenToEventsForTeam = (team: Team) => {
         disableTeamNameEditing(team.id)
         const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
         team.name = value
-        document.getElementById(`teamName-${team.id}`).innerText = team.name
+        safelyRenderTeamName(team)
     }
 }
 
