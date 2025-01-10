@@ -24,6 +24,11 @@ const renderTeamCard = (teamId: string, teamName: string) => {
     document.getElementById('teams').appendChild(card)
 }
 
+const makeTeamNameEditable = (teamId: string) => {
+    document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
+    document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
+}
+
 const listenToEventsForTeam = (teamId: string, team: string) => {
     let score = 0
     document.getElementById(`btn-add-${teamId}`).onclick = () => {
@@ -33,8 +38,7 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
         if (score > 0) document.getElementById(`score-${teamId}`).innerText = `${--score}`
     }
     document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
-        document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
-        document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
+        makeTeamNameEditable(teamId)
     }
 }
 
