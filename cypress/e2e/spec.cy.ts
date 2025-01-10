@@ -91,12 +91,23 @@ describe('Scoreboard app', () => {
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
 
-    it('should change the team name to regular text instead of a text field when I type enter', () => {
+    it('should disable team name editing when I type enter', () => {
       // arrange
       cy.get('[aria-label="Change name of Team 1"]').click()
 
       // act
       cy.focused().type('{enter}')
+
+      // assert
+      cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    })
+
+    it('should disable team name editing when I click outside of the text box', () => {
+      // arrange
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // act
+      clickSubtractButton('Team 1')
 
       // assert
       cy.get('input[aria-label="Change team name"]').should('not.be.visible')
