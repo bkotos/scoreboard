@@ -1,19 +1,19 @@
-const renderTeamCard = (teamId: string, teamName: string) => {
+const renderTeamCard = (team: Team) => {
     const html = `
         <div class="card">
             <div class="card-content">
-                <p class="title" id="teamName-${teamId}">
-                    ${teamName}
-                    <button id="btn-edit-teamName-${teamId}" class="button is-small" aria-label="Change name of ${teamName}">Edit</button>
+                <p class="title" id="title-${team.id}">
+                    <span id="teamName-${team.id}">${team.name}</span>
+                    <button id="btn-edit-teamName-${team.id}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
-                <input id="edit-teamName-${teamId}" type="text" class="title is-hidden" value="${teamName}" aria-label="Change team name" />
-                <p class="subtitle" aria-labelledby="teamName-${teamId}" id="score-${teamId}">0</p>
+                <input id="edit-teamName-${team.id}" type="text" class="title is-hidden" value="${team.name}" aria-label="Change team name" />
+                <p class="subtitle" aria-labelledby="teamName-${team.id}" id="score-${team.id}">0</p>
             </div>
             <footer class="card-footer">
-            <button class="card-footer-item" aria-label="Subtract one point for ${teamName}" id="btn-subtract-${teamId}">
+            <button class="card-footer-item" aria-label="Subtract one point for ${team.name}" id="btn-subtract-${team.id}">
                 -1
             </button>
-            <button class="card-footer-item" aria-label="Add one point for ${teamName}" id="btn-add-${teamId}">
+            <button class="card-footer-item" aria-label="Add one point for ${team.name}" id="btn-add-${team.id}">
                 +1
             </button>
             </footer>
@@ -25,44 +25,57 @@ const renderTeamCard = (teamId: string, teamName: string) => {
 }
 
 const enableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
+    document.getElementById(`title-${teamId}`).classList.add('is-hidden')
     document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
 }
 const disableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`teamName-${teamId}`).classList.remove('is-hidden')
+    document.getElementById(`title-${teamId}`).classList.remove('is-hidden')
     document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
 }
 const focusOnTeamNameInput = (teamId: string) => {
     document.getElementById(`edit-teamName-${teamId}`).focus()
 }
 
-const listenToEventsForTeam = (teamId: string, team: string) => {
+const listenToEventsForTeam = (team: Team) => {
     let score = 0
-    document.getElementById(`btn-add-${teamId}`).onclick = () => {
-        document.getElementById(`score-${teamId}`).innerText = `${++score}`
+    document.getElementById(`btn-add-${team.id}`).onclick = () => {
+        document.getElementById(`score-${team.id}`).innerText = `${++score}`
     }
-    document.getElementById(`btn-subtract-${teamId}`).onclick = () => {
-        if (score > 0) document.getElementById(`score-${teamId}`).innerText = `${--score}`
+    document.getElementById(`btn-subtract-${team.id}`).onclick = () => {
+        if (score > 0) document.getElementById(`score-${team.id}`).innerText = `${--score}`
     }
-    document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
-        enableTeamNameEditing(teamId)
-        focusOnTeamNameInput(teamId)
+    document.getElementById(`btn-edit-teamName-${team.id}`).onclick = () => {
+        enableTeamNameEditing(team.id)
+        focusOnTeamNameInput(team.id)
     }
-    document.getElementById(`edit-teamName-${teamId}`).onkeydown = (e) => {
+    document.getElementById(`edit-teamName-${team.id}`).onkeydown = (e) => {
         if (e.code === 'Enter') {
-            disableTeamNameEditing(teamId)
+            disableTeamNameEditing(team.id)
         }
     }
-    document.getElementById(`edit-teamName-${teamId}`).onblur = () => {
-        disableTeamNameEditing(teamId)
+
+    document.getElementById(`edit-teamName-${team.id}`).onblur = () => {
+        disableTeamNameEditing(team.id)
+        const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
+        team.name = value
+        document.getElementById(`teamName-${team.id}`).innerText = team.name
     }
 }
 
+interface Team {
+    id: string
+    name: string
+}
+
 let teamCount = 0
-const setUpTeam = (team: string) => {
+const setUpTeam = (teamName: string) => {
     const teamId = `team${++teamCount}`
-    renderTeamCard(teamId, team)
-    listenToEventsForTeam(teamId, team)
+    const team: Team = {
+        id: teamId,
+        name: teamName
+    }
+    renderTeamCard(team)
+    listenToEventsForTeam(team)
 }
 
 setUpTeam('Team 1')
