@@ -125,5 +125,20 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains(/^New name$/)
     })
+
+    it('should not allow XSS attacks in the name text box', () => {
+      // arrange
+      const stub = cy.stub()
+      cy.on('window:alert', stub)
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // act
+      cy.focused().type('<img src=1 onerror=alert(1)>')
+
+      // assert
+      cy.focused().type('{enter}').then(() => {
+        expect(stub.getCalls().length).to.equal(0)
+      })
+    })
   })
 })
