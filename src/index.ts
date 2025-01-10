@@ -24,9 +24,13 @@ const renderTeamCard = (teamId: string, teamName: string) => {
     document.getElementById('teams').appendChild(card)
 }
 
-const makeTeamNameEditable = (teamId: string) => {
+const enableTeamNameEditing = (teamId: string) => {
     document.getElementById(`teamName-${teamId}`).classList.add('is-hidden')
     document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
+}
+const disableTeamNameEditing = (teamId: string) => {
+    document.getElementById(`teamName-${teamId}`).classList.remove('is-hidden')
+    document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
 }
 const focusOnTeamNameInput = (teamId: string) => {
     document.getElementById(`edit-teamName-${teamId}`).focus()
@@ -41,13 +45,12 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
         if (score > 0) document.getElementById(`score-${teamId}`).innerText = `${--score}`
     }
     document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
-        makeTeamNameEditable(teamId)
+        enableTeamNameEditing(teamId)
         focusOnTeamNameInput(teamId)
     }
     document.getElementById(`edit-teamName-${teamId}`).onkeydown = (e) => {
         if (e.code === 'Enter') {
-            document.getElementById(`teamName-${teamId}`).classList.remove('is-hidden')
-            document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
+            disableTeamNameEditing(teamId)
         }
     }
 }
