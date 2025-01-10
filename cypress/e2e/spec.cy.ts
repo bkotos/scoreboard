@@ -1,6 +1,6 @@
-const assertTeamAndScoreDisplayed = (id: string, label: string) => {
+const assertTeamAndScoreDisplayed = (id: string, label: string, score: number) => {
   cy.contains(label).should('have.id', id)
-  cy.contains(`[aria-labelledby="${id}"]`, '0')
+  cy.contains(`[aria-labelledby="${id}"]`, score)
 }
 
 describe('Scoreboard app', () => {
@@ -11,12 +11,23 @@ describe('Scoreboard app', () => {
   describe('on first load', () => {
     it('should display team 1 with a starting score of 0', () => {
       // assert
-      assertTeamAndScoreDisplayed('team1', 'Team 1')
+      assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
     })
 
     it('should display team 2 with a starting score of 0', () => {
       // assert
-      assertTeamAndScoreDisplayed('team2', 'Team 2')
+      assertTeamAndScoreDisplayed('team2', 'Team 2', 0)
     })
+  })
+
+  it('should increase the score by 1 for team 1 when click the add button', () => {
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 0)
+
+    // act
+    cy.get('[aria-label="Add one point for Team 1"]').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('team1', 'Team 1', 1)
   })
 })
