@@ -44,6 +44,12 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
         makeTeamNameEditable(teamId)
         focusOnTeamNameInput(teamId)
     }
+    document.getElementById(`edit-teamName-${teamId}`).onkeydown = (e) => {
+        if (e.code === 'Enter') {
+            document.getElementById(`teamName-${teamId}`).classList.remove('is-hidden')
+            document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
+        }
+    }
 }
 
 let teamCount = 0
