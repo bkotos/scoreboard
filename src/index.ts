@@ -39,6 +39,7 @@ const listenToEventsForTeam = (teamId: string, team: string) => {
     }
     document.getElementById(`btn-edit-teamName-${teamId}`).onclick = () => {
         makeTeamNameEditable(teamId)
+        document.getElementById(`edit-teamName-${teamId}`).focus()
     }
 }
 
