@@ -71,4 +71,5 @@ describe('Scoreboard app', () => {
   }
 
   itShouldDoScoreChangesForTeam('Team 1')
+  itShouldDoScoreChangesForTeam('Team 2')
 })
