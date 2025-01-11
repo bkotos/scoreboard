@@ -19,10 +19,10 @@ const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
 const onTeamNameBlur = (team: Team) => {
     disableTeamNameEditing(team.id)
     const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
-    if (value.trim().length > 0) {
-        team.name = value
-        safelyRenderTeamName(team)
-    }
+    if (value.trim().length === 0) return
+
+    team.name = value
+    safelyRenderTeamName(team)
 }
 
 export const listenToEventsForTeam = (team: Team) => {
