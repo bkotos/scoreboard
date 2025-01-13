@@ -214,5 +214,20 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Undo')
     })
+
+    it('should revert team 1 back to 0 if I press their add button 3 times, wait 3 seconds, and then press "undo"', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 0)
+    })
   })
 })
