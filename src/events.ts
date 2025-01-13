@@ -12,7 +12,12 @@ const onEditTeamNameClick = (team: Team) => {
     focusOnTeamNameInput(team)
 }
 const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
-    if (e.code === 'Enter' || e.code === 'Escape') {
+    if (e.code === 'Enter') {
+        disableTeamNameEditing(team)
+    }
+
+    if (e.code === 'Escape') {
+        ELEMENTS.txtEditTeamName(team).value = team.name
         disableTeamNameEditing(team)
     }
 }
