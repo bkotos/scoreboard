@@ -65,3 +65,7 @@ export const focusOnTeamNameInput = (team: Team) => {
 export const safelyRenderTeamName = (team: Team) => {
     ELEMENTS.teamName(team).innerText = team.name
 }
+
+export const renderScore = (team: Team) => {
+    ELEMENTS.score(team).innerText = `${team.score}`
+}

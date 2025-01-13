@@ -1,4 +1,4 @@
-import { ELEMENTS } from "./view";
+import { ELEMENTS, renderScore } from "./view";
 import { Team } from "./model";
 
 export const teams: Team[] = []
@@ -10,41 +10,44 @@ interface HistoryItem {
 }
 
 const history: HistoryItem[] = []
-const burst: HistoryItem[] = []
 
+let first: HistoryItem = null
+let last: HistoryItem = null
+const burst = (teamId: string, oldScore: number, newScore: number) => {
+    last = { teamId, oldScore, newScore }
+    if (!first) first = last
+}
+const recordBurst = () => {
+    const historyItem: HistoryItem = {
+        teamId: first!.teamId,
+        oldScore: first!.oldScore,
+        newScore: last.oldScore,
+    }
+    history.push(historyItem)
+    first = null
+    last = null
+}
 let timeout: ReturnType<typeof setTimeout>
+const recordBurstAfterThreeSecondsOfNoActivity = () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(recordBurst, 3000)
+}
+
 export const add = (team: Team) => {
     const oldScore = team.score
     const newScore = oldScore + 1
     team.score = newScore
-    const currentHistoryItem = {
-        teamId: team.id,
-        oldScore,
-        newScore,
-    }
-    burst.push({
-        ...currentHistoryItem
-    })
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
-        console.log('timeout reached', {oldScore, newScore})
-        const first = burst[0]!
-        const last = burst[burst.length - 1]!
-        const consolidated: HistoryItem = {
-            teamId: first.teamId,
-            oldScore: first.oldScore,
-            newScore: last.newScore,
-        }
-        history.push({
-            ...consolidated,
-        })
-        burst.length = 0
-    }, 3000)
+    burst(team.id, oldScore, newScore)
+    recordBurstAfterThreeSecondsOfNoActivity()
+}
+
+export const subtract = (team: Team) => {
+    team.score--
 }
 
 export const undo = () => {
     const lastHistoryItem = history[history.length - 1]!
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
-    ELEMENTS.score(team).innerText = `${team.score}`
+    renderScore(team)
 }

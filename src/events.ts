@@ -1,14 +1,17 @@
-import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName } from "./view"
+import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName, renderScore } from "./view"
 import { Team } from "./model"
-import { add } from "./history"
+import { add, subtract } from "./history"
 
 const onScoreAddClick = (team: Team) => {
     add(team)
-    ELEMENTS.score(team).innerText = `${team.score}`
+    renderScore(team)
     document.getElementById('btn-undo').classList.remove('is-hidden')
 }
 const onScoreSubtractClick = (team: Team) => {
-    if (team.score > 0) ELEMENTS.score(team).innerText = `${--team.score}`
+    if (team.score > 0) {
+        subtract(team)
+        renderScore(team)
+    }
 }
 const onEditTeamNameClick = (team: Team) => {
     enableTeamNameEditing(team)
