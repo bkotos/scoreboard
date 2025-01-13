@@ -141,17 +141,27 @@ describe('Scoreboard app', () => {
       })
     })
 
-    it('should reset the name if you delete the content and type *ENTER*', () => {
-      // arrange
-      const stub = cy.stub()
-      cy.on('window:alert', stub)
-      cy.get('[aria-label="Change name of Team 1"]').click()
+    describe('when you delete the content and type *ENTER*', () => {
+      beforeEach(() => {
+        // arrange
+        cy.get('[aria-label="Change name of Team 1"]').click()
 
-      // act
-      cy.focused().type('{selectAll}{backspace}{enter}')
+        // act
+        cy.focused().type('{selectAll}{backspace}{enter}')
+      })
 
-      // assert
-      cy.contains(/^Team 1$/)
+      it('should reset the name', () => {
+        // assert
+        cy.contains(/^Team 1$/)
+      })
+
+      it('should then re-set the name in the text box if you try to edit it again', () => {
+        // act
+        cy.get('[aria-label="Change name of Team 1"]').click()
+
+        // assert
+        cy.focused().contains(/^Team 1$/)
+      })
     })
   })
 })
