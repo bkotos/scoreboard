@@ -1,4 +1,4 @@
-import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName } from "./view"
+import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS } from "./view"
 import { Team } from "./model"
 
 const onScoreAddClick = (team: Team) => {
@@ -9,16 +9,16 @@ const onScoreSubtractClick = (team: Team) => {
 }
 const onEditTeamNameClick = (team: Team) => {
     enableTeamNameEditing(team)
-    focusOnTeamNameInput(team.id)
+    focusOnTeamNameInput(team)
 }
 const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
     if (e.code === 'Enter') {
-        disableTeamNameEditing(team.id)
+        disableTeamNameEditing(team)
     }
 }
 const onTeamNameBlur = (team: Team) => {
-    disableTeamNameEditing(team.id)
-    const value = (document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value
+    disableTeamNameEditing(team)
+    const value = ELEMENTS.txtEditTeamName(team).value
     if (value.trim().length === 0) return
 
     team.name = value
@@ -29,6 +29,6 @@ export const listenToEventsForTeam = (team: Team) => {
     document.getElementById(`btn-add-${team.id}`).onclick = onScoreAddClick.bind(null, team)
     document.getElementById(`btn-subtract-${team.id}`).onclick = onScoreSubtractClick.bind(null, team)
     document.getElementById(`btn-edit-teamName-${team.id}`).onclick = onEditTeamNameClick.bind(null, team)
-    document.getElementById(`edit-teamName-${team.id}`).onkeydown = onTeamNameKeyDown.bind(null, team)
-    document.getElementById(`edit-teamName-${team.id}`).onblur = onTeamNameBlur.bind(null, team)
+    ELEMENTS.txtEditTeamName(team).onkeydown = onTeamNameKeyDown.bind(null, team)
+    ELEMENTS.txtEditTeamName(team).onblur = onTeamNameBlur.bind(null, team)
 }

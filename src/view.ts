@@ -1,15 +1,27 @@
 import { Team } from "./model"
 
+const SELECTORS = {
+    cardTitle: (team: Team) => `title-${team.id}`,
+    txtEditTeamName: (team: Team) => `edit-teamName-${team.id}`,
+    teamName: (team: Team) => `teamName-${team.id}`,
+}
+
+export const ELEMENTS = {
+    cardTitle: (team: Team) => document.getElementById(SELECTORS.cardTitle(team)),
+    txtEditTeamName: (team: Team) => document.getElementById(SELECTORS.txtEditTeamName(team)) as HTMLInputElement,
+    teamName: (team: Team) => document.getElementById(SELECTORS.teamName(team)),
+}
+
 export const renderTeamCard = (team: Team) => {
     const html = `
         <div class="card">
             <div class="card-content has-text-centered">
                 <p class="subtitle mb-5" id="title-${team.id}">
-                    <span id="teamName-${team.id}">${team.name}</span>
+                    <span id="${SELECTORS.teamName(team)}">${team.name}</span>
                     <button id="btn-edit-teamName-${team.id}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
-                <input id="edit-teamName-${team.id}" type="text" class="subtitle mb-5 p-0 is-hidden" value="${team.name}" aria-label="Change team name" />
-                <p class="title" aria-labelledby="teamName-${team.id}" id="score-${team.id}">0</p>
+                <input id="${SELECTORS.txtEditTeamName(team)}" type="text" class="subtitle mb-5 p-0 is-hidden" value="${team.name}" aria-label="Change team name" />
+                <p class="title" aria-labelledby="${SELECTORS.teamName(team)}" id="score-${team.id}">0</p>
             </div>
             <footer class="card-footer">
             <button class="card-footer-item" aria-label="Subtract one point for ${team.name}" id="btn-subtract-${team.id}">
@@ -28,17 +40,17 @@ export const renderTeamCard = (team: Team) => {
 }
 
 export const enableTeamNameEditing = (team: Team) => {
-    document.getElementById(`title-${team.id}`).classList.add('is-hidden')
-    ;(document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value = team.name
-    document.getElementById(`edit-teamName-${team.id}`).classList.remove('is-hidden')
+    ELEMENTS.cardTitle(team).classList.add('is-hidden')
+    ELEMENTS.txtEditTeamName(team).value = team.name
+    ELEMENTS.txtEditTeamName(team).classList.remove('is-hidden')
 }
-export const disableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.remove('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.add('is-hidden')
+export const disableTeamNameEditing = (team: Team) => {
+    ELEMENTS.cardTitle(team).classList.remove('is-hidden')
+    ELEMENTS.txtEditTeamName(team).classList.add('is-hidden')
 }
-export const focusOnTeamNameInput = (teamId: string) => {
-    document.getElementById(`edit-teamName-${teamId}`).focus()
+export const focusOnTeamNameInput = (team: Team) => {
+    ELEMENTS.txtEditTeamName(team).focus()
 }
 export const safelyRenderTeamName = (team: Team) => {
-    document.getElementById(`teamName-${team.id}`).innerText = team.name
+    ELEMENTS.teamName(team).innerText = team.name
 }
