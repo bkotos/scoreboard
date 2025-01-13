@@ -205,4 +205,15 @@ describe('Scoreboard app', () => {
       })
     })
   })
+
+  describe('history', () => {
+    it('should display an "undo" button three seconds after I stop clicking the add button', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.tick(3000)
+
+      // assert
+      cy.contains('button', 'Undo')
+    })
+  })
 })
