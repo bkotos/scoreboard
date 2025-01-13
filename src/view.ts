@@ -52,6 +52,9 @@ export const enableTeamNameEditing = (team: Team) => {
     ELEMENTS.txtEditTeamName(team).value = team.name
     ELEMENTS.txtEditTeamName(team).classList.remove('is-hidden')
 }
+export const resetTeamName = (team: Team) => {
+    ELEMENTS.txtEditTeamName(team).value = team.name
+}
 export const disableTeamNameEditing = (team: Team) => {
     ELEMENTS.cardTitle(team).classList.remove('is-hidden')
     ELEMENTS.txtEditTeamName(team).classList.add('is-hidden')

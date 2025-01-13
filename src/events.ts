@@ -1,4 +1,4 @@
-import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS } from "./view"
+import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName } from "./view"
 import { Team } from "./model"
 
 const onScoreAddClick = (team: Team) => {
@@ -17,7 +17,7 @@ const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
     }
 
     if (e.code === 'Escape') {
-        ELEMENTS.txtEditTeamName(team).value = team.name
+        resetTeamName(team)
         disableTeamNameEditing(team)
     }
 }
