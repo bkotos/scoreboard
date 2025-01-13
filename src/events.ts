@@ -2,10 +2,10 @@ import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, sa
 import { Team } from "./model"
 
 const onScoreAddClick = (team: Team) => {
-    document.getElementById(`score-${team.id}`).innerText = `${++team.score}`
+    ELEMENTS.score(team).innerText = `${++team.score}`
 }
 const onScoreSubtractClick = (team: Team) => {
-    if (team.score > 0) document.getElementById(`score-${team.id}`).innerText = `${--team.score}`
+    if (team.score > 0) ELEMENTS.score(team).innerText = `${--team.score}`
 }
 const onEditTeamNameClick = (team: Team) => {
     enableTeamNameEditing(team)
@@ -26,9 +26,9 @@ const onTeamNameBlur = (team: Team) => {
 }
 
 export const listenToEventsForTeam = (team: Team) => {
-    document.getElementById(`btn-add-${team.id}`).onclick = onScoreAddClick.bind(null, team)
-    document.getElementById(`btn-subtract-${team.id}`).onclick = onScoreSubtractClick.bind(null, team)
-    document.getElementById(`btn-edit-teamName-${team.id}`).onclick = onEditTeamNameClick.bind(null, team)
+    ELEMENTS.btnAdd(team).onclick = onScoreAddClick.bind(null, team)
+    ELEMENTS.btnSubtract(team).onclick = onScoreSubtractClick.bind(null, team)
+    ELEMENTS.btnEditTeamName(team).onclick = onEditTeamNameClick.bind(null, team)
     ELEMENTS.txtEditTeamName(team).onkeydown = onTeamNameKeyDown.bind(null, team)
     ELEMENTS.txtEditTeamName(team).onblur = onTeamNameBlur.bind(null, team)
 }

@@ -4,12 +4,20 @@ const SELECTORS = {
     cardTitle: (team: Team) => `title-${team.id}`,
     txtEditTeamName: (team: Team) => `edit-teamName-${team.id}`,
     teamName: (team: Team) => `teamName-${team.id}`,
+    score: (team: Team) => `score-${team.id}`,
+    btnAdd: (team: Team) => `btn-add-${team.id}`,
+    btnSubtract: (team: Team) => `btn-subtract-${team.id}`,
+    btnEditTeamName: (team: Team) => `btn-edit-teamName-${team.id}`,
 }
 
 export const ELEMENTS = {
     cardTitle: (team: Team) => document.getElementById(SELECTORS.cardTitle(team)),
     txtEditTeamName: (team: Team) => document.getElementById(SELECTORS.txtEditTeamName(team)) as HTMLInputElement,
     teamName: (team: Team) => document.getElementById(SELECTORS.teamName(team)),
+    score: (team: Team) => document.getElementById(SELECTORS.score(team)),
+    btnAdd: (team: Team) => document.getElementById(SELECTORS.btnAdd(team)),
+    btnSubtract: (team: Team) => document.getElementById(SELECTORS.btnSubtract(team)),
+    btnEditTeamName: (team: Team) => document.getElementById(SELECTORS.btnEditTeamName(team)),
 }
 
 export const renderTeamCard = (team: Team) => {
@@ -18,16 +26,16 @@ export const renderTeamCard = (team: Team) => {
             <div class="card-content has-text-centered">
                 <p class="subtitle mb-5" id="title-${team.id}">
                     <span id="${SELECTORS.teamName(team)}">${team.name}</span>
-                    <button id="btn-edit-teamName-${team.id}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
+                    <button id="${SELECTORS.btnEditTeamName(team)}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
                 <input id="${SELECTORS.txtEditTeamName(team)}" type="text" class="subtitle mb-5 p-0 is-hidden" value="${team.name}" aria-label="Change team name" />
-                <p class="title" aria-labelledby="${SELECTORS.teamName(team)}" id="score-${team.id}">0</p>
+                <p class="title" aria-labelledby="${SELECTORS.teamName(team)}" id="${SELECTORS.score(team)}">0</p>
             </div>
             <footer class="card-footer">
-            <button class="card-footer-item" aria-label="Subtract one point for ${team.name}" id="btn-subtract-${team.id}">
+            <button class="card-footer-item" aria-label="Subtract one point for ${team.name}" id="${SELECTORS.btnSubtract(team)}">
                 -1
             </button>
-            <button class="card-footer-item" aria-label="Add one point for ${team.name}" id="btn-add-${team.id}">
+            <button class="card-footer-item" aria-label="Add one point for ${team.name}" id="${SELECTORS.btnAdd(team)}">
                 +1
             </button>
             </footer>
