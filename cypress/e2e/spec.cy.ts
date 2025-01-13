@@ -74,59 +74,65 @@ describe('Scoreboard app', () => {
   itShouldDoScoreChangesForTeam('Team 2')
 
   describe('changing team name', () => {
+    const clickToChangeTeam1Name = () => cy.get('[aria-label="Change name of Team 1"]').click()
+    const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    const expectTeamNameTextBoxToBeVisible = () => cy.get('input[aria-label="Change team name"]').should('be.visible')
+    const expectTeamNameTextBoxToHaveDefaultValue = () => cy.focused().should('have.value', 'Team 1')
+
     it('should change the team name to a text field when I click edit', () => {
       // act
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // assert
       cy.contains('Team 1').should('not.be.visible')
-      cy.get('input[aria-label="Change team name"]').should('be.visible').should('have.value', 'Team 1')
+      expectTeamNameTextBoxToBeVisible()
+      expectTeamNameTextBoxToHaveDefaultValue()
     })
 
     it('should be focused on the team name text field when I click edit', () => {
       // act
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // assert
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
 
-    it('should disable team name editing when I type *ENTER*', () => {
+    it('should hide the team name text box when I type *ENTER*', () => {
       // arrange
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // act
       cy.focused().type('{enter}')
 
       // assert
-      cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+      expectTeamNameTextBoxToBeHidden
     })
 
-    it('should disable team name editing when I click outside of the text box', () => {
+    it('should hide the team name text box I click outside of the text box', () => {
       // arrange
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // act
       clickSubtractButton('Team 1')
 
       // assert
-      cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+      expectTeamNameTextBoxToBeHidden
     })
 
-    it('should disable team name editing when I type *ESC*', () => {
+    it('should hide the team name text box when I type *ESC*', () => {
       // arrange
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // act
       cy.focused().type('{esc}')
 
       // assert
-      cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+      expectTeamNameTextBoxToBeHidden
     })
 
     it('should change the team name when I type a new name and then type *ENTER*', () => {
       // arrange
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // act
       cy.focused().type('{selectall}')
@@ -141,7 +147,7 @@ describe('Scoreboard app', () => {
       // arrange
       const stub = cy.stub()
       cy.on('window:alert', stub)
-      cy.get('[aria-label="Change name of Team 1"]').click()
+      clickToChangeTeam1Name()
 
       // act
       cy.focused().type('<img src=1 onerror=alert(1)>')
@@ -155,7 +161,7 @@ describe('Scoreboard app', () => {
     describe('when you delete the content and type *ENTER*', () => {
       beforeEach(() => {
         // arrange
-        cy.get('[aria-label="Change name of Team 1"]').click()
+        clickToChangeTeam1Name()
 
         // act
         cy.focused().type('{selectAll}{backspace}{enter}')
@@ -168,10 +174,10 @@ describe('Scoreboard app', () => {
 
       it('should then re-set the name in the text box if you try to edit it again', () => {
         // act
-        cy.get('[aria-label="Change name of Team 1"]').click()
+        clickToChangeTeam1Name()
 
         // assert
-        cy.focused().should('have.value', 'Team 1')
+        expectTeamNameTextBoxToHaveDefaultValue()
       })
     })
   })
