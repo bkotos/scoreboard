@@ -12,7 +12,7 @@ const onEditTeamNameClick = (team: Team) => {
     focusOnTeamNameInput(team)
 }
 const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
-    if (e.code === 'Enter') {
+    if (e.code === 'Enter' || e.code === 'Escape') {
         disableTeamNameEditing(team)
     }
 }
