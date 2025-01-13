@@ -246,5 +246,29 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 2)
     })
+
+    it('should revert back two history items if I do 3 score changes, separated by 3 seconds each, and then press undo twice', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      cy.contains('button', 'Undo').click()
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 3)
+    })
   })
 })
