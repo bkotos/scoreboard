@@ -3,6 +3,7 @@ import { Team } from "./model"
 
 const onScoreAddClick = (team: Team) => {
     ELEMENTS.score(team).innerText = `${++team.score}`
+    document.getElementById('btn-undo').classList.remove('is-hidden')
 }
 const onScoreSubtractClick = (team: Team) => {
     if (team.score > 0) ELEMENTS.score(team).innerText = `${--team.score}`
