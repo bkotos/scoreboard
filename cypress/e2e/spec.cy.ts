@@ -113,6 +113,17 @@ describe('Scoreboard app', () => {
       cy.get('input[aria-label="Change team name"]').should('not.be.visible')
     })
 
+    it('should disable team name editing when I type *ESC*', () => {
+      // arrange
+      cy.get('[aria-label="Change name of Team 1"]').click()
+
+      // act
+      cy.focused().type('{esc}')
+
+      // assert
+      cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    })
+
     it('should change the team name when I type a new name and then type *ENTER*', () => {
       // arrange
       cy.get('[aria-label="Change name of Team 1"]').click()
