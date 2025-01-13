@@ -11,7 +11,7 @@ interface HistoryItem {
 
 const history: HistoryItem[] = []
 let cursor = null
-const getLastHistoryItem = () => {
+const getLastHistoryItem = (): HistoryItem|void => {
     if (cursor === null) cursor = history.length - 1
     else cursor--
 
