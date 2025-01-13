@@ -39,6 +39,12 @@ const recordBurstAfterThreeSecondsOfNoActivity = () => {
     clearTimeout(timeout)
     timeout = setTimeout(recordBurst, 3000)
 }
+const recordBurstPrematurely = () => {
+    if (!first) return
+
+    clearTimeout(timeout)
+    recordBurst()
+}
 
 export const add = (team: Team) => {
     const oldScore = team.score
@@ -53,6 +59,8 @@ export const subtract = (team: Team) => {
 }
 
 export const undo = () => {
+    recordBurstPrematurely()
+
     const lastHistoryItem = getLastHistoryItem()
     if (!lastHistoryItem) return
 
