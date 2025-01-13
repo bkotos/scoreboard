@@ -1,8 +1,10 @@
 import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName } from "./view"
 import { Team } from "./model"
+import { add } from "./history"
 
 const onScoreAddClick = (team: Team) => {
-    ELEMENTS.score(team).innerText = `${++team.score}`
+    add(team)
+    ELEMENTS.score(team).innerText = `${team.score}`
     document.getElementById('btn-undo').classList.remove('is-hidden')
 }
 const onScoreSubtractClick = (team: Team) => {

@@ -1,9 +1,9 @@
 import { ELEMENTS, renderTeamCard } from "./view"
 import { listenToEventsForTeam } from "./events"
 import { Team } from "./model"
+import { teams, undo } from "./history"
 
 let teamCount = 0
-let teams: Team[] = []
 const setUpTeam = (teamName: string) => {
     const teamId = `team${++teamCount}`
     const team: Team = {
@@ -19,5 +19,5 @@ const setUpTeam = (teamName: string) => {
 setUpTeam('Team 1')
 setUpTeam('Team 2')
 document.getElementById('btn-undo').onclick = () => {
-    ELEMENTS.score(teams[0]).innerText = `0`
+    undo()
 }
