@@ -160,7 +160,7 @@ describe('Scoreboard app', () => {
         cy.get('[aria-label="Change name of Team 1"]').click()
 
         // assert
-        cy.focused().contains(/^Team 1$/)
+        cy.focused().should('have.value', 'Team 1')
       })
     })
   })

@@ -27,9 +27,10 @@ export const renderTeamCard = (team: Team) => {
     document.getElementById('teams').appendChild(card)
 }
 
-export const enableTeamNameEditing = (teamId: string) => {
-    document.getElementById(`title-${teamId}`).classList.add('is-hidden')
-    document.getElementById(`edit-teamName-${teamId}`).classList.remove('is-hidden')
+export const enableTeamNameEditing = (team: Team) => {
+    document.getElementById(`title-${team.id}`).classList.add('is-hidden')
+    ;(document.getElementById(`edit-teamName-${team.id}`) as HTMLInputElement).value = team.name
+    document.getElementById(`edit-teamName-${team.id}`).classList.remove('is-hidden')
 }
 export const disableTeamNameEditing = (teamId: string) => {
     document.getElementById(`title-${teamId}`).classList.remove('is-hidden')

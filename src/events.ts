@@ -8,7 +8,7 @@ const onScoreSubtractClick = (team: Team) => {
     if (team.score > 0) document.getElementById(`score-${team.id}`).innerText = `${--team.score}`
 }
 const onEditTeamNameClick = (team: Team) => {
-    enableTeamNameEditing(team.id)
+    enableTeamNameEditing(team)
     focusOnTeamNameInput(team.id)
 }
 const onTeamNameKeyDown = (team: Team, e: KeyboardEvent) => {
