@@ -11,6 +11,13 @@ interface HistoryItem {
 
 const history: HistoryItem[] = []
 let cursor = null
+const getLastHistoryItem = () => {
+    if (cursor === null) cursor = history.length - 1
+    else cursor--
+
+    return history[cursor]!
+}
+
 let first: HistoryItem = null
 let last: HistoryItem = null
 const burst = (teamId: string, oldScore: number, newScore: number) => {
@@ -46,10 +53,7 @@ export const subtract = (team: Team) => {
 }
 
 export const undo = () => {
-    if (cursor === null) cursor = history.length - 1
-    else cursor--
-
-    const lastHistoryItem = history[cursor]!
+    const lastHistoryItem = getLastHistoryItem()
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
     renderScore(team)
