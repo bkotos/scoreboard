@@ -15,7 +15,7 @@ const getLastHistoryItem = () => {
     if (cursor === null) cursor = history.length - 1
     else cursor--
 
-    return history[cursor]!
+    return history[cursor]
 }
 
 let first: HistoryItem = null
@@ -54,6 +54,8 @@ export const subtract = (team: Team) => {
 
 export const undo = () => {
     const lastHistoryItem = getLastHistoryItem()
+    if (!lastHistoryItem) return
+
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
     renderScore(team)
