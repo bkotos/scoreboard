@@ -31,6 +31,10 @@ const resetBurst = () => {
     last = null
 }
 const recordBurst = () => {
+    if (cursor !== null) {
+        history.splice(cursor)
+    }
+
     const historyItem: HistoryItem = {
         teamId: first!.teamId,
         oldScore: first!.oldScore,
