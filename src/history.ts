@@ -5,7 +5,7 @@ import { getBurstByTeam, HistoryItem, team1Burst, team2Burst } from "./burst";
 export const teams: Team[] = []
 const findTeam = (historyItem: HistoryItem) => teams.find((t) => t.id === historyItem.teamId)!
 
-interface HistoryWrapper {
+export interface HistoryWrapper {
     team1?: HistoryItem
     team2?: HistoryItem
 }
@@ -49,7 +49,7 @@ const recordBurstAfterThreeSecondsOfNoActivity = () => {
     clearTimeout(timeout)
     timeout = setTimeout(recordBurst, 3000)
 }
-const recordBurstPrematurely = () => {
+export const recordBurstPrematurely = () => {
     if (!team1Burst.first && !team2Burst.first) return
 
     clearTimeout(timeout)

@@ -6,16 +6,24 @@ export interface HistoryItem {
     newScore: number
 }
 
-const initialize = () => {
-    let first: HistoryItem = null
-    let last: HistoryItem = null
+export const hasUnprocessedBursts = () => {
+    return !!localStorage.getItem(`scoreboard-burst-first-${1}`) || !!localStorage.getItem(`scoreboard-burst-first-${2}`)
+}
+
+const initialize = (storageId: number) => {
+    // let first: HistoryItem = null
+    // let last: HistoryItem = null
     const burst = (teamId: string, oldScore: number, newScore: number) => {
-        last = { teamId, oldScore, newScore }
-        if (!first) first = last
+        const last: HistoryItem = { teamId, oldScore, newScore }
+        localStorage.setItem(`scoreboard-burst-last-${storageId}`, JSON.stringify(last))
+        if (!localStorage.getItem(`scoreboard-burst-first-${storageId}`))
+            localStorage.setItem(`scoreboard-burst-first-${storageId}`, JSON.stringify(last))
     }
     const reset = () => {
-        first = null
-        last = null
+        localStorage.removeItem(`scoreboard-burst-first-${storageId}`)
+        localStorage.removeItem(`scoreboard-burst-last-${storageId}`)
+        // first = null
+        // last = null
     }
     const getHistoryItemToRecord = (): HistoryItem => {
         // const team1HistoryItem: HistoryItem = team1Burst.first ? {
@@ -24,7 +32,10 @@ const initialize = () => {
         //     newScore: team1Burst.last.newScore,
         // } : undefined
 
-        if (!first) return
+        // const first = 
+        if (!localStorage.getItem(`scoreboard-burst-first-${storageId}`)) return
+        const first = JSON.parse(localStorage.getItem(`scoreboard-burst-first-${storageId}`)) as HistoryItem
+        const last = JSON.parse(localStorage.getItem(`scoreboard-burst-last-${storageId}`)) as HistoryItem
 
         return {
             teamId: first.teamId,
@@ -38,16 +49,17 @@ const initialize = () => {
         reset,
         getHistoryItemToRecord,
         get first() {
-            return first
+            return JSON.parse(localStorage.getItem(`scoreboard-burst-first-${storageId}`)) as HistoryItem
         },
         get last() {
-            return last
+            return JSON.parse(localStorage.getItem(`scoreboard-burst-last-${storageId}`)) as HistoryItem
         }
     }
 }
 
-export const team1Burst = initialize()
-export const team2Burst = initialize()
+let storageId = 0
+export const team1Burst = initialize(++storageId)
+export const team2Burst = initialize(++storageId)
 
 export const getBurstByTeam = (team: Team) => {
     if (team.id === 'team1') return team1Burst
