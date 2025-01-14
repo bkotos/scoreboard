@@ -10,8 +10,8 @@
     "lint:check": "prettier . --check",
     "lint:fix": "prettier . --write",
     "start": "run-p build:watch serve",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
+    "cy:run": "cypress run --e2e --browser chrome",
+    "cy:open": "cypress open --e2e --browser chrome",
     "jest": "jest",
     "jest:watch": "jest --watch"
   },
