@@ -311,5 +311,16 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Redo')
     })
+
+    it('should disable the undo button if i have one history item and I click undo once', () => {
+      // arrange
+      clickAddButton('Team 1')
+
+      // act
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      cy.contains('button', 'Undo').should('be.disabled')
+    })
   })
 })
