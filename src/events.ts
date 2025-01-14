@@ -1,12 +1,13 @@
 import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName, renderScore } from "./view"
 import { Team } from "./model"
 import { add, subtract } from "./history"
+import { enableUndoButton, showUndoButton } from "./history-view"
 
 const onScoreAddClick = (team: Team) => {
     add(team)
     renderScore(team)
-    document.getElementById('btn-undo').classList.remove('is-hidden')
-    ;(document.getElementById('btn-undo') as HTMLButtonElement).disabled = false
+    showUndoButton()
+    enableUndoButton()
 }
 const onScoreSubtractClick = (team: Team) => {
     if (team.score > 0) {
