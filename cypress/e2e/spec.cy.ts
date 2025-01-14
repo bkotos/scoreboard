@@ -301,5 +301,15 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Undo').should('be.disabled')
     })
+
+    it('should enable the undo button if I click add, click undo, and then click add again', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.contains('button', 'Undo').click()
+      clickAddButton('Team 1')
+
+      // assert
+      cy.contains('button', 'Undo').should('not.be.disabled')
+    })
   })
 })
