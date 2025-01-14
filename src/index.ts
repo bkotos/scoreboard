@@ -20,4 +20,5 @@ setUpTeam('Team 1')
 setUpTeam('Team 2')
 document.getElementById('btn-undo').onclick = () => {
     undo()
+    document.getElementById('btn-redo').classList.remove('is-hidden')
 }
