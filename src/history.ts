@@ -1,14 +1,11 @@
 import { renderScore } from "./view";
 import { Team } from "./model";
+import { HistoryItem, team1Burst } from "./burst";
 
 export const teams: Team[] = []
 const findTeam = (historyItem: HistoryItem) => teams.find((t) => t.id === historyItem.teamId)!
 
-interface HistoryItem {
-    teamId: string
-    oldScore: number
-    newScore: number
-}
+
 
 const history: HistoryItem[] = []
 let cursor = null
@@ -25,30 +22,20 @@ const getNextHistoryItem = () => {
     return history[cursor++]
 }
 
-let first: HistoryItem = null
-let last: HistoryItem = null
-const burst = (teamId: string, oldScore: number, newScore: number) => {
-    last = { teamId, oldScore, newScore }
-    if (!first) first = last
-}
 const resetCursor = () => cursor = null
-const resetBurst = () => {
-    first = null
-    last = null
-}
 const deleteFuture = () => {
     if (cursor !== null) history.splice(cursor)
 }
 const recordBurst = () => {
     deleteFuture()
     const historyItem: HistoryItem = {
-        teamId: first!.teamId,
-        oldScore: first!.oldScore,
-        newScore: last.newScore,
+        teamId: team1Burst.first!.teamId,
+        oldScore: team1Burst.first!.oldScore,
+        newScore: team1Burst.last.newScore,
     }
     history.push(historyItem)
     resetCursor()
-    resetBurst()
+    team1Burst.resetBurst()
 }
 let timeout: ReturnType<typeof setTimeout>
 const recordBurstAfterThreeSecondsOfNoActivity = () => {
@@ -56,7 +43,7 @@ const recordBurstAfterThreeSecondsOfNoActivity = () => {
     timeout = setTimeout(recordBurst, 3000)
 }
 const recordBurstPrematurely = () => {
-    if (!first) return
+    if (!team1Burst.first) return
 
     clearTimeout(timeout)
     recordBurst()
@@ -66,7 +53,7 @@ export const add = (team: Team) => {
     const oldScore = team.score
     const newScore = oldScore + 1
     team.score = newScore
-    burst(team.id, oldScore, newScore)
+    team1Burst.burst(team.id, oldScore, newScore)
     recordBurstAfterThreeSecondsOfNoActivity()
 }
 
@@ -74,7 +61,7 @@ export const subtract = (team: Team) => {
     const oldScore = team.score
     const newScore = oldScore - 1
     team.score = newScore
-    burst(team.id, oldScore, newScore)
+    team1Burst.burst(team.id, oldScore, newScore)
     recordBurstAfterThreeSecondsOfNoActivity()
 }
 
