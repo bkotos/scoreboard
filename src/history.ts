@@ -71,7 +71,11 @@ export const add = (team: Team) => {
 }
 
 export const subtract = (team: Team) => {
-    team.score--
+    const oldScore = team.score
+    const newScore = oldScore - 1
+    team.score = newScore
+    burst(team.id, oldScore, newScore)
+    recordBurstAfterThreeSecondsOfNoActivity()
 }
 
 export const undo = () => {
