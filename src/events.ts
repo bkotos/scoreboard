@@ -6,6 +6,7 @@ const onScoreAddClick = (team: Team) => {
     add(team)
     renderScore(team)
     document.getElementById('btn-undo').classList.remove('is-hidden')
+    ;(document.getElementById('btn-undo') as HTMLButtonElement).disabled = false
 }
 const onScoreSubtractClick = (team: Team) => {
     if (team.score > 0) {
