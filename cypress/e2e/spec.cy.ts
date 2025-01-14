@@ -387,5 +387,28 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 2)
     })
+
+    it('should set the score to 2-4 if I click add 2 times for team 1, click add 4 times for team 2, wait 3 seconds, click add 2 times for both teams, and click undo', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      cy.tick(3000)
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 2)
+      assertTeamAndScoreDisplayed('Team 2', 4)
+    })
   })
 })
