@@ -300,5 +300,16 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
+
+    it('should show a redo button when I press undo', () => {
+      // arrange
+      clickAddButton('Team 1')
+
+      // act
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      cy.contains('button', 'Redo')
+    })
   })
 })
