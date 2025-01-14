@@ -38,7 +38,7 @@ const recordBurst = () => {
     const historyItem: HistoryItem = {
         teamId: first!.teamId,
         oldScore: first!.oldScore,
-        newScore: last.oldScore,
+        newScore: last.newScore,
     }
     history.push(historyItem)
     resetCursor()
@@ -74,5 +74,12 @@ export const undo = () => {
     const lastHistoryItem = getLastHistoryItem()!
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
+    renderScore(team)
+}
+
+export const redo = () => {
+    const nextHistoryItem = history[cursor++]!
+    const team = teams.find((t) => t.id === nextHistoryItem.teamId)!
+    team.score = nextHistoryItem.newScore
     renderScore(team)
 }
