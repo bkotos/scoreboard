@@ -421,4 +421,15 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Redo').should('be.disabled')
     })
   })
+
+  describe('persistence', () => {
+    it('should keep my score if I click add for team 1 and then reload the page', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.reload()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 1)
+    })
+  })
 })
