@@ -11,12 +11,13 @@ interface HistoryItem {
 
 const history: HistoryItem[] = []
 let cursor = null
-const getLastHistoryItem = (): HistoryItem|void => {
+const getLastHistoryItem = (): HistoryItem => {
     if (cursor === null) cursor = history.length - 1
     else cursor--
 
     return history[cursor]
 }
+export const canUndo = () => cursor > 0
 
 let first: HistoryItem = null
 let last: HistoryItem = null
@@ -61,12 +62,8 @@ export const subtract = (team: Team) => {
 export const undo = () => {
     recordBurstPrematurely()
 
-    const lastHistoryItem = getLastHistoryItem()
-    if (!lastHistoryItem) return
-
+    const lastHistoryItem = getLastHistoryItem()!
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
     renderScore(team)
-
-    if (cursor === 0) (document.getElementById('btn-undo') as HTMLButtonElement).disabled = true
 }

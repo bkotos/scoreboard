@@ -271,27 +271,6 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 3)
     })
 
-    it.skip('should only revert the history 2 times if I click the undo button 3 times but there are only 2 history entries', () => {
-      // arrange
-      cy.clock()
-
-      // act
-      clickAddButton('Team 1')
-      clickAddButton('Team 1')
-      clickAddButton('Team 1')
-      cy.tick(3000)
-      clickAddButton('Team 1')
-      clickAddButton('Team 1')
-      clickAddButton('Team 1')
-      cy.tick(3000)
-      cy.contains('button', 'Undo').click()
-      cy.contains('button', 'Undo').click()
-      cy.contains('button', 'Undo').click()
-
-      // assert
-      assertTeamAndScoreDisplayed('Team 1', 0)
-    })
-
     it('should revert my changes if I press the undo button immediately without waiting 3 seconds', () => {
       // act
       clickAddButton('Team 1')
