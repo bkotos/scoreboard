@@ -1,13 +1,15 @@
 import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName, renderScore } from "./view"
 import { Team } from "./model"
-import { add, subtract } from "./history"
-import { enableUndoButton, showUndoButton } from "./history-view"
+import { add, canRedo, subtract } from "./history"
+import { disableRedoButton, enableRedoButton, enableUndoButton, showUndoButton } from "./history-view"
 
 const onScoreAddClick = (team: Team) => {
     add(team)
     renderScore(team)
     showUndoButton()
     enableUndoButton()
+    if (canRedo()) enableRedoButton()
+    else disableRedoButton()
 }
 const onScoreSubtractClick = (team: Team) => {
     if (team.score > 0) {

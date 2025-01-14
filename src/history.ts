@@ -11,24 +11,32 @@ interface HistoryWrapper {
 }
 
 
-const history: HistoryWrapper[] = []
-let cursor = null
-const getLastHistoryItem = () => {
-    if (cursor === null) cursor = history.length - 1
-    else cursor--
+const history: HistoryWrapper[] = [
+    {
+        team1: {
+            teamId: 'team1',
+            oldScore: 0,
+            newScore: 0,
+        },
+        team2: {
+            teamId: 'team2',
+            oldScore: 0,
+            newScore: 0,
+        },
+    }
+]
 
-    return history[cursor]
-}
+let cursor = 0
+
 export const canUndo = () => cursor > 0
-export const canRedo = () => cursor < history.length
+export const canRedo = () => cursor < history.length - 1
 
 const getNextHistoryItem = () => {
-    return history[cursor++]
+    return history[++cursor]
 }
 
-const resetCursor = () => cursor = null
 const deleteFuture = () => {
-    if (cursor !== null) history.splice(cursor)
+    history.splice(cursor + 1)
 }
 const recordBurst = () => {
     deleteFuture()
@@ -46,7 +54,7 @@ const recordBurst = () => {
         team1: team1HistoryItem,
         team2: team2HistoryItem,
     })
-    resetCursor()
+    cursor = history.length - 1
     team1Burst.resetBurst()
     team2Burst.resetBurst()
 }
@@ -63,6 +71,7 @@ const recordBurstPrematurely = () => {
 }
 
 export const add = (team: Team) => {
+    deleteFuture()
     const oldScore = team.score
     const newScore = oldScore + 1
     team.score = newScore
@@ -81,16 +90,16 @@ export const subtract = (team: Team) => {
 export const undo = () => {
     recordBurstPrematurely()
 
-    const lastHistoryItem = getLastHistoryItem()!
+    const lastHistoryItem = history[--cursor]
     if (lastHistoryItem.team1) {
         const team = findTeam(lastHistoryItem.team1)
-        team.score = lastHistoryItem.team1.oldScore
+        team.score = lastHistoryItem.team1.newScore
         renderScore(team)
     }
 
     if (lastHistoryItem.team2) {
         const team = findTeam(lastHistoryItem.team2)
-        team.score = lastHistoryItem.team2.oldScore
+        team.score = lastHistoryItem.team2.newScore
         renderScore(team)
     }
 }
