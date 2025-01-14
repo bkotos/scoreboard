@@ -25,6 +25,11 @@ const burst = (teamId: string, oldScore: number, newScore: number) => {
     last = { teamId, oldScore, newScore }
     if (!first) first = last
 }
+const resetCursor = () => cursor = null
+const resetBurst = () => {
+    first = null
+    last = null
+}
 const recordBurst = () => {
     const historyItem: HistoryItem = {
         teamId: first!.teamId,
@@ -32,9 +37,8 @@ const recordBurst = () => {
         newScore: last.oldScore,
     }
     history.push(historyItem)
-    cursor = null
-    first = null
-    last = null
+    resetCursor()
+    resetBurst()
 }
 let timeout: ReturnType<typeof setTimeout>
 const recordBurstAfterThreeSecondsOfNoActivity = () => {
