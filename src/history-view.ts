@@ -8,4 +8,5 @@ export const disableUndoButton = () => undoButton().disabled = true
 
 export const showRedoButton = () => document.getElementById('btn-redo').classList.remove('is-hidden')
 
+export const enableRedoButton = () => redoButton().disabled = false
 export const disableRedoButton = () => redoButton().disabled = true
