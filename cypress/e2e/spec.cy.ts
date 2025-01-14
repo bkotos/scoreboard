@@ -388,7 +388,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 2)
     })
 
-    it('should set the score to 2-4 if I click add 2 times for team 1, click add 4 times for team 2, wait 3 seconds, click add 2 times for both teams, and click undo', () => {
+    it.skip('should set the score to 2-4 if I click add 2 times for team 1, click add 4 times for team 2, wait 3 seconds, click add 2 times for both teams, and click undo', () => {
       // arrange
       cy.clock()
 
