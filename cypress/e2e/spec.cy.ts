@@ -312,26 +312,24 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Undo').should('not.be.disabled')
     })
 
-    it('should allow me to undo a second time if I click add, click undo, and then repeat one more time', () => {
-      // act
-      clickAddButton('Team 1')
-      cy.contains('button', 'Undo').click()
-      clickAddButton('Team 1')
-      cy.contains('button', 'Undo').click()
+    describe('if I click add, click undo, and then repeat one more time', () => {
+      beforeEach(() => {
+        // act
+        clickAddButton('Team 1')
+        cy.contains('button', 'Undo').click()
+        clickAddButton('Team 1')
+        cy.contains('button', 'Undo').click()
+      })
 
-      // assert
-      assertTeamAndScoreDisplayed('Team 1', 0)
-    })
-
-    it('should disable the undo button if I click add, click undo, and then repeat one more time', () => {
-      // act
-      clickAddButton('Team 1')
-      cy.contains('button', 'Undo').click()
-      clickAddButton('Team 1')
-      cy.contains('button', 'Undo').click()
-
-      // assert
-      cy.contains('button', 'Undo').should('be.disabled')
+      it('should allow me to undo a second time', () => {
+        // assert
+        assertTeamAndScoreDisplayed('Team 1', 0)
+      })
+  
+      it('should disable the undo button', () => {
+        // assert
+        cy.contains('button', 'Undo').should('be.disabled')
+      })
     })
   })
 })
