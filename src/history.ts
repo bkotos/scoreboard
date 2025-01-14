@@ -10,7 +10,6 @@ interface HistoryWrapper {
     team2?: HistoryItem
 }
 
-
 const history: HistoryWrapper[] = [
     {
         team1: {
@@ -27,36 +26,23 @@ const history: HistoryWrapper[] = [
 ]
 
 let cursor = 0
+const moveCursorToEnd = () => cursor = history.length - 1
 
 export const canUndo = () => cursor > 0
 export const canRedo = () => cursor < history.length - 1
-
-const getNextHistoryItem = () => {
-    return history[++cursor]
-}
 
 const deleteFuture = () => {
     history.splice(cursor + 1)
 }
 const recordBurst = () => {
     deleteFuture()
-    const team1HistoryItem: HistoryItem = team1Burst.first ? {
-        teamId: team1Burst.first!.teamId,
-        oldScore: team1Burst.first!.oldScore,
-        newScore: team1Burst.last.newScore,
-    } : undefined
-    const team2HistoryItem: HistoryItem = team2Burst.first ? {
-        teamId: team2Burst.first!.teamId,
-        oldScore: team2Burst.first!.oldScore,
-        newScore: team2Burst.last.newScore,
-    } : undefined
     history.push({
-        team1: team1HistoryItem,
-        team2: team2HistoryItem,
+        team1: team1Burst.getHistoryItemToRecord(),
+        team2: team2Burst.getHistoryItemToRecord(),
     })
-    cursor = history.length - 1
-    team1Burst.resetBurst()
-    team2Burst.resetBurst()
+    moveCursorToEnd()
+    team1Burst.reset()
+    team2Burst.reset()
 }
 let timeout: ReturnType<typeof setTimeout>
 const recordBurstAfterThreeSecondsOfNoActivity = () => {
@@ -105,7 +91,7 @@ export const undo = () => {
 }
 
 export const redo = () => {
-    const nextHistoryItem = getNextHistoryItem()
+    const nextHistoryItem = history[++cursor]
     if (nextHistoryItem.team1) {
         const team = findTeam(nextHistoryItem.team1)
         team.score = nextHistoryItem.team1.newScore

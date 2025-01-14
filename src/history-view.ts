@@ -1,3 +1,5 @@
+import { canRedo } from "./history"
+
 export const undoButton = () => document.getElementById('btn-undo') as HTMLButtonElement
 export const redoButton = () => document.getElementById('btn-redo') as HTMLButtonElement
 
@@ -10,3 +12,7 @@ export const showRedoButton = () => document.getElementById('btn-redo').classLis
 
 export const enableRedoButton = () => redoButton().disabled = false
 export const disableRedoButton = () => redoButton().disabled = true
+export const updateRedoButton = () => {
+    if (canRedo()) enableRedoButton()
+    else disableRedoButton
+}
