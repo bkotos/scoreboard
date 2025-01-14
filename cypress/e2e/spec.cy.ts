@@ -372,5 +372,20 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Redo').should('not.be.disabled')
     })
+
+    it('should set the score to 2 if I click add twice, wait 3 seconds, click subtract, and click undo', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      clickSubtractButton('Team 1')
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 2)
+    })
   })
 })
