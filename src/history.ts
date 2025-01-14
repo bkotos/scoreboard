@@ -19,6 +19,7 @@ const getLastHistoryItem = (): HistoryItem => {
     return history[cursor]
 }
 export const canUndo = () => cursor > 0
+export const canRedo = () => cursor < history.length
 
 const getNextHistoryItem = () => {
     return history[cursor++]
