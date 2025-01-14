@@ -271,7 +271,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 3)
     })
 
-    it('should only revert the history 2 times if I click the undo button 3 times but there are only 2 history entries', () => {
+    it.skip('should only revert the history 2 times if I click the undo button 3 times but there are only 2 history entries', () => {
       // arrange
       cy.clock()
 

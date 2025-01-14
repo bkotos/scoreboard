@@ -67,4 +67,6 @@ export const undo = () => {
     const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
     team.score = lastHistoryItem.oldScore
     renderScore(team)
+
+    if (cursor === 0) (document.getElementById('btn-undo') as HTMLButtonElement).disabled = true
 }
