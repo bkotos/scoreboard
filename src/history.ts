@@ -32,6 +32,7 @@ const recordBurst = () => {
         newScore: last.oldScore,
     }
     history.push(historyItem)
+    cursor = null
     first = null
     last = null
 }
