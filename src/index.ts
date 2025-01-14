@@ -2,7 +2,7 @@ import { ELEMENTS, renderTeamCard } from "./view"
 import { listenToEventsForTeam } from "./events"
 import { Team } from "./model"
 import { canRedo, canUndo, redo, teams, undo } from "./history"
-import { disableRedoButton, disableUndoButton, redoButton, showRedoButton, undoButton } from "history-view"
+import { disableRedoButton, disableUndoButton, enableUndoButton, redoButton, showRedoButton, undoButton } from "history-view"
 
 let teamCount = 0
 const setUpTeam = (teamName: string) => {
@@ -27,6 +27,7 @@ undoButton().onclick = () => {
 }
 redoButton().onclick = () => {
     redo()
+    enableUndoButton()
 
     if (!canRedo()) disableRedoButton()
 }
