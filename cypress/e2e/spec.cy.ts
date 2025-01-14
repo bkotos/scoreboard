@@ -331,5 +331,15 @@ describe('Scoreboard app', () => {
         cy.contains('button', 'Undo').should('be.disabled')
       })
     })
+
+    it('should set the score to 1 if I click add, click undo, and click redo', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.contains('button', 'Undo').click()
+      cy.contains('button', 'Redo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 1)
+    })
   })
 })
