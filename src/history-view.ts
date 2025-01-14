@@ -1,4 +1,5 @@
 export const undoButton = () => document.getElementById('btn-undo') as HTMLButtonElement
+export const redoButton = () => document.getElementById('btn-redo') as HTMLButtonElement
 
 export const showUndoButton = () => undoButton().classList.remove('is-hidden')
 

@@ -1,7 +1,8 @@
-import { ELEMENTS, renderScore } from "./view";
+import { renderScore } from "./view";
 import { Team } from "./model";
 
 export const teams: Team[] = []
+const findTeam = (historyItem: HistoryItem) => teams.find((t) => t.id === historyItem.teamId)!
 
 interface HistoryItem {
     teamId: string
@@ -18,6 +19,10 @@ const getLastHistoryItem = (): HistoryItem => {
     return history[cursor]
 }
 export const canUndo = () => cursor > 0
+
+const getNextHistoryItem = () => {
+    return history[cursor++]
+}
 
 let first: HistoryItem = null
 let last: HistoryItem = null
@@ -72,14 +77,14 @@ export const undo = () => {
     recordBurstPrematurely()
 
     const lastHistoryItem = getLastHistoryItem()!
-    const team = teams.find((t) => t.id === lastHistoryItem.teamId)!
+    const team = findTeam(lastHistoryItem)
     team.score = lastHistoryItem.oldScore
     renderScore(team)
 }
 
 export const redo = () => {
-    const nextHistoryItem = history[cursor++]!
-    const team = teams.find((t) => t.id === nextHistoryItem.teamId)!
+    const nextHistoryItem = getNextHistoryItem()
+    const team = findTeam(nextHistoryItem)
     team.score = nextHistoryItem.newScore
     renderScore(team)
 }
