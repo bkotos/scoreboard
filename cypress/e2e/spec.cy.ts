@@ -341,5 +341,15 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
+
+    it('should disable the redo button click redo and get to the front of the history', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.contains('button', 'Undo').click()
+      cy.contains('button', 'Redo').click()
+
+      // assert
+      cy.contains('button', 'Redo').should('be.disabled')
+    })
   })
 })
