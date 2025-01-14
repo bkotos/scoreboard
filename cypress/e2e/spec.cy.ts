@@ -322,5 +322,16 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
+
+    it('should disable the undo button if I click add, click undo, and then repeat one more time', () => {
+      // act
+      clickAddButton('Team 1')
+      cy.contains('button', 'Undo').click()
+      clickAddButton('Team 1')
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      cy.contains('button', 'Undo').should('be.disabled')
+    })
   })
 })
