@@ -1,3 +1,5 @@
+import { Team } from "./model"
+
 export interface HistoryItem {
     teamId: string
     oldScore: number
@@ -30,3 +32,8 @@ const initialize = () => {
 
 export const team1Burst = initialize()
 export const team2Burst = initialize()
+
+export const getBurstByTeam = (team: Team) => {
+    if (team.id === 'team1') return team1Burst
+    else return team2Burst
+}

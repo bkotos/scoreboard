@@ -1,15 +1,19 @@
 import { renderScore } from "./view";
 import { Team } from "./model";
-import { HistoryItem, team1Burst } from "./burst";
+import { getBurstByTeam, HistoryItem, team1Burst, team2Burst } from "./burst";
 
 export const teams: Team[] = []
 const findTeam = (historyItem: HistoryItem) => teams.find((t) => t.id === historyItem.teamId)!
 
+interface HistoryWrapper {
+    team1?: HistoryItem
+    team2?: HistoryItem
+}
 
 
-const history: HistoryItem[] = []
+const history: HistoryWrapper[] = []
 let cursor = null
-const getLastHistoryItem = (): HistoryItem => {
+const getLastHistoryItem = () => {
     if (cursor === null) cursor = history.length - 1
     else cursor--
 
@@ -28,14 +32,23 @@ const deleteFuture = () => {
 }
 const recordBurst = () => {
     deleteFuture()
-    const historyItem: HistoryItem = {
+    const team1HistoryItem: HistoryItem = team1Burst.first ? {
         teamId: team1Burst.first!.teamId,
         oldScore: team1Burst.first!.oldScore,
         newScore: team1Burst.last.newScore,
-    }
-    history.push(historyItem)
+    } : undefined
+    const team2HistoryItem: HistoryItem = team2Burst.first ? {
+        teamId: team2Burst.first!.teamId,
+        oldScore: team2Burst.first!.oldScore,
+        newScore: team2Burst.last.newScore,
+    } : undefined
+    history.push({
+        team1: team1HistoryItem,
+        team2: team2HistoryItem,
+    })
     resetCursor()
     team1Burst.resetBurst()
+    team2Burst.resetBurst()
 }
 let timeout: ReturnType<typeof setTimeout>
 const recordBurstAfterThreeSecondsOfNoActivity = () => {
@@ -43,7 +56,7 @@ const recordBurstAfterThreeSecondsOfNoActivity = () => {
     timeout = setTimeout(recordBurst, 3000)
 }
 const recordBurstPrematurely = () => {
-    if (!team1Burst.first) return
+    if (!team1Burst.first && !team2Burst.first) return
 
     clearTimeout(timeout)
     recordBurst()
@@ -53,7 +66,7 @@ export const add = (team: Team) => {
     const oldScore = team.score
     const newScore = oldScore + 1
     team.score = newScore
-    team1Burst.burst(team.id, oldScore, newScore)
+    getBurstByTeam(team).burst(team.id, oldScore, newScore)
     recordBurstAfterThreeSecondsOfNoActivity()
 }
 
@@ -61,7 +74,7 @@ export const subtract = (team: Team) => {
     const oldScore = team.score
     const newScore = oldScore - 1
     team.score = newScore
-    team1Burst.burst(team.id, oldScore, newScore)
+    getBurstByTeam(team).burst(team.id, oldScore, newScore)
     recordBurstAfterThreeSecondsOfNoActivity()
 }
 
@@ -69,14 +82,30 @@ export const undo = () => {
     recordBurstPrematurely()
 
     const lastHistoryItem = getLastHistoryItem()!
-    const team = findTeam(lastHistoryItem)
-    team.score = lastHistoryItem.oldScore
-    renderScore(team)
+    if (lastHistoryItem.team1) {
+        const team = findTeam(lastHistoryItem.team1)
+        team.score = lastHistoryItem.team1.oldScore
+        renderScore(team)
+    }
+
+    if (lastHistoryItem.team2) {
+        const team = findTeam(lastHistoryItem.team2)
+        team.score = lastHistoryItem.team2.oldScore
+        renderScore(team)
+    }
 }
 
 export const redo = () => {
     const nextHistoryItem = getNextHistoryItem()
-    const team = findTeam(nextHistoryItem)
-    team.score = nextHistoryItem.newScore
-    renderScore(team)
+    if (nextHistoryItem.team1) {
+        const team = findTeam(nextHistoryItem.team1)
+        team.score = nextHistoryItem.team1.newScore
+        renderScore(team)
+    }
+
+    if (nextHistoryItem.team2) {
+        const team = findTeam(nextHistoryItem.team2)
+        team.score = nextHistoryItem.team2.newScore
+        renderScore(team)
+    }
 }
