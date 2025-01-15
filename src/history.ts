@@ -85,7 +85,7 @@ export const getCurentScoreForTeam2 = () => {
     const team: Team = {
         id: 'team2',
         name: 'Team 2',
-        score: historyItem.team1!.newScore
+        score: historyItem.team2!.newScore
     }
     return team
 }
