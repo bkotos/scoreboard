@@ -431,5 +431,20 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
+
+    it('should keep my history and display a score of 1 if I click add, wait 3 seconds, click add, reload the page, and click undo', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      clickAddButton('Team 1')
+      cy.reload()
+      cy.contains('button', 'Undo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 1)
+    })
   })
 })
