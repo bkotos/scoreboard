@@ -472,5 +472,19 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Moonshot', 0)
     })
+
+    it('should reset the team name and score if I click "New Game"', () => {
+      // act
+      clickToChangeTeamName()
+      cy.focused().type('{selectall}')
+      cy.focused().type('Moonshot')
+      cy.focused().type('{enter}')
+      clickAddButton('Moonshot')
+      cy.tick(3000)
+      cy.contains('button', 'New Game').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 0)
+    })
   })
 })
