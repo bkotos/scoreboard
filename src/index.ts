@@ -1,7 +1,7 @@
 import { ELEMENTS, renderScore, renderTeamCard } from "./view"
 import { listenToEventsForTeam } from "./events"
 import { Team } from "./model"
-import { canRedo, canUndo, recordBurstPrematurely, redo, teams, undo } from "./history"
+import { canRedo, canUndo, getCurentScoreForTeam1, getCurentScoreForTeam2, hasHistory, hasHistoryForTeam1, hasHistoryForTeam2, recordBurstPrematurely, redo, teams, undo } from "./history"
 import { disableRedoButton, disableUndoButton, enableRedoButton, enableUndoButton, redoButton, showRedoButton, showUndoButton, undoButton, updateRedoButton } from "history-view"
 import { hasUnprocessedBursts, team1Burst, team2Burst } from "burst"
 
@@ -20,6 +20,23 @@ const setUpTeam = (teamName: string) => {
 
 setUpTeam('Team 1')
 setUpTeam('Team 2')
+
+if (hasHistoryForTeam1()) {
+    console.log('yo', getCurentScoreForTeam1())
+    renderScore(getCurentScoreForTeam1())
+    showUndoButton()
+    enableUndoButton()
+    if (canRedo()) enableRedoButton()
+    else disableRedoButton()
+}
+
+if (hasHistoryForTeam2()) {
+    renderScore(getCurentScoreForTeam2())
+    showUndoButton()
+    enableUndoButton()
+    if (canRedo()) enableRedoButton()
+    else disableRedoButton()
+}
 
 if (hasUnprocessedBursts()) {
     if (localStorage.getItem(`scoreboard-burst-first-${1}`)) {

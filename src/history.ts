@@ -60,6 +60,35 @@ const pushHistory = (historyItem: HistoryWrapper) => {
     history.push(historyItem)
     setHistory(history)
 }
+export const hasHistory = () => {
+    return getHistory().length > 1
+}
+export const hasHistoryForTeam1 = () => {
+    return getHistory().slice(1).some(x => !!x.team1)
+}
+export const hasHistoryForTeam2 = () => {
+    return getHistory().slice(1).some(x => !!x.team2)
+}
+export const getCurentScoreForTeam1 = () => {
+    const history = getHistory()
+    const historyItem = history.reverse().find(x => !!x.team1)!
+    const team: Team = {
+        id: 'team1',
+        name: 'Team 1',
+        score: historyItem.team1!.newScore
+    }
+    return team
+}
+export const getCurentScoreForTeam2 = () => {
+    const history = getHistory()
+    const historyItem = history.reverse().find(x => !!x.team2)!
+    const team: Team = {
+        id: 'team2',
+        name: 'Team 2',
+        score: historyItem.team1!.newScore
+    }
+    return team
+}
 
 const getCursor = (): number => {
     const raw = localStorage.getItem('scoreboard-cursor')
