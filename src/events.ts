@@ -1,5 +1,5 @@
 import { disableTeamNameEditing, enableTeamNameEditing, focusOnTeamNameInput, safelyRenderTeamName, ELEMENTS, resetTeamName, renderScore } from "./view"
-import { Team } from "./model"
+import { setTeamName, Team } from "./model"
 import { add, canRedo, subtract } from "./history"
 import { disableRedoButton, enableRedoButton, enableUndoButton, showUndoButton } from "./history-view"
 
@@ -36,7 +36,7 @@ const onTeamNameBlur = (team: Team) => {
     const value = ELEMENTS.txtEditTeamName(team).value
     if (value.trim().length === 0) return
 
-    team.name = value
+    setTeamName(team, value)
     safelyRenderTeamName(team)
 }
 

@@ -1,6 +1,6 @@
 import { ELEMENTS, renderScore, renderTeamCard } from "./view"
 import { listenToEventsForTeam } from "./events"
-import { Team } from "./model"
+import { getTeam1Name, getTeam2Name, Team } from "./model"
 import { canRedo, canUndo, getCurentScoreForTeam1, getCurentScoreForTeam2, hasHistory, hasHistoryForTeam1, hasHistoryForTeam2, recordBurstPrematurely, redo, teams, undo } from "./history"
 import { disableRedoButton, disableUndoButton, enableRedoButton, enableUndoButton, redoButton, showRedoButton, showUndoButton, undoButton, updateRedoButton } from "history-view"
 import { hasUnprocessedBursts, team1Burst, team2Burst } from "burst"
@@ -18,8 +18,8 @@ const setUpTeam = (teamName: string) => {
     listenToEventsForTeam(team)
 }
 
-setUpTeam('Team 1')
-setUpTeam('Team 2')
+setUpTeam(getTeam1Name())
+setUpTeam(getTeam2Name())
 
 if (hasHistoryForTeam1()) {
     console.log('yo', getCurentScoreForTeam1())
