@@ -6,20 +6,20 @@ import { disableRedoButton, disableUndoButton, enableRedoButton, enableUndoButto
 import { hasUnprocessedBursts, team1Burst, team2Burst } from "burst"
 
 let teamCount = 0
-const setUpTeam = (teamName: string) => {
+const setUpTeam = (teamName: string, score: number) => {
     const teamId = `team${++teamCount}`
     const team: Team = {
         id: teamId,
         name: teamName,
-        score: 0,
+        score,
     }
     teams.push(team)
     renderTeamCard(team)
     listenToEventsForTeam(team)
 }
 
-setUpTeam(getTeam1Name())
-setUpTeam(getTeam2Name())
+setUpTeam(getTeam1Name(), getCurentScoreForTeam1().score)
+setUpTeam(getTeam2Name(), getCurentScoreForTeam2().score)
 
 if (hasHistoryForTeam1()) {
     console.log('yo', getCurentScoreForTeam1())
