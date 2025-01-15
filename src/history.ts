@@ -25,18 +25,79 @@ const history: HistoryWrapper[] = [
     }
 ]
 
-let cursor = 0
-const moveCursorToEnd = () => cursor = history.length - 1
+const getHistory = (): HistoryWrapper[] => {
+    const raw = localStorage.getItem('scoreboard-history')
+    if (!raw) {
+        return [
+            {
+                team1: {
+                    teamId: 'team1',
+                    oldScore: 0,
+                    newScore: 0,
+                },
+                team2: {
+                    teamId: 'team2',
+                    oldScore: 0,
+                    newScore: 0,
+                },
+            }
+        ]
+    }
 
-export const canUndo = () => cursor > 0
-export const canRedo = () => cursor < history.length - 1
+    return JSON.parse(raw)
+}
+const setHistory = (history: HistoryWrapper[]) => {
+    const raw = JSON.stringify(history)
+    localStorage.setItem('scoreboard-history', raw)
+}
+const spliceHistory = (start: number) => {
+    const history = getHistory()
+    history.splice(start)
+    setHistory(history)
+}
+const pushHistory = (historyItem: HistoryWrapper) => {
+    const history = getHistory()
+    history.push(historyItem)
+    setHistory(history)
+}
+
+const getCursor = (): number => {
+    const raw = localStorage.getItem('scoreboard-cursor')
+    if (!raw) return 0
+
+    return Number(raw)
+}
+const setCursor = (cursor: number) => {
+    const raw = `${cursor}`
+    localStorage.setItem('scoreboard-cursor', raw)
+}
+const incrementCursor = () => {
+    let cursor = getCursor()
+    cursor++
+    setCursor(cursor)
+    return cursor
+}
+const decrementCursor = () => {
+    let cursor = getCursor()
+    cursor--
+    setCursor(cursor)
+    return cursor
+}
+
+const moveCursorToEnd = () => {
+    const cursor = getHistory().length - 1
+    setCursor(cursor)
+}
+
+export const canUndo = () => getCursor() > 0
+export const canRedo = () => getCursor() < getHistory().length - 1
 
 const deleteFuture = () => {
-    history.splice(cursor + 1)
+    spliceHistory(getCursor() + 1)
 }
 const recordBurst = () => {
     deleteFuture()
-    history.push({
+    pushHistory({
         team1: team1Burst.getHistoryItemToRecord(),
         team2: team2Burst.getHistoryItemToRecord(),
     })
@@ -76,7 +137,7 @@ export const subtract = (team: Team) => {
 export const undo = () => {
     recordBurstPrematurely()
 
-    const lastHistoryItem = history[--cursor]
+    const lastHistoryItem = getHistory()[decrementCursor()]
     if (lastHistoryItem.team1) {
         const team = findTeam(lastHistoryItem.team1)
         team.score = lastHistoryItem.team1.newScore
@@ -91,7 +152,7 @@ export const undo = () => {
 }
 
 export const redo = () => {
-    const nextHistoryItem = history[++cursor]
+    const nextHistoryItem = getHistory()[incrementCursor()]
     if (nextHistoryItem.team1) {
         const team = findTeam(nextHistoryItem.team1)
         team.score = nextHistoryItem.team1.newScore
