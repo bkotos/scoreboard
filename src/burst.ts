@@ -11,8 +11,6 @@ export const hasUnprocessedBursts = () => {
 }
 
 const initialize = (storageId: number) => {
-    // let first: HistoryItem = null
-    // let last: HistoryItem = null
     const burst = (teamId: string, oldScore: number, newScore: number) => {
         const last: HistoryItem = { teamId, oldScore, newScore }
         localStorage.setItem(`scoreboard-burst-last-${storageId}`, JSON.stringify(last))
@@ -22,17 +20,8 @@ const initialize = (storageId: number) => {
     const reset = () => {
         localStorage.removeItem(`scoreboard-burst-first-${storageId}`)
         localStorage.removeItem(`scoreboard-burst-last-${storageId}`)
-        // first = null
-        // last = null
     }
     const getHistoryItemToRecord = (): HistoryItem => {
-        // const team1HistoryItem: HistoryItem = team1Burst.first ? {
-        //     teamId: team1Burst.first!.teamId,
-        //     oldScore: team1Burst.first!.oldScore,
-        //     newScore: team1Burst.last.newScore,
-        // } : undefined
-
-        // const first = 
         if (!localStorage.getItem(`scoreboard-burst-first-${storageId}`)) return
         const first = JSON.parse(localStorage.getItem(`scoreboard-burst-first-${storageId}`)) as HistoryItem
         const last = JSON.parse(localStorage.getItem(`scoreboard-burst-last-${storageId}`)) as HistoryItem
