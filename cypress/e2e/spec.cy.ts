@@ -73,8 +73,9 @@ describe('Scoreboard app', () => {
   itShouldDoScoreChangesForTeam('Team 1')
   itShouldDoScoreChangesForTeam('Team 2')
 
+  const clickToChangeTeamName = () => cy.get('[aria-label="Change name of Team 1"]').click()
+
   describe('changing team name', () => {
-    const clickToChangeTeamName = () => cy.get('[aria-label="Change name of Team 1"]').click()
     const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.be.visible')
     const expectTeamNameTextBoxToBeVisible = () => cy.get('input[aria-label="Change team name"]').should('be.visible')
     const expectTeamNameTextBoxToHaveDefaultValue = () => cy.focused().should('have.value', 'Team 1')
@@ -458,6 +459,18 @@ describe('Scoreboard app', () => {
 
       // assert
       assertTeamAndScoreDisplayed('Team 1', 1)
+    })
+
+    it('should keep my team name when I reload the page', () => {
+      // act
+      clickToChangeTeamName()
+      cy.focused().type('{selectall}')
+      cy.focused().type('Moonshot')
+      cy.focused().type('{enter}')
+      cy.reload()
+
+      // assert
+      assertTeamAndScoreDisplayed('Moonshot', 0)
     })
   })
 })
