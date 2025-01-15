@@ -446,5 +446,18 @@ describe('Scoreboard app', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
+
+    it('should keep my history and display a score of 1 if I click add, wait 3 seconds, and reload the page', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 1')
+      cy.tick(3000)
+      cy.reload()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 1', 1)
+    })
   })
 })
