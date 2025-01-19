@@ -89,3 +89,7 @@ document.getElementById('btn-newgame').onclick = () => {
     localStorage.removeItem('scoreboard-cursor')
     location.reload()
 }
+
+// TODO colors
+// card has-background-danger-30 has-text-danger-60
+// https://bulma.io/documentation/helpers/palette-helpers/
