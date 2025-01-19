@@ -24,20 +24,17 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 2', 0)
     })
 
-    it('should have large font for the score', () => {
-      // assert
-      const teamName = 'Team 1'
+    const expectScoreFontSizeToLarge = (teamName: string) => {
       cy.contains(teamName).invoke('attr', 'id').as('teamNameLabelId')
       cy.get('@teamNameLabelId').then(teamNameLabelId => {
         cy.get(`[aria-labelledby="${teamNameLabelId}"]`).should('have.css', 'font-size', '112px')
       })
+    }
 
+    it('should have large font for the score', () => {
       // assert
-      const teamName2 = 'Team 2'
-      cy.contains(teamName2).invoke('attr', 'id').as('teamNameLabelId')
-      cy.get('@teamNameLabelId').then(teamNameLabelId => {
-        cy.get(`[aria-labelledby="${teamNameLabelId}"]`).should('have.css', 'font-size', '112px')
-      })
+      expectScoreFontSizeToLarge('Team 1')
+      expectScoreFontSizeToLarge('Team 2')
     })
   })
 
