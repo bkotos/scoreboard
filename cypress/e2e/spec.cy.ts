@@ -486,7 +486,6 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Moonshot', 0)
     })
 
-    // TODO assert in another test that this works for team 2 as well
     it('should the score if I click "New game"', () => {
       // arrange
       cy.clock()
@@ -501,16 +500,20 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
 
-    it('should not reset the team name when I click "New game"', () => {
-      // act
-      clickToChangeTeamName('Team 1')
-      cy.focused().type('{selectall}')
-      cy.focused().type('Moonshot')
-      cy.focused().type('{enter}')
-      cy.contains('button', 'New game').click()
-
-      // assert
-      assertTeamAndScoreDisplayed('Moonshot', 0)
-    })
+    const itShouldNotResetTheTeamNameWhenIClickNewGameFor = (team: string) => {
+      it(`should not reset the team name when I click "New game" for ${team}`, () => {
+        // act
+        clickToChangeTeamName(team)
+        cy.focused().type('{selectall}')
+        cy.focused().type('Moonshot')
+        cy.focused().type('{enter}')
+        cy.contains('button', 'New game').click()
+  
+        // assert
+        assertTeamAndScoreDisplayed('Moonshot', 0)
+      })
+    }
+    itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 1')
+    itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
   })
 })
