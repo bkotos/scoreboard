@@ -496,8 +496,7 @@ describe('Scoreboard app', () => {
       cy.focused().type('{selectall}')
       cy.focused().type('Moonshot')
       cy.focused().type('{enter}')
-      // TODO fix this for team 1
-      clickAddButton('Team 1')
+      clickAddButton('Moonshot')
       cy.tick(3000)
       cy.contains('button', 'New game').click()
 
