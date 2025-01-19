@@ -65,6 +65,7 @@ export const focusOnTeamNameInput = (team: Team) => {
 export const safelyRenderTeamName = (team: Team) => {
     ELEMENTS.teamName(team).innerText = team.name
     ELEMENTS.btnAdd(team).ariaLabel = `Add one point for ${team.name}`
+    ELEMENTS.btnEditTeamName(team).ariaLabel = `Change name of ${team.name}`
 }
 
 export const renderScore = (team: Team) => {
