@@ -86,7 +86,7 @@ describe('Scoreboard app', () => {
   itShouldDoScoreChangesForTeam('Team 1')
   itShouldDoScoreChangesForTeam('Team 2')
 
-  const clickToChangeTeamName = () => cy.get('[aria-label="Change name of Team 1"]').click()
+  const clickToChangeTeamName = (name: string = 'Team 1') => cy.get(`[aria-label="Change name of ${name}"]`).click()
 
   describe('changing team name', () => {
     const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.be.visible')
@@ -503,7 +503,7 @@ describe('Scoreboard app', () => {
 
     it.only('should not reset the team name when I click "New game"', () => {
       // act
-      clickToChangeTeamName()
+      clickToChangeTeamName('Moonshot')
       cy.focused().type('{selectall}')
       cy.focused().type('Moonshot')
       cy.focused().type('{enter}')
