@@ -29,7 +29,7 @@ export const renderTeamCard = (team: Team) => {
                     <button id="${SELECTORS.btnEditTeamName(team)}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
                 <input id="${SELECTORS.txtEditTeamName(team)}" type="text" class="subtitle mb-5 p-0 is-hidden" value="${team.name}" aria-label="Change team name" />
-                <p class="title" aria-labelledby="${SELECTORS.teamName(team)}" id="${SELECTORS.score(team)}">0</p>
+                <p class="title" aria-labelledby="${SELECTORS.teamName(team)}" id="${SELECTORS.score(team)}" style="font-size: 7rem;">0</p>
             </div>
             <footer class="card-footer">
             <button class="card-footer-item" aria-label="Subtract one point for ${team.name}" id="${SELECTORS.btnSubtract(team)}">
