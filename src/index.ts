@@ -87,7 +87,5 @@ document.getElementById('btn-newgame').onclick = () => {
     localStorage.removeItem(`scoreboard-burst-first-${2}`)
     localStorage.removeItem('scoreboard-history')
     localStorage.removeItem('scoreboard-cursor')
-    localStorage.removeItem('scoreboard-team1-name')
-    localStorage.removeItem('scoreboard-team2-name')
     location.reload()
 }
