@@ -520,7 +520,7 @@ describe('Scoreboard app', () => {
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
   })
 
-  describe.only('team colors', () => {
+  describe('team colors', () => {
     it('should display team 1 with a red background', () => {
       // assert
       cy.contains('Team 1').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#bc2525')
