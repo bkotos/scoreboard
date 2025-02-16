@@ -22,7 +22,7 @@ export const ELEMENTS = {
 
 export const renderTeamCard = (team: Team) => {
     const html = `
-        <div class="card">
+        <div class="card" role="listitem">
             <div class="card-content has-text-centered">
                 <p class="subtitle mb-5" id="title-${team.id}">
                     <span id="${SELECTORS.teamName(team)}">${team.name}</span>
