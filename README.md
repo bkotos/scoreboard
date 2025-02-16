@@ -8,7 +8,8 @@ I built this entire application through test-driven development, using the mantr
 - Finally, I would [refactor the code to be clean and more maintainable (**refactor**)](https://github.com/bkotos/scoreboard/commit/5202b744419cbe8c3c1716012ee253499d3fa667).
 
 ## Technologies
-This app was written in vanilla JavaScript, and uses [Bulma](https://bulma.io/) as a CSS framework.
+This app was written in TypeScript and uses [Bulma](https://bulma.io/) as a CSS framework.
+It is written using the vanilla JavaScript DOM API rather than using frameworks/libraries such as React or jQuery.
 
 I wrote E2E tests for the app using [Cypress](https://www.cypress.io/).
 
