@@ -525,5 +525,11 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('Team 1').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#bc2525')
     })
+
+    it('should display team 1 with white text', () => {
+      // assert
+      cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
+      cy.contains('Team 1').closest('[role="listitem"]').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
+    })
   })
 })
