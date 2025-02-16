@@ -531,5 +531,9 @@ describe('Scoreboard app', () => {
       cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
       cy.contains('Team 1').closest('[role="listitem"]').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
     })
+
+    it('should display team 2 with a blue background', () => {
+      cy.contains('Team 2').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#2772db')
+    })
   })
 })
