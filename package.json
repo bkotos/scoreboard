@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "run-s jest cy:run",
+    "test": "npm run cy:run",
     "build": "./copy-vendor.sh && ./build.js",
     "build:watch": "./copy-vendor.sh && ./build.js -watch",
     "serve": "http-server -c-1 ./public",
