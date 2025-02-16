@@ -1,5 +1,8 @@
+import chaiColors from 'chai-colors'
+
+chai.use(chaiColors)
+
 const assertTeamAndScoreDisplayed = (teamName: string, score: number) => {
-  cy.contains(teamName)
   cy.contains(teamName).invoke('attr', 'id').as('teamNameLabelId')
   cy.get('@teamNameLabelId').then(teamNameLabelId => {
     cy.contains(`[aria-labelledby="${teamNameLabelId}"]`, score)
@@ -515,5 +518,12 @@ describe('Scoreboard app', () => {
     }
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 1')
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
+  })
+
+  describe.only('team colors', () => {
+    it('should display team 1 with a red background', () => {
+      // assert
+      cy.contains('Team 1').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#bc2525')
+    })
   })
 })
