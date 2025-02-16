@@ -20,12 +20,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bulma": "^1.0.3",
-    "jquery": "^3.7.1"
+    "bulma": "^1.0.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/jquery": "^3.5.32",
     "@types/node": "^22.10.5",
     "chai-colors": "^1.0.1",
     "cypress": "^13.17.0",
