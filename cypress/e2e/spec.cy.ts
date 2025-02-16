@@ -520,7 +520,7 @@ describe('Scoreboard app', () => {
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
   })
 
-  describe('team colors', () => {
+  describe('team styling', () => {
     it('should display team 1 with a red background', () => {
       // assert
       cy.contains('Team 1').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#bc2525')
@@ -540,6 +540,10 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('Team 2').closest('[role="listitem"]').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
       cy.contains('Team 2').closest('[role="listitem"]').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
+    })
+
+    it('should display the score for team 1 as size 180px font', () => {
+      cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
   })
 })
