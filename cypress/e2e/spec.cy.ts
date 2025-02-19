@@ -532,5 +532,9 @@ describe('Scoreboard app', () => {
     it('should display the score for team 1 as size 180px font', () => {
       cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
+
+    it('should have a dark page background', () => {
+      cy.get('body').should('have.css', 'background-color', 'rgb(20, 22, 26)')
+    })
   })
 })
