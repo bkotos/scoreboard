@@ -24,8 +24,8 @@ export const renderTeamCard = (team: Team) => {
     const buttonTheme = isTeam1(team) ? 'is-danger' : 'is-info'
     const html = `
         <div class="card" role="listitem" data-team="${team.id}">
-            <div class="card-content has-text-centered">
-                <p class="subtitle mb-5" id="title-${team.id}" role="heading" aria-level="1">
+            <div class="card-content has-text-centered p-4">
+                <p class="subtitle mb-0" id="title-${team.id}" role="heading" aria-level="1">
                     <span id="${SELECTORS.teamName(team)}">${team.name}</span>
                     <button id="${SELECTORS.btnEditTeamName(team)}" class="button is-small ${buttonTheme}" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
