@@ -543,5 +543,10 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(26, 0, 5)')
       getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(255, 102, 133)')
     })
+
+    it('should have the edit button for team 2 be info-themed', () => {
+      getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(0, 36, 51)')
+      getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(102, 209, 255)')
+    })
   })
 })
