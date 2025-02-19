@@ -534,7 +534,7 @@ describe('Scoreboard app', () => {
     })
 
     it('should have a dark page background', () => {
-      cy.get('body').should('have.css', 'background-color', 'rgb(20, 22, 26)')
+      cy.get('html').should('have.css', 'background-color', 'rgb(20, 22, 26)')
     })
   })
 })
