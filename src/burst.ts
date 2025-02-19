@@ -1,4 +1,4 @@
-import { Team } from "./model"
+import { isTeam1, Team } from "./model"
 
 export interface HistoryItem {
     teamId: string
@@ -51,6 +51,6 @@ export const team1Burst = initialize(++storageId)
 export const team2Burst = initialize(++storageId)
 
 export const getBurstByTeam = (team: Team) => {
-    if (team.id === 'team1') return team1Burst
+    if (isTeam1(team)) return team1Burst
     else return team2Burst
 }

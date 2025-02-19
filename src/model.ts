@@ -29,6 +29,8 @@ const setTeam2Name = (name: string) => {
 export const setTeamName = (team: Team, name: string) => {
     team.name = name
 
-    if (team.id === 'team1') setTeam1Name(name)
+    if (isTeam1(team)) setTeam1Name(name)
     else setTeam2Name(name)
 }
+
+export const isTeam1 = (team: Team) => team.id === 'team1'

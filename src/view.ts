@@ -1,4 +1,4 @@
-import { Team } from "./model"
+import { isTeam1, Team } from "./model"
 
 const SELECTORS = {
     cardTitle: (team: Team) => `title-${team.id}`,
@@ -21,7 +21,7 @@ export const ELEMENTS = {
 }
 
 export const renderTeamCard = (team: Team) => {
-    const buttonTheme = team.id === 'team1' ? 'is-danger' : 'is-info'
+    const buttonTheme = isTeam1(team) ? 'is-danger' : 'is-info'
     const html = `
         <div class="card" role="listitem" data-team="${team.id}">
             <div class="card-content has-text-centered">
