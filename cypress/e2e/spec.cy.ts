@@ -536,5 +536,10 @@ describe('Scoreboard app', () => {
     it('should have a dark page background', () => {
       cy.get('html').should('have.css', 'background-color', 'rgb(20, 22, 26)')
     })
+
+    it('should have the edit button for team 1 be danger-themed', () => {
+      cy.contains('Team 1').closest('[role="listitem"]').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(26, 0, 5)')
+      cy.contains('Team 1').closest('[role="listitem"]').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(255, 102, 133)')
+    })
   })
 })
