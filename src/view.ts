@@ -26,7 +26,7 @@ export const renderTeamCard = (team: Team) => {
             <div class="card-content has-text-centered">
                 <p class="subtitle mb-5" id="title-${team.id}" role="heading" aria-level="1">
                     <span id="${SELECTORS.teamName(team)}">${team.name}</span>
-                    <button id="${SELECTORS.btnEditTeamName(team)}" class="button is-small" aria-label="Change name of ${team.name}">Edit</button>
+                    <button id="${SELECTORS.btnEditTeamName(team)}" class="button is-small is-danger" aria-label="Change name of ${team.name}">Edit</button>
                 </p>
                 <input id="${SELECTORS.txtEditTeamName(team)}" type="text" class="subtitle mb-5 p-0 is-hidden" value="${team.name}" aria-label="Change team name" />
                 <p class="title score" role="heading" aria-labelledby="${SELECTORS.teamName(team)}" id="${SELECTORS.score(team)}" aria-level="2">0</p>
