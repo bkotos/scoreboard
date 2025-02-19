@@ -507,30 +507,32 @@ describe('Scoreboard app', () => {
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
   })
 
+  const getCardForTeam = (team: string) => cy.contains(team).closest('[role="listitem"]')
+
   describe('team styling', () => {
     it('should display team 1 with a red background', () => {
       // assert
-      cy.contains('Team 1').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#bc2525')
+      getCardForTeam('Team 1').should('have.css', 'background-color').and('be.colored', '#bc2525')
     })
 
     it('should display team 1 with white text', () => {
       // assert
-      cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
-      cy.contains('Team 1').closest('[role="listitem"]').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
+      getCardForTeam('Team 1').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
+      getCardForTeam('Team 1').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
     })
 
     it('should display team 2 with a blue background', () => {
-      cy.contains('Team 2').closest('[role="listitem"]').should('have.css', 'background-color').and('be.colored', '#2772db')
+      getCardForTeam('Team 2').should('have.css', 'background-color').and('be.colored', '#2772db')
     })
 
     it('should display team 2 with white text', () => {
       // assert
-      cy.contains('Team 2').closest('[role="listitem"]').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
-      cy.contains('Team 2').closest('[role="listitem"]').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
+      getCardForTeam('Team 2').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
+      getCardForTeam('Team 2').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
     })
 
     it('should display the score for team 1 as size 180px font', () => {
-      cy.contains('Team 1').closest('[role="listitem"]').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
+      getCardForTeam('Team 1').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
 
     it('should have a dark page background', () => {
@@ -538,8 +540,8 @@ describe('Scoreboard app', () => {
     })
 
     it('should have the edit button for team 1 be danger-themed', () => {
-      cy.contains('Team 1').closest('[role="listitem"]').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(26, 0, 5)')
-      cy.contains('Team 1').closest('[role="listitem"]').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(255, 102, 133)')
+      getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(26, 0, 5)')
+      getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(255, 102, 133)')
     })
   })
 })
