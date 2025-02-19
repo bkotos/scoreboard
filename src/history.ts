@@ -10,21 +10,6 @@ export interface HistoryWrapper {
     team2?: HistoryItem
 }
 
-const history: HistoryWrapper[] = [
-    {
-        team1: {
-            teamId: 'team1',
-            oldScore: 0,
-            newScore: 0,
-        },
-        team2: {
-            teamId: 'team2',
-            oldScore: 0,
-            newScore: 0,
-        },
-    }
-]
-
 const getHistory = (): HistoryWrapper[] => {
     const raw = localStorage.getItem('scoreboard-history')
     if (!raw) {
