@@ -102,7 +102,7 @@ describe('Scoreboard app', () => {
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
 
-    xit('should hide the team name text box when I type *ENTER*', () => {
+    it('should hide the team name text box when I type *ENTER*', () => {
       // arrange
       clickToChangeTeamName('Team 1')
 
@@ -110,7 +110,7 @@ describe('Scoreboard app', () => {
       cy.focused().type('{enter}')
 
       // assert
-      expectTeamNameTextBoxToBeHidden
+      expectTeamNameTextBoxToBeHidden()
     })
 
     xit('should hide the team name text box I click outside of the text box', () => {
