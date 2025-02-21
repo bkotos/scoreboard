@@ -41,7 +41,7 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed(teamName, 1)
       })
     
-      xit('should increase the score by 2 for when click the add button twice', () => {
+      it('should increase the score by 2 for when click the add button twice', () => {
         // assert
         assertTeamAndScoreDisplayed(teamName, 0)
     
