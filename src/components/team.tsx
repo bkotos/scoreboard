@@ -26,10 +26,10 @@ export default ({ teamName }: TeamProps) => {
                     <p className="title score" role="heading" aria-labelledby="teamName-team1" id="score-team1" aria-level="2">{score}</p>
                 </div>
                 <footer className="card-footer">
-                <button className="card-footer-item" aria-label={`Subtract one point for ${teamName}`} id="btn-subtract-team1" onClick={subtractOne}>
+                <button className="card-footer-item" aria-label={`Subtract one point for ${teamName}`} onClick={subtractOne}>
                     -1
                 </button>
-                <button className="card-footer-item" aria-label={`Add one point for ${teamName}`} id="btn-add-team1" onClick={addOne}>
+                <button className="card-footer-item" aria-label={`Add one point for ${teamName}`} onClick={addOne}>
                     +1
                 </button>
                 </footer>
