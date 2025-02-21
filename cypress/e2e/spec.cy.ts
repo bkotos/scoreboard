@@ -84,7 +84,7 @@ describe('Scoreboard app', () => {
     const expectTeamNameTextBoxToHaveDefaultValue = () => cy.focused().should('have.value', 'Team 1')
     const expectTeamNameToBeResetToDefault = () => cy.contains(/^Team 1$/)
 
-    xit('should change the team name to a text field when I click edit', () => {
+    it('should change the team name to a text field when I click edit', () => {
       // act
       clickToChangeTeamName('Team 1')
 
