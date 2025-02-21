@@ -20,11 +20,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bulma": "^1.0.3"
+    "bulma": "^1.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "chai-colors": "^1.0.1",
     "cypress": "^13.17.0",
     "estrella": "^1.4.1",
