@@ -63,7 +63,7 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed(teamName, 1)
       })
     
-      xit('should not reduce the score below 0 for when I click the subtract button once before any scores have been added', () => {
+      it('should not reduce the score below 0 for when I click the subtract button once before any scores have been added', () => {
         // act
         clickSubtractButton(teamName)
     
