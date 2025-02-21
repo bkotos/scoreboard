@@ -53,7 +53,7 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed(teamName, 2)
       })
     
-      xit('should display a score of one for when I click the add button twice and click the subtract button once', () => {
+      it('should display a score of one for when I click the add button twice and click the subtract button once', () => {
         // act
         clickAddButton(teamName)
         clickAddButton(teamName)

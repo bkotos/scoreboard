@@ -10,6 +10,9 @@ export default ({ teamName }: TeamProps) => {
     const addOne = () => {
         setScore(score + 1)
     }
+    const subtractOne = () => {
+        setScore(score - 1)
+    }
 
     return (
         <div className="column">
@@ -23,7 +26,7 @@ export default ({ teamName }: TeamProps) => {
                     <p className="title score" role="heading" aria-labelledby="teamName-team1" id="score-team1" aria-level="2">{score}</p>
                 </div>
                 <footer className="card-footer">
-                <button className="card-footer-item" aria-label="Subtract one point for hello world" id="btn-subtract-team1">
+                <button className="card-footer-item" aria-label={`Subtract one point for ${teamName}`} id="btn-subtract-team1" onClick={subtractOne}>
                     -1
                 </button>
                 <button className="card-footer-item" aria-label={`Add one point for ${teamName}`} id="btn-add-team1" onClick={addOne}>
