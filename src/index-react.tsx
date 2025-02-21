@@ -6,4 +6,5 @@ const root = createRoot(document.getElementById('app'));
 
 root.render(<div className="columns">
     <Team teamName='Team 1' />
+    <Team teamName='Team 2' />
 </div>);
