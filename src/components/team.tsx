@@ -38,7 +38,7 @@ export default (props: TeamProps) => {
         <div className="column">
             <div className="card" role="listitem" data-team={props.id}>
                 <div className="card-content has-text-centered p-4">
-                    <p className={`subtitle mb-0 ${isEditing && 'is-hidden'}`} id={`title-${props.id}`} role="heading" aria-level="1">
+                    <p className={`subtitle mb-0 ${isEditing && 'is-hidden'}`} id={`title-${props.id}`} role="heading" aria-level={1}>
                         <span id={`teamName-${props.id}`}>{teamName}</span>
                         <button id={`btn-edit-teamName-${props.id}`} className="button is-small is-danger" aria-label={`Change name of ${props.teamName}`} onClick={() => setIsEditing(true)}>Edit</button>
                     </p>
@@ -55,7 +55,7 @@ export default (props: TeamProps) => {
                             onChange={(e) => setTeamName(e.target.value)}
                         />
                     )}
-                    <p className="title score" role="heading" aria-labelledby={`teamName-${props.id}`} id={`score-${props.id}`} aria-level="2">{score}</p>
+                    <p className="title score" role="heading" aria-labelledby={`teamName-${props.id}`} id={`score-${props.id}`} aria-level={2}>{score}</p>
                 </div>
                 <footer className="card-footer">
                 <button className="card-footer-item" aria-label={`Subtract one point for ${props.teamName}`} onClick={subtractOne}>
