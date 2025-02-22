@@ -146,7 +146,7 @@ describe('Scoreboard app', () => {
       expectTeamNameToBeResetToDefault()
     })
 
-    xit('should reset the team name text box when I type in a new name, type *ESC*, and click to change the team name again', () => {
+    it('should reset the team name text box when I type in a new name, type *ESC*, and click to change the team name again', () => {
       // act
       clickToChangeTeamName('Team 1')
       cy.focused().type('{selectall}')
