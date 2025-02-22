@@ -21,13 +21,24 @@ export default (props: TeamProps) => {
     }, [isEditing])
 
     const onKeyDown: KeyboardEventHandler = (e) => {
-        if (e.code === 'Enter') {
-            setIsEditing(false)
-            if (!teamName) setTeamName(props.teamName)
-        } else if (e.code === 'Escape') {
-            setTeamName(props.teamName)
-            setIsEditing(false)
+        switch (e.code) {
+            case 'Enter':
+                onEnter()
+                break;
+            case 'Escape':
+                onEscape()
+                break;
         }
+    }
+    
+    const onEnter = () => {
+        setIsEditing(false)
+        if (!teamName) setTeamName(props.teamName)
+    }
+
+    const onEscape = () => {
+        setTeamName(props.teamName)
+        setIsEditing(false)
     }
 
     const onBlur = () => setIsEditing(false)
