@@ -42,6 +42,7 @@ export default ({ teamName }: TeamProps) => {
                             value={teamName}
                             aria-label="Change team name"
                             onKeyDown={onKeyDown}
+                            onBlur={() => setIsEditing(false)}
                         />
                     )}
                     <p className="title score" role="heading" aria-labelledby="teamName-team1" id="score-team1" aria-level="2">{score}</p>
