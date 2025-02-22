@@ -211,7 +211,7 @@ describe('Scoreboard app', () => {
   })
 
   describe('history', () => {
-    xit('should display an "undo" button when I click add', () => {
+    it('should display an "undo" button when I click add', () => {
       // act
       clickAddButton('Team 1')
 
