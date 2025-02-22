@@ -124,7 +124,7 @@ describe('Scoreboard app', () => {
       expectTeamNameTextBoxToBeHidden()
     })
 
-    xit('should hide the team name text box when I type *ESC*', () => {
+    it('should hide the team name text box when I type *ESC*', () => {
       // arrange
       clickToChangeTeamName('Team 1')
 
@@ -132,7 +132,7 @@ describe('Scoreboard app', () => {
       cy.focused().type('{esc}')
 
       // assert
-      expectTeamNameTextBoxToBeHidden
+      expectTeamNameTextBoxToBeHidden()
     })
 
     xit('should reset the team name when I type in a new name and type *ESC*', () => {

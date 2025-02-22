@@ -11,7 +11,7 @@ export default ({ id, teamName }: TeamProps) => {
         setScore(score + 1)
     }
     const subtractOne = () => {
-        setScore(score - 1)
+        if (score > 0) setScore(score - 1)
     }
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
