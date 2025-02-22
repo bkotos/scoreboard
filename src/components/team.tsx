@@ -5,7 +5,7 @@ interface TeamProps {
     teamName: string
 }
 
-export default ({ id, teamName }: TeamProps) => {
+export default (props: TeamProps) => {
     const [score, setScore] = useState<number>(0)
     const addOne = () => {
         setScore(score + 1)
@@ -28,36 +28,36 @@ export default ({ id, teamName }: TeamProps) => {
 
     const onBlur = () => setIsEditing(false)
 
-    const [foo, setFoo] = useState<string>(teamName)
+    const [teamName, setTeamName] = useState<string>(props.teamName)
 
     return (
         <div className="column">
-            <div className="card" role="listitem" data-team={id}>
+            <div className="card" role="listitem" data-team={props.id}>
                 <div className="card-content has-text-centered p-4">
-                    <p className={`subtitle mb-0 ${isEditing && 'is-hidden'}`} id={`title-${id}`} role="heading" aria-level="1">
-                        <span id={`teamName-${id}`}>{foo}</span>
-                        <button id={`btn-edit-teamName-${id}`} className="button is-small is-danger" aria-label={`Change name of ${teamName}`} onClick={() => setIsEditing(true)}>Edit</button>
+                    <p className={`subtitle mb-0 ${isEditing && 'is-hidden'}`} id={`title-${props.id}`} role="heading" aria-level="1">
+                        <span id={`teamName-${props.id}`}>{teamName}</span>
+                        <button id={`btn-edit-teamName-${props.id}`} className="button is-small is-danger" aria-label={`Change name of ${props.teamName}`} onClick={() => setIsEditing(true)}>Edit</button>
                     </p>
                     {isEditing && (
                         <input
                             ref={inputRef}
-                            id={`edit-teamName-${id}`}
+                            id={`edit-teamName-${props.id}`}
                             type="text"
                             className={`subtitle mb-5 p-0`}
-                            value={foo}
+                            value={teamName}
                             aria-label="Change team name"
                             onKeyDown={onKeyDown}
                             onBlur={onBlur}
-                            onChange={(e) => setFoo(e.target.value)}
+                            onChange={(e) => setTeamName(e.target.value)}
                         />
                     )}
-                    <p className="title score" role="heading" aria-labelledby={`teamName-${id}`} id={`score-${id}`} aria-level="2">{score}</p>
+                    <p className="title score" role="heading" aria-labelledby={`teamName-${props.id}`} id={`score-${props.id}`} aria-level="2">{score}</p>
                 </div>
                 <footer className="card-footer">
-                <button className="card-footer-item" aria-label={`Subtract one point for ${teamName}`} onClick={subtractOne}>
+                <button className="card-footer-item" aria-label={`Subtract one point for ${props.teamName}`} onClick={subtractOne}>
                     -1
                 </button>
-                <button className="card-footer-item" aria-label={`Add one point for ${teamName}`} onClick={addOne}>
+                <button className="card-footer-item" aria-label={`Add one point for ${props.teamName}`} onClick={addOne}>
                     +1
                 </button>
                 </footer>
