@@ -28,12 +28,14 @@ export default ({ id, teamName }: TeamProps) => {
 
     const onBlur = () => setIsEditing(false)
 
+    const [foo, setFoo] = useState<string>(teamName)
+
     return (
         <div className="column">
             <div className="card" role="listitem" data-team={id}>
                 <div className="card-content has-text-centered p-4">
                     <p className={`subtitle mb-0 ${isEditing && 'is-hidden'}`} id={`title-${id}`} role="heading" aria-level="1">
-                        <span id={`teamName-${id}`}>{teamName}</span>
+                        <span id={`teamName-${id}`}>{foo}</span>
                         <button id={`btn-edit-teamName-${id}`} className="button is-small is-danger" aria-label={`Change name of ${teamName}`} onClick={() => setIsEditing(true)}>Edit</button>
                     </p>
                     {isEditing && (
@@ -42,10 +44,11 @@ export default ({ id, teamName }: TeamProps) => {
                             id={`edit-teamName-${id}`}
                             type="text"
                             className={`subtitle mb-5 p-0`}
-                            value={teamName}
+                            value={foo}
                             aria-label="Change team name"
                             onKeyDown={onKeyDown}
                             onBlur={onBlur}
+                            onChange={(e) => setFoo(e.target.value)}
                         />
                     )}
                     <p className="title score" role="heading" aria-labelledby={`teamName-${id}`} id={`score-${id}`} aria-level="2">{score}</p>
