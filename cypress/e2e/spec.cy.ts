@@ -79,7 +79,7 @@ describe('Scoreboard app', () => {
   const clickToChangeTeamName = (existingTeamName: string) => cy.get(`[aria-label="Change name of ${existingTeamName}"]`).click()
 
   describe('changing team name', () => {
-    const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.exist')
     const expectTeamNameTextBoxToBeVisible = () => cy.get('input[aria-label="Change team name"]').should('be.visible')
     const expectTeamNameTextBoxToHaveDefaultValue = () => cy.focused().should('have.value', 'Team 1')
     const expectTeamNameToBeResetToDefault = () => cy.contains(/^Team 1$/)
