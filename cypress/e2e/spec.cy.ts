@@ -200,7 +200,7 @@ describe('Scoreboard app', () => {
         expectTeamNameToBeResetToDefault()
       })
 
-      xit('should then re-set the name in the text box if you try to edit it again', () => {
+      it('should then re-set the name in the text box if you try to edit it again', () => {
         // act
         clickToChangeTeamName('Team 1')
 
