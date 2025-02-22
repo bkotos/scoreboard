@@ -24,6 +24,10 @@ export default (props: TeamProps) => {
         if (e.code === 'Enter' || e.code === 'Escape') {
             setIsEditing(false)
         }
+
+        if (e.code === 'Escape') {
+            setTeamName(props.teamName)
+        }
     }
 
     const onBlur = () => setIsEditing(false)
