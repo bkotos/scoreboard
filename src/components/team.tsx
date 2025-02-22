@@ -21,12 +21,11 @@ export default (props: TeamProps) => {
     }, [isEditing])
 
     const onKeyDown: KeyboardEventHandler = (e) => {
-        if (e.code === 'Enter' || e.code === 'Escape') {
+        if (e.code === 'Enter') {
             setIsEditing(false)
-        }
-
-        if (e.code === 'Escape') {
+        } else if (e.code === 'Escape') {
             setTeamName(props.teamName)
+            setIsEditing(false)
         }
     }
 
