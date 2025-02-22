@@ -21,7 +21,7 @@ export default ({ id, teamName }: TeamProps) => {
     }, [isEditing])
 
     const onKeyDown: KeyboardEventHandler = (e) => {
-        if (e.code === 'Enter') {
+        if (e.code === 'Enter' || e.code === 'Escape') {
             setIsEditing(false)
         }
     }
