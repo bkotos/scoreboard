@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 
 interface TeamProps {
     teamName: string
@@ -19,6 +19,12 @@ export default ({ teamName }: TeamProps) => {
         if (isEditing) inputRef.current.focus()
     }, [isEditing])
 
+    const onKeyDown: KeyboardEventHandler = (e) => {
+        if (e.code === 'Enter') {
+            setIsEditing(false)
+        }
+    }
+
     return (
         <div className="column">
             <div className="card" role="listitem" data-team="team1">
@@ -35,11 +41,7 @@ export default ({ teamName }: TeamProps) => {
                             className={`subtitle mb-5 p-0`}
                             value={teamName}
                             aria-label="Change team name"
-                            onKeyDown={(e) => {
-                                if (e.code === 'Enter') {
-                                    setIsEditing(false)
-                                }
-                            }}
+                            onKeyDown={onKeyDown}
                         />
                     )}
                     <p className="title score" role="heading" aria-labelledby="teamName-team1" id="score-team1" aria-level="2">{score}</p>
