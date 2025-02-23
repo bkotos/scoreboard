@@ -15,18 +15,21 @@ const App = () => {
     }
 
     const [history, setHistory] = useState<number[]>([0])
-    const [cache, setCache] = useState<number>(null)
+    const pushHistory = (value: number) => setHistory([...history, value])
+    const [cachedHistoryItem, setCachedHistoryItem] = useState<number>(null)
+    const hasCachedHistoryItem = () => cachedHistoryItem !== null
+    const clearCache = () => setCachedHistoryItem(null)
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
 
     const team1Score = useScore({
         onChange: (score) => {
-            setCache(score)
+            setCachedHistoryItem(score)
             clearTimeout(timer)
             setTimer(setTimeout(() => {
                 moveCursorToEnd()
-                setHistory([...history, score])
-                setCache(null)
+                pushHistory(score)
+                clearCache()
             }, 3000))
         }
     })
@@ -35,22 +38,28 @@ const App = () => {
         onChange: () => {}
     })
 
+    const getPreviousValue = () => {
+        const newCursor = !hasCachedHistoryItem() ? moveCursorBackOne() : cursor
+        return history[newCursor]
+    }
+
+    const onUndo = () => {
+        const previousValue = getPreviousValue()
+        team1Score.setValue(previousValue)
+
+        if (hasCachedHistoryItem()) {
+            pushHistory(cachedHistoryItem)
+            clearCache()
+        }
+    }
+
     return (
         <div className="container">
             <div className="columns">
                 <Team teamName='Team 1' id="team1" score={team1Score} />
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
-            <button className="button" onClick={() => {
-                const newCursor = cache === null ? moveCursorBackOne() : cursor
-                const value = history[newCursor]
-                team1Score.setValue(value)
-
-                if (cache !== null) {
-                    setHistory([...history, cache])
-                    setCache(null)
-                }
-            }}>Undo</button>
+            <button className="button" onClick={onUndo}>Undo</button>
         </div>
     )
 }
