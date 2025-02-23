@@ -7,6 +7,13 @@ const root = createRoot(document.getElementById('app'));
 
 const App = () => {
     const [cursor, setCursor] = useState<number>(0)
+    const moveCursorToEnd = () => setCursor(history.length)
+    const moveCursorBackOne = () => {
+        const newCursor = cursor - 1
+        setCursor(newCursor)
+        return newCursor
+    }
+
     const [history, setHistory] = useState<number[]>([0])
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
@@ -15,7 +22,7 @@ const App = () => {
         onChange: (score) => {
             clearTimeout(timer)
             setTimer(setTimeout(() => {
-                setCursor(history.length)
+                moveCursorToEnd()
                 setHistory([...history, score])
             }, 3000))
         }
@@ -32,9 +39,8 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={() => {
-                const newCursor = cursor - 1
-                setCursor(newCursor)
-                const value = history[newCursor]
+                const cursor = moveCursorBackOne()
+                const value = history[cursor]
                 team1Score.setValue(value)
             }}>Undo</button>
         </div>
