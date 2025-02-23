@@ -6,6 +6,7 @@ import { useScore } from './hooks/use-score';
 const root = createRoot(document.getElementById('app'));
 
 const App = () => {
+    const [cursor, setCursor] = useState<number>(0)
     const [history, setHistory] = useState<number[]>([0])
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
@@ -14,6 +15,7 @@ const App = () => {
         onChange: (score) => {
             clearTimeout(timer)
             setTimer(setTimeout(() => {
+                setCursor(history.length)
                 setHistory([...history, score])
             }, 3000))
         }
@@ -30,7 +32,9 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={() => {
-                const value = history[history.length - 2]
+                const newCursor = cursor - 1
+                setCursor(newCursor)
+                const value = history[newCursor]
                 team1Score.setValue(value)
             }}>Undo</button>
         </div>

@@ -251,7 +251,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 2)
     })
 
-    xit('should revert back two history items if I do 3 score changes, separated by 3 seconds each, and then press undo twice', () => {
+    it('should revert back two history items if I do 3 score changes, separated by 3 seconds each, and then press undo twice', () => {
       // arrange
       cy.clock()
 
