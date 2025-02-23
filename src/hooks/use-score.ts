@@ -4,6 +4,7 @@ export interface IScore {
     value: number
     addOne: () => void
     subtractOne: () => void
+    setValue: (value: number) => void
 }
 
 export const useScore = (): IScore => {
@@ -18,6 +19,7 @@ export const useScore = (): IScore => {
     return {
         value,
         addOne,
-        subtractOne
+        subtractOne,
+        setValue
     }
 }

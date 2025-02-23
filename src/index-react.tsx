@@ -15,7 +15,7 @@ const App = () => {
                 <Team teamName='Team 1' id="team1" score={team1Score} />
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
-            <button className="button">Undo</button>
+            <button className="button" onClick={() => team1Score.setValue(0)}>Undo</button>
         </div>
     )
 }
