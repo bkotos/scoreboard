@@ -284,7 +284,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
 
-    xit('should show a redo button when I press undo', () => {
+    it('should show a redo button when I press undo', () => {
       // arrange
       clickAddButton('Team 1')
 

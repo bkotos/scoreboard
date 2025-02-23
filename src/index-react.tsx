@@ -51,7 +51,10 @@ const App = () => {
             pushHistory(cachedHistoryItem)
             clearCache()
         }
+        setIsRedoVisible(true)
     }
+
+    const [isRedoVisible, setIsRedoVisible] = useState<boolean>(false)
 
     return (
         <div className="container">
@@ -60,6 +63,7 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={onUndo}>Undo</button>
+            {isRedoVisible && <button className="button is-hidden" id="btn-redo">Redo</button>}
         </div>
     )
 }
