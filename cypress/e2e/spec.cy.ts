@@ -336,7 +336,7 @@ describe('Scoreboard app', () => {
       })
     })
 
-    xit('should set the score to 1 if I click add, click undo, and click redo', () => {
+    it('should set the score to 1 if I click add, click undo, and click redo', () => {
       // act
       clickAddButton('Team 1')
       cy.contains('button', 'Undo').click()

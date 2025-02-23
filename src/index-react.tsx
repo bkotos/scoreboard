@@ -64,8 +64,13 @@ const App = () => {
                 <Team teamName='Team 1' id="team1" score={team1Score} />
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
-            <button className="button" onClick={onUndo} disabled={isAtFrontOfHistory && !hasCachedHistoryItem()}>Undo</button>
-            {isRedoVisible && <button className="button is-hidden" id="btn-redo">Redo</button>}
+            <button className="button" onClick={onUndo} disabled={isAtFrontOfHistory && !hasCachedHistoryItem()}>Undo</button>&nbsp;
+            {isRedoVisible && <button className="button" id="btn-redo" onClick={() => {
+                const newCursor = cursor + 1
+                setCursor(newCursor)
+                const historyItem = history[newCursor]
+                team1Score.setValue(historyItem)
+            }}>Redo</button>}
         </div>
     )
 }
