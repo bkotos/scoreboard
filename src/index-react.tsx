@@ -6,7 +6,7 @@ import { useScore } from './hooks/use-score';
 const root = createRoot(document.getElementById('app'));
 
 interface GameScore {
-    team1: number
+    team1?: number
 }
 
 const App = () => {
@@ -26,6 +26,9 @@ const App = () => {
     const [history, setHistory] = useState<GameScore[]>([{ team1: 0 }])
     const pushHistory = (score: GameScore) => setHistory([...history, score])
     const [cachedHistoryItem, setCachedHistoryItem] = useState<GameScore>(null)
+    const getCachedHistoryItem = () => ({
+        team1: cachedHistoryItem?.team1 ?? 0
+    })
     const hasCachedHistoryItem = () => cachedHistoryItem !== null
     const clearCache = () => setCachedHistoryItem(null)
 
@@ -33,11 +36,17 @@ const App = () => {
 
     const team1Score = useScore({
         onChange: (team1) => {
-            setCachedHistoryItem({ team1 })
+            setCachedHistoryItem({
+                ...getCachedHistoryItem(),
+                team1
+            })
             clearTimeout(timer)
             setTimer(setTimeout(() => {
                 moveCursorToEnd()
-                pushHistory({ team1 })
+                pushHistory({
+                    ...getCachedHistoryItem(),
+                    team1
+                })
                 clearCache()
             }, 3000))
         }
