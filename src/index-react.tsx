@@ -24,20 +24,20 @@ const App = () => {
     }
 
     const [history, setHistory] = useState<GameScore[]>([{ team1: 0 }])
-    const pushHistory = (team1: number) => setHistory([...history, { team1 }])
-    const [cachedHistoryItem, setCachedHistoryItem] = useState<number>(null)
+    const pushHistory = (score: GameScore) => setHistory([...history, score])
+    const [cachedHistoryItem, setCachedHistoryItem] = useState<GameScore>(null)
     const hasCachedHistoryItem = () => cachedHistoryItem !== null
     const clearCache = () => setCachedHistoryItem(null)
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
 
     const team1Score = useScore({
-        onChange: (score) => {
-            setCachedHistoryItem(score)
+        onChange: (team1) => {
+            setCachedHistoryItem({ team1 })
             clearTimeout(timer)
             setTimer(setTimeout(() => {
                 moveCursorToEnd()
-                pushHistory(score)
+                pushHistory({ team1 })
                 clearCache()
             }, 3000))
         }
