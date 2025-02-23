@@ -5,6 +5,10 @@ import { useScore } from './hooks/use-score';
 
 const root = createRoot(document.getElementById('app'));
 
+interface GameScore {
+    team1: number
+}
+
 const App = () => {
     const [cursor, setCursor] = useState<number>(0)
     const moveCursorToEnd = () => setCursor(history.length)
@@ -19,8 +23,8 @@ const App = () => {
         return newCursor
     }
 
-    const [history, setHistory] = useState<number[]>([0])
-    const pushHistory = (value: number) => setHistory([...history, value])
+    const [history, setHistory] = useState<GameScore[]>([{ team1: 0 }])
+    const pushHistory = (team1: number) => setHistory([...history, { team1 }])
     const [cachedHistoryItem, setCachedHistoryItem] = useState<number>(null)
     const hasCachedHistoryItem = () => cachedHistoryItem !== null
     const clearCache = () => setCachedHistoryItem(null)
@@ -43,19 +47,19 @@ const App = () => {
         onChange: () => {}
     })
 
-    const getPreviousValue = () => {
+    const getPreviousValues = () => {
         const newCursor = !hasCachedHistoryItem() ? moveCursorBackOne() : cursor
         return history[newCursor]
     }
 
-    const getNextValue = () => {
+    const getNextValues = () => {
         const newCursor = moveCursorForwardOne()
         return history[newCursor]
     }
 
     const onUndo = () => {
-        const previousValue = getPreviousValue()
-        team1Score.setValue(previousValue)
+        const previousValues = getPreviousValues()
+        team1Score.setValue(previousValues.team1)
 
         if (hasCachedHistoryItem()) {
             pushHistory(cachedHistoryItem)
@@ -69,8 +73,8 @@ const App = () => {
     const isAtFrontOfHistory = history.slice(0, cursor).length === 0
 
     const onRedo = () => {
-        const nextValue = getNextValue()
-        team1Score.setValue(nextValue)
+        const nextValues = getNextValues()
+        team1Score.setValue(nextValues.team1)
     }
 
     const isAtEndOfHistory = cursor === (history.length -1)
