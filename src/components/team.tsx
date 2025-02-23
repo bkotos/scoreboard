@@ -1,18 +1,13 @@
+import { IScore } from '../hooks/use-score'
 import React, { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 
 interface TeamProps {
     id: string
     teamName: string
+    score: IScore
 }
 
 export default (props: TeamProps) => {
-    const [score, setScore] = useState<number>(0)
-    const addOne = () => {
-        setScore(score + 1)
-    }
-    const subtractOne = () => {
-        if (score > 0) setScore(score - 1)
-    }
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -66,13 +61,13 @@ export default (props: TeamProps) => {
                             onChange={(e) => setTeamName(e.target.value)}
                         />
                     )}
-                    <p className="title score" role="heading" aria-labelledby={`teamName-${props.id}`} id={`score-${props.id}`} aria-level={2}>{score}</p>
+                    <p className="title score" role="heading" aria-labelledby={`teamName-${props.id}`} id={`score-${props.id}`} aria-level={2}>{props.score.value}</p>
                 </div>
                 <footer className="card-footer">
-                <button className="card-footer-item" aria-label={`Subtract one point for ${props.teamName}`} onClick={subtractOne}>
+                <button className="card-footer-item" aria-label={`Subtract one point for ${props.teamName}`} onClick={props.score.subtractOne}>
                     -1
                 </button>
-                <button className="card-footer-item" aria-label={`Add one point for ${props.teamName}`} onClick={addOne}>
+                <button className="card-footer-item" aria-label={`Add one point for ${props.teamName}`} onClick={props.score.addOne}>
                     +1
                 </button>
                 </footer>
