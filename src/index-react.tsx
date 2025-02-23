@@ -7,6 +7,7 @@ const root = createRoot(document.getElementById('app'));
 
 interface GameScore {
     team1?: number
+    team2?: number
 }
 
 const App = () => {
@@ -23,11 +24,12 @@ const App = () => {
         return newCursor
     }
 
-    const [history, setHistory] = useState<GameScore[]>([{ team1: 0 }])
+    const [history, setHistory] = useState<GameScore[]>([{ team1: 0, team2: 0 }])
     const pushHistory = (score: GameScore) => setHistory([...history, score])
     const [cachedHistoryItem, setCachedHistoryItem] = useState<GameScore>(null)
     const getCachedHistoryItem = () => ({
-        team1: cachedHistoryItem?.team1 ?? 0
+        team1: cachedHistoryItem?.team1 ?? 0,
+        team2: cachedHistoryItem?.team2 ?? 0,
     })
     const hasCachedHistoryItem = () => cachedHistoryItem !== null
     const clearCache = () => setCachedHistoryItem(null)
@@ -53,7 +55,21 @@ const App = () => {
     })
 
     const team2Score = useScore({
-        onChange: () => {}
+        onChange: (team2) => {
+            setCachedHistoryItem({
+                ...getCachedHistoryItem(),
+                team2
+            })
+            clearTimeout(timer)
+            setTimer(setTimeout(() => {
+                moveCursorToEnd()
+                pushHistory({
+                    ...getCachedHistoryItem(),
+                    team2
+                })
+                clearCache()
+            }, 3000))
+        }
     })
 
     const getPreviousValues = () => {
@@ -69,6 +85,7 @@ const App = () => {
     const onUndo = () => {
         const previousValues = getPreviousValues()
         team1Score.setValue(previousValues.team1)
+        team2Score.setValue(previousValues.team2)
 
         if (hasCachedHistoryItem()) {
             pushHistory(cachedHistoryItem)
@@ -84,6 +101,7 @@ const App = () => {
     const onRedo = () => {
         const nextValues = getNextValues()
         team1Score.setValue(nextValues.team1)
+        // TODO make sure I set team2 here as well as team 1
     }
 
     const isAtEndOfHistory = cursor === (history.length -1)
