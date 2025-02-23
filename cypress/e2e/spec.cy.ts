@@ -366,7 +366,7 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Undo').should('not.be.disabled')
     })
 
-    xit('should enable the redo button if I click add, click undo, click redo, and click undo', () => {
+    it('should enable the redo button if I click add, click undo, click redo, and click undo', () => {
       // act
       clickAddButton('Team 1')
       cy.contains('button', 'Undo').click()
