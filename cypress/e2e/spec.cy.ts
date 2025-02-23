@@ -234,7 +234,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
 
-    xit('should revert team 1 back to 2 if I press their add button 2 times, wait 3 seconds, press their add button 2 more times, and then press "undo"', () => {
+    it('should revert team 1 back to 2 if I press their add button 2 times, wait 3 seconds, press their add button 2 more times, and then press "undo"', () => {
       // arrange
       cy.clock()
 

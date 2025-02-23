@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface IScore {
     value: number
@@ -7,7 +7,11 @@ export interface IScore {
     setValue: (value: number) => void
 }
 
-export const useScore = (): IScore => {
+export interface UseScoreProps {
+    onChange: (score: number) => void
+}
+
+export const useScore = ({ onChange }: UseScoreProps): IScore => {
     const [value, setValue] = useState<number>(0)
     const addOne = () => {
         setValue(value + 1)
@@ -15,6 +19,10 @@ export const useScore = (): IScore => {
     const subtractOne = () => {
         if (value > 0) setValue(value - 1)
     }
+
+    useEffect(() => {
+        onChange(value)
+    }, [value])
 
     return {
         value,
