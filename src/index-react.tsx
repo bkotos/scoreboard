@@ -56,13 +56,15 @@ const App = () => {
 
     const [isRedoVisible, setIsRedoVisible] = useState<boolean>(false)
 
+    const isAtFrontOfHistory = history.slice(0, cursor).length === 0
+
     return (
         <div className="container">
             <div className="columns">
                 <Team teamName='Team 1' id="team1" score={team1Score} />
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
-            <button className="button" onClick={onUndo} disabled={history.slice(0, cursor + 1).length === 1 && cachedHistoryItem === null}>Undo</button>
+            <button className="button" onClick={onUndo} disabled={isAtFrontOfHistory && !hasCachedHistoryItem()}>Undo</button>
             {isRedoVisible && <button className="button is-hidden" id="btn-redo">Redo</button>}
         </div>
     )
