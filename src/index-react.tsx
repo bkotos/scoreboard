@@ -36,39 +36,31 @@ const App = () => {
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
 
-    const team1Score = useScore({
-        onChange: (team1) => {
-            setCachedHistoryItem({
+    const updateGameHistory = (team: keyof GameScore, value: number) => {
+        setCachedHistoryItem({
+            ...getCachedHistoryItem(),
+            [team]: value
+        })
+        clearTimeout(timer)
+        setTimer(setTimeout(() => {
+            moveCursorToEnd()
+            pushHistory({
                 ...getCachedHistoryItem(),
-                team1
+                [team]: value
             })
-            clearTimeout(timer)
-            setTimer(setTimeout(() => {
-                moveCursorToEnd()
-                pushHistory({
-                    ...getCachedHistoryItem(),
-                    team1
-                })
-                clearCache()
-            }, 3000))
+            clearCache()
+        }, 3000))
+    }
+
+    const team1Score = useScore({
+        onChange: (value) => {
+            updateGameHistory('team1', value)
         }
     })
 
     const team2Score = useScore({
-        onChange: (team2) => {
-            setCachedHistoryItem({
-                ...getCachedHistoryItem(),
-                team2
-            })
-            clearTimeout(timer)
-            setTimer(setTimeout(() => {
-                moveCursorToEnd()
-                pushHistory({
-                    ...getCachedHistoryItem(),
-                    team2
-                })
-                clearCache()
-            }, 3000))
+        onChange: (value) => {
+            updateGameHistory('team2', value)
         }
     })
 
