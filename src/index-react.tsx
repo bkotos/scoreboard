@@ -62,7 +62,7 @@ const App = () => {
                 <Team teamName='Team 1' id="team1" score={team1Score} />
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
-            <button className="button" onClick={onUndo}>Undo</button>
+            <button className="button" onClick={onUndo} disabled={history.slice(0, cursor + 1).length === 1 && cachedHistoryItem === null}>Undo</button>
             {isRedoVisible && <button className="button is-hidden" id="btn-redo">Redo</button>}
         </div>
     )
