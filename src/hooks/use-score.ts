@@ -14,15 +14,17 @@ export interface UseScoreProps {
 export const useScore = ({ onChange }: UseScoreProps): IScore => {
     const [value, setValue] = useState<number>(0)
     const addOne = () => {
-        setValue(value + 1)
+        const newValue = value + 1
+        setValue(newValue)
+        onChange(newValue)
     }
     const subtractOne = () => {
-        if (value > 0) setValue(value - 1)
+        if (value > 0) {
+            const newValue = value - 1
+            setValue(newValue)
+            onChange(newValue)
+        }
     }
-
-    useEffect(() => {
-        onChange(value)
-    }, [value])
 
     return {
         value,

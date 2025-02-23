@@ -15,15 +15,18 @@ const App = () => {
     }
 
     const [history, setHistory] = useState<number[]>([0])
+    const [cache, setCache] = useState<number>(null)
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>()
 
     const team1Score = useScore({
         onChange: (score) => {
+            setCache(score)
             clearTimeout(timer)
             setTimer(setTimeout(() => {
                 moveCursorToEnd()
                 setHistory([...history, score])
+                setCache(null)
             }, 3000))
         }
     })
@@ -39,9 +42,14 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={() => {
-                const cursor = moveCursorBackOne()
-                const value = history[cursor]
+                const newCursor = cache === null ? moveCursorBackOne() : cursor
+                const value = history[newCursor]
                 team1Score.setValue(value)
+
+                if (cache !== null) {
+                    setHistory([...history, cache])
+                    setCache(null)
+                }
             }}>Undo</button>
         </div>
     )

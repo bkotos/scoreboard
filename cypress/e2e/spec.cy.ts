@@ -275,7 +275,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 3)
     })
 
-    xit('should revert my changes if I press the undo button immediately without waiting 3 seconds', () => {
+    it('should revert my changes if I press the undo button immediately without waiting 3 seconds', () => {
       // act
       clickAddButton('Team 1')
       cy.contains('button', 'Undo').click()
