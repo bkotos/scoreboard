@@ -13,6 +13,11 @@ const App = () => {
         setCursor(newCursor)
         return newCursor
     }
+    const moveCursorForwardOne = () => {
+        const newCursor = cursor + 1
+        setCursor(newCursor)
+        return newCursor
+    }
 
     const [history, setHistory] = useState<number[]>([0])
     const pushHistory = (value: number) => setHistory([...history, value])
@@ -43,6 +48,11 @@ const App = () => {
         return history[newCursor]
     }
 
+    const getNextValue = () => {
+        const newCursor = moveCursorForwardOne()
+        return history[newCursor]
+    }
+
     const onUndo = () => {
         const previousValue = getPreviousValue()
         team1Score.setValue(previousValue)
@@ -58,6 +68,11 @@ const App = () => {
 
     const isAtFrontOfHistory = history.slice(0, cursor).length === 0
 
+    const onRedo = () => {
+        const nextValue = getNextValue()
+        team1Score.setValue(nextValue)
+    }
+
     return (
         <div className="container">
             <div className="columns">
@@ -65,12 +80,7 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={onUndo} disabled={isAtFrontOfHistory && !hasCachedHistoryItem()}>Undo</button>&nbsp;
-            {isRedoVisible && <button className="button" id="btn-redo" onClick={() => {
-                const newCursor = cursor + 1
-                setCursor(newCursor)
-                const historyItem = history[newCursor]
-                team1Score.setValue(historyItem)
-            }}>Redo</button>}
+            {isRedoVisible && <button className="button" id="btn-redo" onClick={onRedo}>Redo</button>}
         </div>
     )
 }
