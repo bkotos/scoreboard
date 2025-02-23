@@ -73,6 +73,8 @@ const App = () => {
         team1Score.setValue(nextValue)
     }
 
+    const isAtEndOfHistory = cursor === (history.length -1)
+
     return (
         <div className="container">
             <div className="columns">
@@ -80,7 +82,7 @@ const App = () => {
                 <Team teamName='Team 2' id="team2" score={team2Score} />
             </div>
             <button className="button" onClick={onUndo} disabled={isAtFrontOfHistory && !hasCachedHistoryItem()}>Undo</button>&nbsp;
-            {isRedoVisible && <button className="button" id="btn-redo" onClick={onRedo} disabled={cursor === history.length - 1}>Redo</button>}
+            {isRedoVisible && <button className="button" id="btn-redo" onClick={onRedo} disabled={isAtEndOfHistory}>Redo</button>}
         </div>
     )
 }
