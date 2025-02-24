@@ -1,5 +1,5 @@
 import { useScore } from './use-score';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface GameScore {
     team1?: number;
@@ -21,58 +21,58 @@ export const useGameEngine = () => {
     };
 
     const [isCached, setIsCached] = useState<boolean>(false)
+    const flushCache = () => {
+        clearTimer()
+        setIsCached(false)
+    }
 
     const [history, setHistory] = useState<GameScore[]>([{ team1: 0, team2: 0 }]);
+    const getLastHistoryItem = () => history[history.length - 1]
+    const getHistoryWithoutUndoneItems = () => history.slice(0, cursor + 1)
     const pushHistory = (score: GameScore) => {
-        const clonedHistory = history.slice(0, cursor + 1)
-        setHistory([...clonedHistory, score]);
+        const history = getHistoryWithoutUndoneItems()
+        setHistory([...history, score]);
     }
-    const setCachedHistoryItem = (historyItem: GameScore) => {
-        const foo: GameScore = {
-            team1: historyItem.team1 ?? history[cursor].team1,
-            team2: historyItem.team2 ?? history[cursor].team2,
-        }
-        if (isCached) {
-            const updatedHistory = history.map((row, i) => {
-                if (i === history.length - 1) return foo
-                else return row
-            })
-            setHistory(updatedHistory)
-        }
-        else {
-            pushHistory(foo)
-        }
+    const updateLastHistoryItem = (score: GameScore) => {
+        const updatedHistory = history.map((currentHistoryItem, i) => {
+            const isLast = i === history.length - 1
+            return isLast ? score : currentHistoryItem
+        })
+        setHistory(updatedHistory)
     }
-    const getCachedHistoryItem = () => ({
-        team1: history[history.length - 1].team1 ?? 0,
-        team2: history[history.length - 1].team2 ?? 0,
-    });
+    const setCachedHistoryItem = (team: keyof GameScore, value: number) => {
+        const updatedHistoryItem: GameScore = {
+            ...getLastHistoryItem(),
+            [team]: value,
+        }
+        if (isCached) updateLastHistoryItem(updatedHistoryItem)
+        else pushHistory(updatedHistoryItem)
+
+        setIsCached(true)
+    }
 
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
+    const clearTimer = () => clearTimeout(timer)
+    const onNoActivityFor3Seconds = () => {
+        moveCursorToEnd();
+        setIsCached(false)
+    }
+    const pushTimerOutBy3Seconds = () => {
+        clearTimer();
+        setTimer(setTimeout(onNoActivityFor3Seconds, 3000));
+    }
 
     const updateGameHistory = (team: keyof GameScore, value: number) => {
-        setCachedHistoryItem({
-            ...getCachedHistoryItem(),
-            [team]: value
-        });
-        setIsCached(true)
-        clearTimeout(timer);
-        setTimer(setTimeout(() => {
-            moveCursorToEnd();
-            setIsCached(false)
-        }, 3000));
+        setCachedHistoryItem(team, value)
+        pushTimerOutBy3Seconds()
     };
 
     const team1Score = useScore({
-        onChange: (value) => {
-            updateGameHistory('team1', value);
-        }
+        onChange: (value) => updateGameHistory('team1', value)
     });
 
     const team2Score = useScore({
-        onChange: (value) => {
-            updateGameHistory('team2', value);
-        }
+        onChange: (value) => updateGameHistory('team2', value)
     });
 
     const getPreviousValues = () => {
@@ -89,19 +89,14 @@ export const useGameEngine = () => {
         const previousValues = getPreviousValues();
         team1Score.setValue(previousValues.team1);
         team2Score.setValue(previousValues.team2);
-
-        if (isCached) {
-            clearTimeout(timer);
-            setIsCached(false)
-        }
+        flushCache()
     };
 
     const redo = () => {
         const nextValues = getNextValues();
         team1Score.setValue(nextValues.team1);
         team2Score.setValue(nextValues.team2);
-        clearTimeout(timer);
-        setIsCached(false)
+        flushCache()
     };
 
     const isAtFrontOfHistory = history.slice(0, cursor).length === 0;
