@@ -99,9 +99,9 @@ export const useGameEngine = () => {
     const redo = () => {
         const nextValues = getNextValues();
         team1Score.setValue(nextValues.team1);
+        team2Score.setValue(nextValues.team2);
         clearTimeout(timer);
         setIsCached(false)
-        // TODO make sure I set team2 here as well as team 1
     };
 
     const isAtFrontOfHistory = history.slice(0, cursor).length === 0;
