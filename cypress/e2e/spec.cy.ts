@@ -424,6 +424,21 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Redo').should('be.disabled')
     })
+
+    it('should set the team 2 score to 3 if I click add three times, click undo, and click redo', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      cy.contains('button', 'Undo').click()
+      cy.contains('button', 'Redo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 2', 3)
+    })
   })
 
   describe('persistence', () => {
