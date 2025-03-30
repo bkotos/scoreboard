@@ -16,6 +16,12 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
         setScore(score - 1);
     };
     
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            setIsEditing(false);
+        }
+    };
+    
     return (
         <div role="listitem">
             <h2 id={teamNameId} style={{ display: isEditing ? 'none' : 'block' }}>{name}</h2>
@@ -25,6 +31,7 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
                     aria-label="Change team name"
                     defaultValue={name}
                     autoFocus
+                    onKeyDown={handleKeyDown}
                 />
             )}
             <div aria-labelledby={teamNameId}>{score}</div>
