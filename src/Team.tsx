@@ -19,11 +19,8 @@ const Team = ({ name: initialName, score: initialScore }: TeamProps) => {
     
     const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const name = event.currentTarget.value.trim();
-        if (name === '') {
-            setName(initialName);
-        } else {
-            setName(name);
-        }
+        const wasNameCleared = name === '';
+        setName(wasNameCleared ? initialName : name);
         setIsEditing(false);
     };
 
