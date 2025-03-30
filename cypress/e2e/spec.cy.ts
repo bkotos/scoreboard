@@ -158,7 +158,7 @@ describe('Scoreboard app', () => {
       expectTeamNameTextBoxToHaveDefaultValue()
     })
 
-    xit('should change the team name when I type a new name and then type *ENTER*', () => {
+    it('should change the team name when I type a new name and then type *ENTER*', () => {
       // arrange
       clickToChangeTeamName('Team 1')
 

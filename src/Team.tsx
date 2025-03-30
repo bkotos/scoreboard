@@ -5,9 +5,10 @@ interface TeamProps {
     score: number;
 }
 
-const Team = ({ name, score: initialScore }: TeamProps) => {
+const Team = ({ name: initialName, score: initialScore }: TeamProps) => {
     const [score, setScore] = useState(initialScore);
     const [isEditing, setIsEditing] = useState(false);
+    const [name, setName] = useState(initialName);
     const teamNameId = `${name.toLowerCase().replace(' ', '-')}-name`;
     
     const incrementScore = () => setScore(score + 1);
@@ -16,8 +17,9 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
         setScore(score - 1);
     };
     
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
+            setName(event.currentTarget.value);
             setIsEditing(false);
         } else if (event.key === 'Escape') {
             setIsEditing(false);
