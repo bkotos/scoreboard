@@ -10,7 +10,10 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
     const teamNameId = `${name.toLowerCase().replace(' ', '-')}-name`;
     
     const incrementScore = () => setScore(score + 1);
-    const decrementScore = () => setScore(Math.max(0, score - 1));
+    const decrementScore = () => {
+        if (score === 0) return;
+        setScore(score - 1);
+    };
     
     return (
         <div role="listitem">
