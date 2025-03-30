@@ -6,7 +6,10 @@ const root = createRoot(document.getElementById('app'));
 const App = () => {
     return (
         <div>
-            <h1>Hello world</h1>
+            <div role="listitem">
+                <h2 id="team1-name">Team 1</h2>
+                <div aria-labelledby="team1-name">0</div>
+            </div>
         </div>
     )
 }
