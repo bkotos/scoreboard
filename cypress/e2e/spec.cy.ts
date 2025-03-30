@@ -195,7 +195,7 @@ describe('Scoreboard app', () => {
         cy.focused().type('{selectAll}{backspace}{enter}')
       })
 
-      xit('should reset the name', () => {
+      it('should reset the name', () => {
         // assert
         expectTeamNameToBeResetToDefault()
       })
