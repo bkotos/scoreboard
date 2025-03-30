@@ -19,6 +19,8 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             setIsEditing(false);
+        } else if (event.key === 'Escape') {
+            setIsEditing(false);
         }
     };
     
