@@ -32,6 +32,7 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
                     defaultValue={name}
                     autoFocus
                     onKeyDown={handleKeyDown}
+                    onBlur={() => setIsEditing(false)}
                 />
             )}
             <div aria-labelledby={teamNameId}>{score}</div>

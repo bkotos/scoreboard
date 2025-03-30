@@ -113,7 +113,7 @@ describe('Scoreboard app', () => {
       expectTeamNameTextBoxToBeHidden()
     })
 
-    xit('should hide the team name text box I click outside of the text box', () => {
+    it('should hide the team name text box I click outside of the text box', () => {
       // arrange
       clickToChangeTeamName('Team 1')
 
