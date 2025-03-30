@@ -19,6 +19,12 @@ const Team = ({ name, score: initialScore }: TeamProps) => {
             >
                 Add
             </button>
+            <button 
+                aria-label={`Subtract one point for ${name}`}
+                onClick={() => setScore(score - 1)}
+            >
+                Subtract
+            </button>
         </div>
     );
 };
