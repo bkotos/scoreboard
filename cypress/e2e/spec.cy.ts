@@ -171,7 +171,7 @@ describe('Scoreboard app', () => {
       cy.contains(/^New name$/)
     })
 
-    xit('should not allow XSS attacks in the name text box', () => {
+    it('should not allow XSS attacks in the name text box', () => {
       // arrange
       const stub = cy.stub()
       cy.on('window:alert', stub)
