@@ -17,7 +17,7 @@ describe('Scoreboard app', () => {
   })
   
   describe('on first load', () => {
-    xit('should display team 1 with a starting score of 0', () => {
+    it('should display team 1 with a starting score of 0', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 1', 0)
     })

@@ -1,12 +1,16 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client';
+import Team from './components/team'
 
 const root = createRoot(document.getElementById('app'));
 
 const App = () => {
     return (
-        <div>
-            <h1>Hello world</h1>
+        <div className="container">
+            <div className="columns">
+                <Team teamName="Team 1" score={0} />
+                <Team teamName="Team 2" score={0} />
+            </div>
         </div>
     )
 }
