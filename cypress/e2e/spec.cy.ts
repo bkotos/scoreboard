@@ -94,10 +94,10 @@ describe('Scoreboard app', () => {
       expectTeamNameTextBoxToHaveDefaultValue()
     })
 
-    xit('should be focused on the team name text field when I click edit', () => {
+    it('should be focused on the team name text field when I click edit', () => {
       // act
       clickToChangeTeamName('Team 1')
-
+    
       // assert
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
