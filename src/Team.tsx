@@ -17,17 +17,25 @@ const Team = ({ name: initialName, score: initialScore }: TeamProps) => {
         setScore(score - 1);
     };
     
+    const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const name = event.currentTarget.value.trim();
+        if (name === '') {
+            setName(initialName);
+        } else {
+            setName(name);
+        }
+        setIsEditing(false);
+    };
+
+    const handleEscapeKey = () => {
+        setIsEditing(false);
+    };
+    
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            const name = event.currentTarget.value.trim();
-            if (name === '') {
-                setName(initialName);
-            } else {
-                setName(name);
-            }
-            setIsEditing(false);
+            handleEnterKey(event);
         } else if (event.key === 'Escape') {
-            setIsEditing(false);
+            handleEscapeKey();
         }
     };
     
