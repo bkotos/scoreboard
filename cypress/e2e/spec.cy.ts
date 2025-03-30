@@ -22,7 +22,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 0)
     })
 
-    xit('should display team 2 with a starting score of 0', () => {
+    it('should display team 2 with a starting score of 0', () => {
       // assert
       assertTeamAndScoreDisplayed('Team 2', 0)
     })
@@ -30,7 +30,7 @@ describe('Scoreboard app', () => {
 
   const itShouldDoScoreChangesForTeam = (teamName: string) => {
     describe(`scores changes for ${teamName}`, () => {
-      xit('should increase the score by 1 for when click the add button', () => {
+      it('should increase the score by 1 for when click the add button', () => {
         // assert
         assertTeamAndScoreDisplayed(teamName, 0)
     
