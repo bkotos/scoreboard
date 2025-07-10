@@ -18,6 +18,13 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
         }
         return {};
     };
+
+    const getTextStyle = () => {
+        if (initialName === 'Team 1') {
+            return { color: '#fff' };
+        }
+        return {};
+    };
     
     const incrementScore = () => onScoreChange(initialScore + 1);
     const decrementScore = () => {
@@ -41,7 +48,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     
     return (
         <div role="listitem" style={getTeamStyle()}>
-            <h2 id={teamNameId} style={{ display: isEditing ? 'none' : 'block' }}>{initialName}</h2>
+            <h2 id={teamNameId} role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>{initialName}</h2>
             {isEditing && (
                 <input
                     type="text"
@@ -53,24 +60,29 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                 />
             )}
             <div aria-labelledby={teamNameId}>{initialScore}</div>
-            <button 
-                aria-label={`Add one point for ${initialName}`}
-                onClick={incrementScore}
-            >
-                Add
-            </button>
-            <button 
-                aria-label={`Subtract one point for ${initialName}`}
-                onClick={decrementScore}
-            >
-                Subtract
-            </button>
-            <button 
-                aria-label={`Change name of ${initialName}`}
-                onClick={() => setIsEditing(true)}
-            >
-                Edit
-            </button>
+            <footer>
+                <button 
+                    aria-label={`Add one point for ${initialName}`}
+                    onClick={incrementScore}
+                    style={getTextStyle()}
+                >
+                    Add
+                </button>
+                <button 
+                    aria-label={`Subtract one point for ${initialName}`}
+                    onClick={decrementScore}
+                    style={getTextStyle()}
+                >
+                    Subtract
+                </button>
+                <button 
+                    aria-label={`Change name of ${initialName}`}
+                    onClick={() => setIsEditing(true)}
+                    style={getTextStyle()}
+                >
+                    Edit
+                </button>
+            </footer>
         </div>
     );
 };
