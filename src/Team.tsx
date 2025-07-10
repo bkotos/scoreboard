@@ -43,6 +43,12 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                 backgroundColor: 'rgb(255, 102, 133)' 
             };
         }
+        if (initialName === 'Team 2') {
+            return { 
+                color: 'rgb(0, 36, 51)', 
+                backgroundColor: 'rgb(102, 209, 255)' 
+            };
+        }
         return getTextStyle();
     };
     
