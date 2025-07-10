@@ -540,7 +540,7 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 2').should('have.css', 'background-color').and('be.colored', '#2772db')
     })
 
-    xit('should display team 2 with white text', () => {
+    it('should display team 2 with white text', () => {
       // assert
       getCardForTeam('Team 2').find('[role="heading"]').should('have.css', 'color').and('be.colored', '#fff')
       getCardForTeam('Team 2').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
