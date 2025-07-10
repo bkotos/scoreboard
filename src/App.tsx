@@ -34,7 +34,6 @@ function App() {
   const handleScoreChange = (team: 'team1' | 'team2', newScore: number) => {
     // Clear redo state when making new changes
     if (showRedo) {
-      setShowRedo(false);
       setRedoHistory([]);
     }
 
