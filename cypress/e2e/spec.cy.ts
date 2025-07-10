@@ -219,7 +219,7 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Undo')
     })
 
-    xit('should revert team 1 back to 0 if I press their add button 3 times, wait 3 seconds, and then press "undo"', () => {
+    it('should revert team 1 back to 0 if I press their add button 3 times, wait 3 seconds, and then press "undo"', () => {
       // arrange
       cy.clock()
 
