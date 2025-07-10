@@ -491,7 +491,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Moonshot', 0)
     })
 
-    xit('should the score if I click "New game"', () => {
+    it('should reset the score if I click "New game"', () => {
       // arrange
       cy.clock()
 
