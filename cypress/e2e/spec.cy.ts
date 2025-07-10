@@ -546,7 +546,7 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 2').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
     })
 
-    xit('should display the score for team 1 as size 180px font', () => {
+    it('should display the score for team 1 as size 180px font', () => {
       getCardForTeam('Team 1').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
 

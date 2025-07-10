@@ -28,6 +28,13 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
         }
         return {};
     };
+
+    const getScoreStyle = () => {
+        if (initialName === 'Team 1') {
+            return { fontSize: '180px', ...getTextStyle() };
+        }
+        return getTextStyle();
+    };
     
     const incrementScore = () => onScoreChange(initialScore + 1);
     const decrementScore = () => {
@@ -62,7 +69,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     onBlur={() => setIsEditing(false)}
                 />
             )}
-            <div aria-labelledby={teamNameId}>{initialScore}</div>
+            <div role="heading" aria-level={2} aria-labelledby={teamNameId} style={getScoreStyle()}>{initialScore}</div>
             <footer>
                 <button 
                     aria-label={`Add one point for ${initialName}`}
