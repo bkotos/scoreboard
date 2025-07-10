@@ -80,12 +80,7 @@ function App() {
       const redoState = redoHistory[redoHistory.length - 1];
       setTeam1Score(redoState.team1Score);
       setTeam2Score(redoState.team2Score);
-      setRedoHistory(prev => {
-        const newRedoHistory = prev.slice(0, -1);
-        // Update redo button visibility based on remaining history
-        setShowRedo(newRedoHistory.length > 0);
-        return newRedoHistory;
-      });
+      setRedoHistory(prev => prev.slice(0, -1));
       setShowUndo(true);
     }
   };
@@ -93,7 +88,7 @@ function App() {
   return (
     <div className="App">
       {showUndo && <button id="undo" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
-      {showRedo && <button id="redo" onClick={handleRedo}>Redo</button>}
+      {showRedo && <button id="redo" onClick={handleRedo} disabled={redoHistory.length === 0}>Redo</button>}
       <ul className="teams">
         <Team
           name={team1Name}

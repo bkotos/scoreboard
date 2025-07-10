@@ -346,7 +346,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
 
-    xit('should disable the redo button click redo and get to the front of the history', () => {
+    it('should disable the redo button click redo and get to the front of the history', () => {
       // act
       clickAddButton('Team 1')
       cy.contains('button', 'Undo').click()
