@@ -330,7 +330,7 @@ describe('Scoreboard app', () => {
         assertTeamAndScoreDisplayed('Team 1', 0)
       })
   
-      xit('should disable the undo button', () => {
+      it('should disable the undo button', () => {
         // assert
         cy.contains('button', 'Undo').should('be.disabled')
       })
