@@ -525,7 +525,7 @@ describe('Scoreboard app', () => {
   const getCardForTeam = (team: string) => cy.contains(team).closest('[role="listitem"]')
 
   describe('team styling', () => {
-    xit('should display team 1 with a red background', () => {
+    it('should display team 1 with a red background', () => {
       // assert
       getCardForTeam('Team 1').should('have.css', 'background-color').and('be.colored', '#bc2525')
     })

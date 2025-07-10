@@ -11,6 +11,14 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     const [isEditing, setIsEditing] = useState(false);
     const teamNameId = `${initialName.toLowerCase().replace(' ', '-')}-name`;
     
+    // Determine styling based on team name
+    const getTeamStyle = () => {
+        if (initialName === 'Team 1') {
+            return { backgroundColor: '#bc2525' };
+        }
+        return {};
+    };
+    
     const incrementScore = () => onScoreChange(initialScore + 1);
     const decrementScore = () => {
         if (initialScore === 0) return;
@@ -32,7 +40,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     };
     
     return (
-        <div role="listitem">
+        <div role="listitem" style={getTeamStyle()}>
             <h2 id={teamNameId} style={{ display: isEditing ? 'none' : 'block' }}>{initialName}</h2>
             {isEditing && (
                 <input
