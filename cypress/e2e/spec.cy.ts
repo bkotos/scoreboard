@@ -479,7 +479,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
 
-    xit('should keep my team name when I reload the page', () => {
+    it('should keep my team name when I reload the page', () => {
       // act
       clickToChangeTeamName('Team 1')
       cy.focused().type('{selectall}')

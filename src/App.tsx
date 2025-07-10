@@ -9,8 +9,14 @@ interface HistoryState {
 }
 
 function App() {
-  const [team1Name, setTeam1Name] = useState('Team 1');
-  const [team2Name, setTeam2Name] = useState('Team 2');
+  const [team1Name, setTeam1Name] = useState(() => {
+    const saved = localStorage.getItem('team1Name');
+    return saved ? saved : 'Team 1';
+  });
+  const [team2Name, setTeam2Name] = useState(() => {
+    const saved = localStorage.getItem('team2Name');
+    return saved ? saved : 'Team 2';
+  });
   const [team1Score, setTeam1Score] = useState(() => {
     const saved = localStorage.getItem('team1Score');
     return saved ? parseInt(saved, 10) : 0;
@@ -117,13 +123,19 @@ function App() {
       <ul className="teams">
         <Team
           name={team1Name}
-          onNameChange={setTeam1Name}
+          onNameChange={(name) => {
+            setTeam1Name(name);
+            localStorage.setItem('team1Name', name);
+          }}
           score={team1Score}
           onScoreChange={(score) => handleScoreChange('team1', score)}
         />
         <Team
           name={team2Name}
-          onNameChange={setTeam2Name}
+          onNameChange={(name) => {
+            setTeam2Name(name);
+            localStorage.setItem('team2Name', name);
+          }}
           score={team2Score}
           onScoreChange={(score) => handleScoreChange('team2', score)}
         />
