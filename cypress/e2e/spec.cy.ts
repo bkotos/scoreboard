@@ -554,7 +554,7 @@ describe('Scoreboard app', () => {
       cy.get('html').should('have.css', 'background-color', 'rgb(20, 22, 26)')
     })
 
-    xit('should have the edit button for team 1 be danger-themed', () => {
+    it('should have the edit button for team 1 be danger-themed', () => {
       getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(26, 0, 5)')
       getCardForTeam('Team 1').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(255, 102, 133)')
     })

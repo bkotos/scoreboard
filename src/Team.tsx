@@ -35,6 +35,16 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
         }
         return getTextStyle();
     };
+
+    const getEditButtonStyle = () => {
+        if (initialName === 'Team 1') {
+            return { 
+                color: 'rgb(26, 0, 5)', 
+                backgroundColor: 'rgb(255, 102, 133)' 
+            };
+        }
+        return getTextStyle();
+    };
     
     const incrementScore = () => onScoreChange(initialScore + 1);
     const decrementScore = () => {
@@ -88,7 +98,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                 <button 
                     aria-label={`Change name of ${initialName}`}
                     onClick={() => setIsEditing(true)}
-                    style={getTextStyle()}
+                    style={getEditButtonStyle()}
                 >
                     Edit
                 </button>
