@@ -2,68 +2,63 @@ import React, { useState } from 'react';
 
 interface TeamProps {
     name: string;
+    onNameChange: (name: string) => void;
     score: number;
+    onScoreChange: (score: number) => void;
 }
 
-const Team = ({ name: initialName, score: initialScore }: TeamProps) => {
-    const [score, setScore] = useState(initialScore);
+const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreChange }: TeamProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [name, setName] = useState(initialName);
-    const teamNameId = `${name.toLowerCase().replace(' ', '-')}-name`;
+    const teamNameId = `${initialName.toLowerCase().replace(' ', '-')}-name`;
     
-    const incrementScore = () => setScore(score + 1);
+    const incrementScore = () => onScoreChange(initialScore + 1);
     const decrementScore = () => {
-        if (score === 0) return;
-        setScore(score - 1);
+        if (initialScore === 0) return;
+        onScoreChange(initialScore - 1);
     };
-    
+
     const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        const name = event.currentTarget.value.trim();
-        const wasNameCleared = name === '';
-        setName(wasNameCleared ? initialName : name);
+        const newName = event.currentTarget.value.trim();
+        onNameChange(newName === '' ? initialName : newName);
         setIsEditing(false);
     };
 
-    const handleEscapeKey = () => {
-        setIsEditing(false);
-    };
-    
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             handleEnterKey(event);
         } else if (event.key === 'Escape') {
-            handleEscapeKey();
+            setIsEditing(false);
         }
     };
     
     return (
         <div role="listitem">
-            <h2 id={teamNameId} style={{ display: isEditing ? 'none' : 'block' }}>{name}</h2>
+            <h2 id={teamNameId} style={{ display: isEditing ? 'none' : 'block' }}>{initialName}</h2>
             {isEditing && (
                 <input
                     type="text"
                     aria-label="Change team name"
-                    defaultValue={name}
+                    defaultValue={initialName}
                     autoFocus
                     onKeyDown={handleKeyDown}
                     onBlur={() => setIsEditing(false)}
                 />
             )}
-            <div aria-labelledby={teamNameId}>{score}</div>
+            <div aria-labelledby={teamNameId}>{initialScore}</div>
             <button 
-                aria-label={`Add one point for ${name}`}
+                aria-label={`Add one point for ${initialName}`}
                 onClick={incrementScore}
             >
                 Add
             </button>
             <button 
-                aria-label={`Subtract one point for ${name}`}
+                aria-label={`Subtract one point for ${initialName}`}
                 onClick={decrementScore}
             >
                 Subtract
             </button>
             <button 
-                aria-label={`Change name of ${name}`}
+                aria-label={`Change name of ${initialName}`}
                 onClick={() => setIsEditing(true)}
             >
                 Edit
