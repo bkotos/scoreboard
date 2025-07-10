@@ -425,7 +425,7 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Redo').should('be.disabled')
     })
 
-    xit('should set the team 2 score to 3 if I click add three times, click undo, and click redo', () => {
+    it('should set the team 2 score to 3 if I click add three times, click undo, and click redo', () => {
       // arrange
       cy.clock()
 
