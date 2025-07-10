@@ -18,6 +18,11 @@ function App() {
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
 
   const handleScoreChange = (team: 'team1' | 'team2', newScore: number) => {
+    // Clear redo state when making new changes
+    if (showRedo) {
+      setShowRedo(false);
+    }
+
     // Save current state to history if this is the first change in the group
     if (!hasPendingChanges) {
       const currentState = { team1Score, team2Score };
@@ -51,6 +56,7 @@ function App() {
       setTeam2Score(lastState.team2Score);
       setHistory(prev => prev.slice(0, -1));
       setShowRedo(true);
+      setHasPendingChanges(false);
     }
   };
 
