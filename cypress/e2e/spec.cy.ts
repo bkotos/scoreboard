@@ -325,7 +325,7 @@ describe('Scoreboard app', () => {
         cy.contains('button', 'Undo').click()
       })
 
-      xit('should allow me to undo a second time', () => {
+      it('should allow me to undo a second time', () => {
         // assert
         assertTeamAndScoreDisplayed('Team 1', 0)
       })
