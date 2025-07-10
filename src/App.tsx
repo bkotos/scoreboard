@@ -11,8 +11,14 @@ interface HistoryState {
 function App() {
   const [team1Name, setTeam1Name] = useState('Team 1');
   const [team2Name, setTeam2Name] = useState('Team 2');
-  const [team1Score, setTeam1Score] = useState(0);
-  const [team2Score, setTeam2Score] = useState(0);
+  const [team1Score, setTeam1Score] = useState(() => {
+    const saved = localStorage.getItem('team1Score');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  const [team2Score, setTeam2Score] = useState(() => {
+    const saved = localStorage.getItem('team2Score');
+    return saved ? parseInt(saved, 10) : 0;
+  });
   const [history, setHistory] = useState<HistoryState[]>([]);
   const [redoHistory, setRedoHistory] = useState<HistoryState[]>([]);
   const [showUndo, setShowUndo] = useState(false);
@@ -47,8 +53,10 @@ function App() {
     // Update the score
     if (team === 'team1') {
       setTeam1Score(newScore);
+      localStorage.setItem('team1Score', newScore.toString());
     } else {
       setTeam2Score(newScore);
+      localStorage.setItem('team2Score', newScore.toString());
     }
 
     // Reset the commit timeout
@@ -64,6 +72,8 @@ function App() {
       const lastState = history[history.length - 1];
       setTeam1Score(lastState.team1Score);
       setTeam2Score(lastState.team2Score);
+      localStorage.setItem('team1Score', lastState.team1Score.toString());
+      localStorage.setItem('team2Score', lastState.team2Score.toString());
       setHistory(prev => prev.slice(0, -1));
       setShowRedo(true);
       setHasPendingChanges(false);
@@ -79,6 +89,8 @@ function App() {
       const redoState = redoHistory[redoHistory.length - 1];
       setTeam1Score(redoState.team1Score);
       setTeam2Score(redoState.team2Score);
+      localStorage.setItem('team1Score', redoState.team1Score.toString());
+      localStorage.setItem('team2Score', redoState.team2Score.toString());
       setRedoHistory(prev => prev.slice(0, -1));
       setShowUndo(true);
     }

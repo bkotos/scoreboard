@@ -442,7 +442,7 @@ describe('Scoreboard app', () => {
   })
 
   describe('persistence', () => {
-    xit('should keep my score if I click add for team 1 and then reload the page', () => {
+    it('should keep my score if I click add for team 1 and then reload the page', () => {
       // act
       clickAddButton('Team 1')
       cy.reload()
