@@ -13,6 +13,7 @@ function App() {
   const [team2Score, setTeam2Score] = useState(0);
   const [history, setHistory] = useState<HistoryState[]>([]);
   const [showUndo, setShowUndo] = useState(false);
+  const [showRedo, setShowRedo] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
 
@@ -49,6 +50,7 @@ function App() {
       setTeam1Score(lastState.team1Score);
       setTeam2Score(lastState.team2Score);
       setHistory(prev => prev.slice(0, -1));
+      setShowRedo(true);
       
       if (history.length === 1) {
         setShowUndo(false);
@@ -56,9 +58,14 @@ function App() {
     }
   };
 
+  const handleRedo = () => {
+    // Empty for now
+  };
+
   return (
     <div className="App">
       {showUndo && <button id="undo" onClick={handleUndo}>Undo</button>}
+      {showRedo && <button id="redo" onClick={handleRedo}>Redo</button>}
       <ul className="teams">
         <Team
           name={team1Name}
