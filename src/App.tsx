@@ -19,9 +19,15 @@ function App() {
     const saved = localStorage.getItem('team2Score');
     return saved ? parseInt(saved, 10) : 0;
   });
-  const [history, setHistory] = useState<HistoryState[]>([]);
+  const [history, setHistory] = useState<HistoryState[]>(() => {
+    const saved = localStorage.getItem('history');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [redoHistory, setRedoHistory] = useState<HistoryState[]>([]);
-  const [showUndo, setShowUndo] = useState(false);
+  const [showUndo, setShowUndo] = useState(() => {
+    const saved = localStorage.getItem('showUndo');
+    return saved ? JSON.parse(saved) : false;
+  });
   const [showRedo, setShowRedo] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
@@ -45,8 +51,11 @@ function App() {
 
     // Save current state to history if this is the first change in the group
     if (!hasPendingChanges) {
-      setHistory(prev => [...prev, getCurrentState()]);
+      const newHistory = [...history, getCurrentState()];
+      setHistory(newHistory);
+      localStorage.setItem('history', JSON.stringify(newHistory));
       setShowUndo(true);
+      localStorage.setItem('showUndo', JSON.stringify(true));
       setHasPendingChanges(true);
     }
 
@@ -74,7 +83,9 @@ function App() {
       setTeam2Score(lastState.team2Score);
       localStorage.setItem('team1Score', lastState.team1Score.toString());
       localStorage.setItem('team2Score', lastState.team2Score.toString());
-      setHistory(prev => prev.slice(0, -1));
+      const newHistory = history.slice(0, -1);
+      setHistory(newHistory);
+      localStorage.setItem('history', JSON.stringify(newHistory));
       setShowRedo(true);
       setHasPendingChanges(false);
     }
@@ -83,7 +94,9 @@ function App() {
   const handleRedo = () => {
     if (redoHistory.length > 0) {
       // Store current state in undo history
-      setHistory(prev => [...prev, getCurrentState()]);
+      const newHistory = [...history, getCurrentState()];
+      setHistory(newHistory);
+      localStorage.setItem('history', JSON.stringify(newHistory));
       
       // Restore to redo state
       const redoState = redoHistory[redoHistory.length - 1];
@@ -93,6 +106,7 @@ function App() {
       localStorage.setItem('team2Score', redoState.team2Score.toString());
       setRedoHistory(prev => prev.slice(0, -1));
       setShowUndo(true);
+      localStorage.setItem('showUndo', JSON.stringify(true));
     }
   };
 
