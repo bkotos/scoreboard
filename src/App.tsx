@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Team from './Team';
 
+const COMMIT_DELAY_MS = 3000;
+
 interface HistoryState {
   team1Score: number;
   team2Score: number;
@@ -12,21 +14,33 @@ function App() {
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
   const [history, setHistory] = useState<HistoryState[]>([]);
+  const [redoHistory, setRedoHistory] = useState<HistoryState[]>([]);
   const [showUndo, setShowUndo] = useState(false);
   const [showRedo, setShowRedo] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
 
+  const getCurrentState = (): HistoryState => ({ team1Score, team2Score });
+
+  const resetCommitTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setHasPendingChanges(false);
+    }, COMMIT_DELAY_MS);
+  };
+
   const handleScoreChange = (team: 'team1' | 'team2', newScore: number) => {
     // Clear redo state when making new changes
     if (showRedo) {
       setShowRedo(false);
+      setRedoHistory([]);
     }
 
     // Save current state to history if this is the first change in the group
     if (!hasPendingChanges) {
-      const currentState = { team1Score, team2Score };
-      setHistory(prev => [...prev, currentState]);
+      setHistory(prev => [...prev, getCurrentState()]);
       setShowUndo(true);
       setHasPendingChanges(true);
     }
@@ -38,19 +52,16 @@ function App() {
       setTeam2Score(newScore);
     }
 
-    // Clear any existing timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    // Set a new timeout to commit the current group of changes
-    timeoutRef.current = setTimeout(() => {
-      setHasPendingChanges(false);
-    }, 3000);
+    // Reset the commit timeout
+    resetCommitTimeout();
   };
 
   const handleUndo = () => {
     if (history.length > 0) {
+      // Store current state in redo history
+      setRedoHistory(prev => [...prev, getCurrentState()]);
+      
+      // Revert to previous state
       const lastState = history[history.length - 1];
       setTeam1Score(lastState.team1Score);
       setTeam2Score(lastState.team2Score);
@@ -61,7 +72,22 @@ function App() {
   };
 
   const handleRedo = () => {
-    // Empty for now
+    if (redoHistory.length > 0) {
+      // Store current state in undo history
+      setHistory(prev => [...prev, getCurrentState()]);
+      
+      // Restore to redo state
+      const redoState = redoHistory[redoHistory.length - 1];
+      setTeam1Score(redoState.team1Score);
+      setTeam2Score(redoState.team2Score);
+      setRedoHistory(prev => {
+        const newRedoHistory = prev.slice(0, -1);
+        // Update redo button visibility based on remaining history
+        setShowRedo(newRedoHistory.length > 0);
+        return newRedoHistory;
+      });
+      setShowUndo(true);
+    }
   };
 
   return (
