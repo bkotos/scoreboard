@@ -550,7 +550,7 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 1').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
 
-    xit('should have a dark page background', () => {
+    it('should have a dark page background', () => {
       cy.get('html').should('have.css', 'background-color', 'rgb(20, 22, 26)')
     })
 
