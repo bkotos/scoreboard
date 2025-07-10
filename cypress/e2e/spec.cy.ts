@@ -506,7 +506,7 @@ describe('Scoreboard app', () => {
     })
 
     const itShouldNotResetTheTeamNameWhenIClickNewGameFor = (team: string) => {
-      xit(`should not reset the team name when I click "New game" for ${team}`, () => {
+      it(`should not reset the team name when I click "New game" for ${team}`, () => {
         // act
         clickToChangeTeamName(team)
         cy.focused().type('{selectall}')
