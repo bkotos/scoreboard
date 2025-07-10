@@ -51,10 +51,6 @@ function App() {
       setTeam2Score(lastState.team2Score);
       setHistory(prev => prev.slice(0, -1));
       setShowRedo(true);
-      
-      if (history.length === 1) {
-        setShowUndo(false);
-      }
     }
   };
 
@@ -64,7 +60,7 @@ function App() {
 
   return (
     <div className="App">
-      {showUndo && <button id="undo" onClick={handleUndo}>Undo</button>}
+      {showUndo && <button id="undo" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
       {showRedo && <button id="redo" onClick={handleRedo}>Redo</button>}
       <ul className="teams">
         <Team

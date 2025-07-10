@@ -295,7 +295,7 @@ describe('Scoreboard app', () => {
       cy.contains('button', 'Redo')
     })
 
-    xit('should disable the undo button if i have one history item and I click undo once', () => {
+    it('should disable the undo button if i have one history item and I click undo once', () => {
       // arrange
       clickAddButton('Team 1')
 
