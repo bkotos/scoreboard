@@ -536,7 +536,7 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 1').find('footer button').should('have.css', 'color').and('be.colored', '#fff')
     })
 
-    xit('should display team 2 with a blue background', () => {
+    it('should display team 2 with a blue background', () => {
       getCardForTeam('Team 2').should('have.css', 'background-color').and('be.colored', '#2772db')
     })
 

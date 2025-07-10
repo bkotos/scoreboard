@@ -16,6 +16,9 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
         if (initialName === 'Team 1') {
             return { backgroundColor: '#bc2525' };
         }
+        if (initialName === 'Team 2') {
+            return { backgroundColor: '#2772db' };
+        }
         return {};
     };
 
