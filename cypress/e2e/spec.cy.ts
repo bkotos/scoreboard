@@ -466,7 +466,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Team 1', 1)
     })
 
-    xit('should keep my history and display a score of 1 if I click add, wait 3 seconds, and reload the page', () => {
+    it('should keep my history and display a score of 1 if I click add, wait 3 seconds, and reload the page', () => {
       // arrange
       cy.clock()
 
