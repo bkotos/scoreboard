@@ -75,7 +75,17 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     return (
         <div className="card" role="listitem" style={getTeamStyle()}>
             <div className="card-content has-text-centered p-4">
-                <p className="subtitle mb-0" id={teamNameId} role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>{initialName}</p>
+                <p className="subtitle mb-0" role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>
+                    <span id={teamNameId}>{initialName}</span>
+                    <button 
+                        className={initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info'}
+                        aria-label={`Change name of ${initialName}`}
+                        onClick={() => setIsEditing(true)}
+                        style={getEditButtonStyle()}
+                    >
+                        Edit
+                    </button>
+                </p>
                 {isEditing && (
                     <input
                         className="subtitle mb-0 p-0"
@@ -105,14 +115,6 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     style={getTextStyle()}
                 >
                     Subtract
-                </button>
-                <button 
-                    className={initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info'}
-                    aria-label={`Change name of ${initialName}`}
-                    onClick={() => setIsEditing(true)}
-                    style={getEditButtonStyle()}
-                >
-                    Edit
                 </button>
             </footer>
         </div>

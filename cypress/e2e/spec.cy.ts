@@ -595,5 +595,15 @@ describe('Scoreboard app', () => {
       clickToChangeTeamName('Team 1')
       cy.get('.subtitle.mb-0.p-0').should('exist')
     })
+
+    it('should have edit buttons positioned next to team names, not in the footer', () => {
+      // Edit buttons should be in the card-content section, not card-footer
+      cy.get('.card-content .button.is-small.is-danger').should('exist')
+      cy.get('.card-content .button.is-small.is-info').should('exist')
+      
+      // Edit buttons should NOT be in the card-footer
+      cy.get('.card-footer .button.is-small.is-danger').should('not.exist')
+      cy.get('.card-footer .button.is-small.is-info').should('not.exist')
+    })
   })
 })
