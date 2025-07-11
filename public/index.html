@@ -25,16 +25,40 @@
         font-size: 180px;
       }
 
-      .card[data-team="team1"] {
+      /* Team-specific styling */
+      .team1-card {
         background-color: #bc2525;
       }
 
-      [role="heading"], footer button {
+      .team2-card {
+        background-color: #2772db;
+      }
+
+      .team1-card [role="heading"], 
+      .team1-card .card-footer-item,
+      .team2-card [role="heading"], 
+      .team2-card .card-footer-item {
         color: #fff;
       }
 
-      .card[data-team="team2"] {
-        background-color: #2772db;
+      .team1-card .title.score,
+      .team2-card .title.score {
+        font-size: 180px;
+        color: #fff;
+      }
+
+      .team1-edit-button {
+        color: rgb(26, 0, 5) !important;
+        background-color: rgb(255, 102, 133) !important;
+      }
+
+      .team2-edit-button {
+        color: rgb(0, 36, 51) !important;
+        background-color: rgb(102, 209, 255) !important;
+      }
+
+      .editing-hidden {
+        display: none;
       }
 
       @media only screen and (max-device-width : 768px) {

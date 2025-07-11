@@ -11,45 +11,15 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     const [isEditing, setIsEditing] = useState(false);
     const teamNameId = `${initialName.toLowerCase().replace(' ', '-')}-name`;
     
-    // Determine styling based on team name
-    const getTeamStyle = () => {
-        if (initialName === 'Team 1') {
-            return { backgroundColor: '#bc2525' };
-        }
-        if (initialName === 'Team 2') {
-            return { backgroundColor: '#2772db' };
-        }
-        return {};
+    const getTeamCardClass = () => {
+        if (initialName === 'Team 1') return 'card team1-card';
+        else return 'card team2-card';
     };
 
-    const getTextStyle = () => {
-        if (initialName === 'Team 1' || initialName === 'Team 2') {
-            return { color: '#fff' };
-        }
-        return {};
-    };
-
-    const getScoreStyle = () => {
-        if (initialName === 'Team 1' || initialName === 'Team 2') {
-            return { fontSize: '180px', ...getTextStyle() };
-        }
-        return getTextStyle();
-    };
-
-    const getEditButtonStyle = () => {
-        if (initialName === 'Team 1') {
-            return { 
-                color: 'rgb(26, 0, 5)', 
-                backgroundColor: 'rgb(255, 102, 133)' 
-            };
-        }
-        if (initialName === 'Team 2') {
-            return { 
-                color: 'rgb(0, 36, 51)', 
-                backgroundColor: 'rgb(102, 209, 255)' 
-            };
-        }
-        return getTextStyle();
+    const getEditButtonClass = () => {
+        const baseClass = initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info';
+        const teamClass = initialName === 'Team 1' ? 'team1-edit-button' : 'team2-edit-button';
+        return `${baseClass} ${teamClass}`;
     };
     
     const incrementScore = () => onScoreChange(initialScore + 1);
@@ -73,15 +43,14 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     };
     
     return (
-        <div className="card" role="listitem" style={getTeamStyle()}>
+        <div className={getTeamCardClass()} role="listitem">
             <div className="card-content has-text-centered p-4">
-                <p className="subtitle mb-0" role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>
+                <p className={`subtitle mb-0 ${isEditing ? 'editing-hidden' : ''}`} role="heading">
                     <span id={teamNameId}>{initialName}</span>&nbsp;
                     <button 
-                        className={initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info'}
+                        className={getEditButtonClass()}
                         aria-label={`Change name of ${initialName}`}
                         onClick={() => setIsEditing(true)}
-                        style={getEditButtonStyle()}
                     >
                         Edit
                     </button>
@@ -97,14 +66,13 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                         onBlur={() => setIsEditing(false)}
                     />
                 )}
-                <div className="title score" role="heading" aria-level={2} aria-labelledby={teamNameId} style={getScoreStyle()}>{initialScore}</div>
+                <div className="title score" role="heading" aria-level={2} aria-labelledby={teamNameId}>{initialScore}</div>
             </div>
             <footer className="card-footer">
                 <button 
                     className="card-footer-item"
                     aria-label={`Add one point for ${initialName}`}
                     onClick={incrementScore}
-                    style={getTextStyle()}
                 >
                     Add
                 </button>
@@ -112,7 +80,6 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     className="card-footer-item"
                     aria-label={`Subtract one point for ${initialName}`}
                     onClick={decrementScore}
-                    style={getTextStyle()}
                 >
                     Subtract
                 </button>
