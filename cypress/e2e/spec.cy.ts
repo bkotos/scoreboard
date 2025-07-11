@@ -567,6 +567,17 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(0, 36, 51)')
       getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(102, 209, 255)')
     })
+
+    it('should keep team 1 red background color after renaming', () => {
+      // Rename Team 1 to something else
+      clickToChangeTeamName('Team 1')
+      cy.focused().type('{selectall}')
+      cy.focused().type('Red Team')
+      cy.focused().type('{enter}')
+      
+      // Team should still have red background color
+      getCardForTeam('Red Team').should('have.css', 'background-color').and('be.colored', '#bc2525')
+    })
   })
 
   describe('Bulma CSS classes', () => {

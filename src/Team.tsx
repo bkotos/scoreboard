@@ -9,16 +9,17 @@ interface TeamProps {
 
 const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreChange }: TeamProps) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [originalTeamIdentity] = useState(initialName);
     const teamNameId = `${initialName.toLowerCase().replace(' ', '-')}-name`;
     
     const getTeamCardClass = () => {
-        if (initialName === 'Team 1') return 'card team1-card';
+        if (originalTeamIdentity === 'Team 1') return 'card team1-card';
         else return 'card team2-card';
     };
 
     const getEditButtonClass = () => {
-        const baseClass = initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info';
-        const teamClass = initialName === 'Team 1' ? 'team1-edit-button' : 'team2-edit-button';
+        const baseClass = originalTeamIdentity === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info';
+        const teamClass = originalTeamIdentity === 'Team 1' ? 'team1-edit-button' : 'team2-edit-button';
         return `${baseClass} ${teamClass}`;
     };
     
