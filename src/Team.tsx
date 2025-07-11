@@ -5,11 +5,12 @@ interface TeamProps {
     onNameChange: (name: string) => void;
     score: number;
     onScoreChange: (score: number) => void;
+    teamId: string;
 }
 
-const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreChange }: TeamProps) => {
+const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreChange, teamId }: TeamProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [originalTeamIdentity] = useState(initialName);
+    const [originalTeamIdentity] = useState(teamId);
     const teamNameId = `${initialName.toLowerCase().replace(' ', '-')}-name`;
     
     const getTeamCardClass = () => {

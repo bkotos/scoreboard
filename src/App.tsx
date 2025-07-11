@@ -108,6 +108,7 @@ function App() {
             onNameChange={setTeam1Name}
             score={team1Score}
             onScoreChange={(score) => handleScoreChange('team1', score)}
+            teamId="Team 1"
           />
         </div>
         <div className="column">
@@ -116,6 +117,7 @@ function App() {
             onNameChange={setTeam2Name}
             score={team2Score}
             onScoreChange={(score) => handleScoreChange('team2', score)}
+            teamId="Team 2"
           />
         </div>
       </div>

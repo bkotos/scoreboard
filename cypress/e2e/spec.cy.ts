@@ -520,6 +520,20 @@ describe('Scoreboard app', () => {
     }
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 1')
     itShouldNotResetTheTeamNameWhenIClickNewGameFor('Team 2')
+
+    it('should keep team 1 red background color after renaming and reloading the page', () => {
+      // arrange
+      clickToChangeTeamName('Team 1')
+      cy.focused().type('{selectall}')
+      cy.focused().type('Red Team')
+      cy.focused().type('{enter}')
+      
+      // act
+      cy.reload()
+      
+      // assert
+      getCardForTeam('Red Team').should('have.css', 'background-color').and('be.colored', '#bc2525')
+    })
   })
 
   const getCardForTeam = (team: string) => cy.contains(team).closest('[role="listitem"]')
