@@ -83,7 +83,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     aria-label={`Subtract one point for ${initialName}`}
                     onClick={decrementScore}
                 >
-                    Subtract
+                    -1
                 </button>
             </footer>
         </div>

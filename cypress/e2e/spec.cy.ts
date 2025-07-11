@@ -642,5 +642,15 @@ describe('Scoreboard app', () => {
       cy.get('[aria-label="Add one point for Team 1"]').should('have.attr', 'aria-label').and('contain', 'Add')
       cy.get('[aria-label="Add one point for Team 2"]').should('have.attr', 'aria-label').and('contain', 'Add')
     })
+
+    it('should display -1 text on subtract buttons while maintaining accessibility', () => {
+      // Check that subtract buttons display "-1" as text content
+      cy.get('[aria-label="Subtract one point for Team 1"]').should('contain.text', '-1')
+      cy.get('[aria-label="Subtract one point for Team 2"]').should('contain.text', '-1')
+      
+      // Verify aria-labels are still accessible (should contain "Subtract")
+      cy.get('[aria-label="Subtract one point for Team 1"]').should('have.attr', 'aria-label').and('contain', 'Subtract')
+      cy.get('[aria-label="Subtract one point for Team 2"]').should('have.attr', 'aria-label').and('contain', 'Subtract')
+    })
   })
 })
