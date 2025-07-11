@@ -100,24 +100,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {showUndo && <button id="undo" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
-      {showRedo && <button id="redo" onClick={handleRedo} disabled={redoHistory.length === 0}>Redo</button>}
-      <button onClick={handleNewGame}>New game</button>
-      <ul className="teams">
-        <Team
-          name={team1Name}
-          onNameChange={setTeam1Name}
-          score={team1Score}
-          onScoreChange={(score) => handleScoreChange('team1', score)}
-        />
-        <Team
-          name={team2Name}
-          onNameChange={setTeam2Name}
-          score={team2Score}
-          onScoreChange={(score) => handleScoreChange('team2', score)}
-        />
-      </ul>
+    <div className="container pt-6">
+      <div className="columns">
+        <div className="column">
+          <Team
+            name={team1Name}
+            onNameChange={setTeam1Name}
+            score={team1Score}
+            onScoreChange={(score) => handleScoreChange('team1', score)}
+          />
+        </div>
+        <div className="column">
+          <Team
+            name={team2Name}
+            onNameChange={setTeam2Name}
+            score={team2Score}
+            onScoreChange={(score) => handleScoreChange('team2', score)}
+          />
+        </div>
+      </div>
+      {showUndo && <button className="button" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
+      {showRedo && <button className="button" onClick={handleRedo} disabled={redoHistory.length === 0}>Redo</button>}
+      <button className="button" onClick={handleNewGame}>New game</button>
     </div>
   );
 }

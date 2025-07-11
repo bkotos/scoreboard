@@ -73,21 +73,25 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     };
     
     return (
-        <div role="listitem" style={getTeamStyle()}>
-            <h2 id={teamNameId} role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>{initialName}</h2>
-            {isEditing && (
-                <input
-                    type="text"
-                    aria-label="Change team name"
-                    defaultValue={initialName}
-                    autoFocus
-                    onKeyDown={handleKeyDown}
-                    onBlur={() => setIsEditing(false)}
-                />
-            )}
-            <div role="heading" aria-level={2} aria-labelledby={teamNameId} style={getScoreStyle()}>{initialScore}</div>
-            <footer>
+        <div className="card" role="listitem" style={getTeamStyle()}>
+            <div className="card-content has-text-centered p-4">
+                <p className="subtitle mb-0" id={teamNameId} role="heading" style={{ display: isEditing ? 'none' : 'block', ...getTextStyle() }}>{initialName}</p>
+                {isEditing && (
+                    <input
+                        className="subtitle mb-0 p-0"
+                        type="text"
+                        aria-label="Change team name"
+                        defaultValue={initialName}
+                        autoFocus
+                        onKeyDown={handleKeyDown}
+                        onBlur={() => setIsEditing(false)}
+                    />
+                )}
+                <div className="title score" role="heading" aria-level={2} aria-labelledby={teamNameId} style={getScoreStyle()}>{initialScore}</div>
+            </div>
+            <footer className="card-footer">
                 <button 
+                    className="card-footer-item"
                     aria-label={`Add one point for ${initialName}`}
                     onClick={incrementScore}
                     style={getTextStyle()}
@@ -95,6 +99,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     Add
                 </button>
                 <button 
+                    className="card-footer-item"
                     aria-label={`Subtract one point for ${initialName}`}
                     onClick={decrementScore}
                     style={getTextStyle()}
@@ -102,6 +107,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     Subtract
                 </button>
                 <button 
+                    className={initialName === 'Team 1' ? 'button is-small is-danger' : 'button is-small is-info'}
                     aria-label={`Change name of ${initialName}`}
                     onClick={() => setIsEditing(true)}
                     style={getEditButtonStyle()}

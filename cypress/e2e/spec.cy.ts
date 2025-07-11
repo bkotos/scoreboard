@@ -568,4 +568,32 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(102, 209, 255)')
     })
   })
+
+  describe('Bulma CSS classes', () => {
+    it('should have all the correct Bulma CSS classes', () => {
+      // Container and layout
+      cy.get('.container.pt-6').should('exist')
+      cy.get('.columns').should('exist')
+      cy.get('.column').should('have.length', 2)
+      
+      // Card structure
+      cy.get('.card').should('have.length', 2)
+      cy.get('.card-content.has-text-centered.p-4').should('have.length', 2)
+      cy.get('.card-footer').should('have.length', 2)
+      
+      // Content classes
+      cy.get('.subtitle.mb-0').should('have.length', 2)
+      cy.get('.title.score').should('have.length', 2)
+      cy.get('.card-footer-item').should('have.length', 4)
+      cy.get('button.button').should('have.length.at.least', 3)
+      
+      // Themed buttons
+      getCardForTeam('Team 1').find('.button.is-small.is-danger').should('exist')
+      getCardForTeam('Team 2').find('.button.is-small.is-info').should('exist')
+      
+      // Input field classes when editing
+      clickToChangeTeamName('Team 1')
+      cy.get('.subtitle.mb-0.p-0').should('exist')
+    })
+  })
 })
