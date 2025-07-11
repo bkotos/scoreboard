@@ -30,7 +30,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     };
 
     const getScoreStyle = () => {
-        if (initialName === 'Team 1') {
+        if (initialName === 'Team 1' || initialName === 'Team 2') {
             return { fontSize: '180px', ...getTextStyle() };
         }
         return getTextStyle();
