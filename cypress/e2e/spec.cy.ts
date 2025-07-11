@@ -79,7 +79,7 @@ describe('Scoreboard app', () => {
   const clickToChangeTeamName = (existingTeamName: string) => cy.get(`[aria-label="Change name of ${existingTeamName}"]`).click()
 
   describe('changing team name', () => {
-    const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.be.visible')
+    const expectTeamNameTextBoxToBeHidden = () => cy.get('input[aria-label="Change team name"]').should('not.exist')
     const expectTeamNameTextBoxToBeVisible = () => cy.get('input[aria-label="Change team name"]').should('be.visible')
     const expectTeamNameTextBoxToHaveDefaultValue = () => cy.focused().should('have.value', 'Team 1')
     const expectTeamNameToBeResetToDefault = () => cy.contains(/^Team 1$/)
@@ -87,7 +87,7 @@ describe('Scoreboard app', () => {
     it('should change the team name to a text field when I click edit', () => {
       // act
       clickToChangeTeamName('Team 1')
-
+    
       // assert
       cy.contains('Team 1').should('not.be.visible')
       expectTeamNameTextBoxToBeVisible()
@@ -97,7 +97,7 @@ describe('Scoreboard app', () => {
     it('should be focused on the team name text field when I click edit', () => {
       // act
       clickToChangeTeamName('Team 1')
-
+    
       // assert
       cy.focused().should('have.attr', 'aria-label', 'Change team name')
     })
@@ -110,7 +110,7 @@ describe('Scoreboard app', () => {
       cy.focused().type('{enter}')
 
       // assert
-      expectTeamNameTextBoxToBeHidden
+      expectTeamNameTextBoxToBeHidden()
     })
 
     it('should hide the team name text box I click outside of the text box', () => {
@@ -121,7 +121,7 @@ describe('Scoreboard app', () => {
       clickSubtractButton('Team 1')
 
       // assert
-      expectTeamNameTextBoxToBeHidden
+      expectTeamNameTextBoxToBeHidden()
     })
 
     it('should hide the team name text box when I type *ESC*', () => {
@@ -132,7 +132,7 @@ describe('Scoreboard app', () => {
       cy.focused().type('{esc}')
 
       // assert
-      expectTeamNameTextBoxToBeHidden
+      expectTeamNameTextBoxToBeHidden()
     })
 
     it('should reset the team name when I type in a new name and type *ESC*', () => {
@@ -336,7 +336,7 @@ describe('Scoreboard app', () => {
       })
     })
 
-    it('should set the score to 1 if I click add, click undo, and click redo', () => {
+    it('should disable the undo button', () => {
       // act
       clickAddButton('Team 1')
       cy.contains('button', 'Undo').click()
@@ -424,6 +424,21 @@ describe('Scoreboard app', () => {
       // assert
       cy.contains('button', 'Redo').should('be.disabled')
     })
+
+    it('should set the team 2 score to 3 if I click add three times, click undo, and click redo', () => {
+      // arrange
+      cy.clock()
+
+      // act
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      clickAddButton('Team 2')
+      cy.contains('button', 'Undo').click()
+      cy.contains('button', 'Redo').click()
+
+      // assert
+      assertTeamAndScoreDisplayed('Team 2', 3)
+    })
   })
 
   describe('persistence', () => {
@@ -476,7 +491,7 @@ describe('Scoreboard app', () => {
       assertTeamAndScoreDisplayed('Moonshot', 0)
     })
 
-    it('should the score if I click "New game"', () => {
+    it('should reset the score if I click "New game"', () => {
       // arrange
       cy.clock()
 
@@ -535,6 +550,10 @@ describe('Scoreboard app', () => {
       getCardForTeam('Team 1').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
     })
 
+    it('should display the score for team 2 as size 180px font', () => {
+      getCardForTeam('Team 2').find('[role="heading"][aria-level="2"]').should('have.css', 'font-size', '180px')
+    })
+
     it('should have a dark page background', () => {
       cy.get('html').should('have.css', 'background-color', 'rgb(20, 22, 26)')
     })
@@ -547,6 +566,44 @@ describe('Scoreboard app', () => {
     it('should have the edit button for team 2 be info-themed', () => {
       getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'color').and('be.colored', 'rgb(0, 36, 51)')
       getCardForTeam('Team 2').contains('button', 'Edit').should('have.css', 'background-color').and('be.colored', 'rgb(102, 209, 255)')
+    })
+  })
+
+  describe('Bulma CSS classes', () => {
+    it('should have all the correct Bulma CSS classes', () => {
+      // Container and layout
+      cy.get('.container.pt-6').should('exist')
+      cy.get('.columns').should('exist')
+      cy.get('.column').should('have.length', 2)
+      
+      // Card structure
+      cy.get('.card').should('have.length', 2)
+      cy.get('.card-content.has-text-centered.p-4').should('have.length', 2)
+      cy.get('.card-footer').should('have.length', 2)
+      
+      // Content classes
+      cy.get('.subtitle.mb-0').should('have.length', 2)
+      cy.get('.title.score').should('have.length', 2)
+      cy.get('.card-footer-item').should('have.length', 4)
+      cy.get('button.button').should('have.length.at.least', 3)
+      
+      // Themed buttons
+      getCardForTeam('Team 1').find('.button.is-small.is-danger').should('exist')
+      getCardForTeam('Team 2').find('.button.is-small.is-info').should('exist')
+      
+      // Input field classes when editing
+      clickToChangeTeamName('Team 1')
+      cy.get('.subtitle.mb-0.p-0').should('exist')
+    })
+
+    it('should have edit buttons positioned next to team names, not in the footer', () => {
+      // Edit buttons should be in the card-content section, not card-footer
+      cy.get('.card-content .button.is-small.is-danger').should('exist')
+      cy.get('.card-content .button.is-small.is-info').should('exist')
+      
+      // Edit buttons should NOT be in the card-footer
+      cy.get('.card-footer .button.is-small.is-danger').should('not.exist')
+      cy.get('.card-footer .button.is-small.is-info').should('not.exist')
     })
   })
 })
