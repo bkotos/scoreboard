@@ -76,7 +76,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
                     aria-label={`Add one point for ${initialName}`}
                     onClick={incrementScore}
                 >
-                    Add
+                    +1
                 </button>
                 <button 
                     className="card-footer-item"
