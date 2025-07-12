@@ -122,8 +122,22 @@ describe('Scoreboard app - Persistence', () => {
     assertTeamAndScoreDisplayed('Team 1', 1)
   })
 
-  it.skip('should allow me to click redo twice after page refresh if I add, pause for 3 seconds, add, undo twice, then refresh', () => {
-    // TODO: implement test
+  it('should allow me to click redo twice after page refresh if I add, pause for 3 seconds, add, undo twice, then refresh', () => {
+    // arrange
+    cy.clock()
+
+    // act
+    clickAddButton('Team 1')
+    cy.tick(3000)
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.contains('button', 'Redo').click()
+    cy.contains('button', 'Redo').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('Team 1', 2)
   })
 
   it.skip('should show Team 1 score as 3 after I add 3 times, undo back to 0, refresh page, then click redo', () => {
