@@ -111,7 +111,7 @@ describe('Scoreboard app - Persistence', () => {
     cy.contains('button', 'Redo').should('be.visible')
   })
 
-  it.skip('should restore score to 1 after add, undo, page refresh, and redo', () => {
+  it('should restore score to 1 after add, undo, page refresh, and redo', () => {
     // act
     clickAddButton('Team 1')
     cy.contains('button', 'Undo').click()

@@ -12,7 +12,8 @@ const STORAGE_KEYS = {
   TEAM2_SCORE: 'team2Score',
   HISTORY: 'history',
   SHOW_UNDO: 'showUndo',
-  SHOW_REDO: 'showRedo'
+  SHOW_REDO: 'showRedo',
+  REDO_HISTORY: 'redoHistory'
 } as const;
 
 const DEFAULT_VALUES = {
@@ -21,7 +22,8 @@ const DEFAULT_VALUES = {
   SCORE: 0 as number,
   HISTORY: [] as HistoryState[],
   SHOW_UNDO: false as boolean,
-  SHOW_REDO: false as boolean
+  SHOW_REDO: false as boolean,
+  REDO_HISTORY: [] as HistoryState[]
 };
 
 function useGameState() {
@@ -32,6 +34,7 @@ function useGameState() {
   const [history, setHistory] = useLocalStorage<HistoryState[]>(STORAGE_KEYS.HISTORY, DEFAULT_VALUES.HISTORY);
   const [showUndo, setShowUndo] = useLocalStorage(STORAGE_KEYS.SHOW_UNDO, DEFAULT_VALUES.SHOW_UNDO);
   const [showRedo, setShowRedo] = useLocalStorage(STORAGE_KEYS.SHOW_REDO, DEFAULT_VALUES.SHOW_REDO);
+  const [redoHistory, setRedoHistory] = useLocalStorage<HistoryState[]>(STORAGE_KEYS.REDO_HISTORY, DEFAULT_VALUES.REDO_HISTORY);
 
   return {
     gameState: {
@@ -41,7 +44,8 @@ function useGameState() {
       team2Score,
       history,
       showUndo,
-      showRedo
+      showRedo,
+      redoHistory
     },
     setGameState: {
       setTeam1Name,
@@ -50,7 +54,8 @@ function useGameState() {
       setTeam2Score,
       setHistory,
       setShowUndo,
-      setShowRedo
+      setShowRedo,
+      setRedoHistory
     }
   };
 }

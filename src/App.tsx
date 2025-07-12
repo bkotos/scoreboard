@@ -6,10 +6,8 @@ const COMMIT_DELAY_MS = 3000;
 
 function App() {
   const { gameState, setGameState } = useGameState();
-  const { team1Name, team2Name, team1Score, team2Score, history, showUndo, showRedo } = gameState;
-  const { setTeam1Name, setTeam2Name, setTeam1Score, setTeam2Score, setHistory, setShowUndo, setShowRedo } = setGameState;
-  
-  const [redoHistory, setRedoHistory] = useState<HistoryState[]>([]);
+  const { team1Name, team2Name, team1Score, team2Score, history, showUndo, showRedo, redoHistory } = gameState;
+  const { setTeam1Name, setTeam2Name, setTeam1Score, setTeam2Score, setHistory, setShowUndo, setShowRedo, setRedoHistory } = setGameState;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
 
@@ -52,7 +50,7 @@ function App() {
   const handleUndo = () => {
     if (history.length > 0) {
       // Store current state in redo history
-      setRedoHistory(prev => [...prev, getCurrentState()]);
+      setRedoHistory([...redoHistory, getCurrentState()]);
       
       // Revert to previous state
       const lastState = history[history.length - 1];
@@ -75,7 +73,7 @@ function App() {
       const redoState = redoHistory[redoHistory.length - 1];
       setTeam1Score(redoState.team1Score);
       setTeam2Score(redoState.team2Score);
-      setRedoHistory(prev => prev.slice(0, -1));
+      setRedoHistory(redoHistory.slice(0, -1));
       setShowUndo(true);
     }
   };
