@@ -121,4 +121,24 @@ describe('Scoreboard app - Persistence', () => {
     // assert
     assertTeamAndScoreDisplayed('Team 1', 1)
   })
+
+  it.skip('should allow me to click redo twice after page refresh if I add, pause for 3 seconds, add, undo twice, then refresh', () => {
+    // TODO: implement test
+  })
+
+  it.skip('should show Team 1 score as 3 after I add 3 times, undo back to 0, refresh page, then click redo', () => {
+    // TODO: implement test
+  })
+
+  it.skip('should still work if I refresh the page multiple times after clicking undo', () => {
+    // TODO: implement test
+  })
+
+  it.skip('should not show the redo button after I add points, undo, refresh, then click \'New game\'', () => {
+    // TODO: implement test
+  })
+
+  it.skip('should restore Team 2\'s score correctly after I add points to Team 2, undo, refresh, then redo', () => {
+    // TODO: implement test
+  })
 }) 
