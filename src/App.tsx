@@ -6,11 +6,10 @@ const COMMIT_DELAY_MS = 3000;
 
 function App() {
   const { gameState, setGameState } = useGameState();
-  const { team1Name, team2Name, team1Score, team2Score, history, showUndo } = gameState;
-  const { setTeam1Name, setTeam2Name, setTeam1Score, setTeam2Score, setHistory, setShowUndo } = setGameState;
+  const { team1Name, team2Name, team1Score, team2Score, history, showUndo, showRedo } = gameState;
+  const { setTeam1Name, setTeam2Name, setTeam1Score, setTeam2Score, setHistory, setShowUndo, setShowRedo } = setGameState;
   
   const [redoHistory, setRedoHistory] = useState<HistoryState[]>([]);
-  const [showRedo, setShowRedo] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
 

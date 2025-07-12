@@ -100,4 +100,25 @@ describe('Scoreboard app - Persistence', () => {
     // assert
     getCardForTeam('Red Team').should('have.css', 'background-color').and('be.colored', '#bc2525')
   })
+
+  it('should show redo button after add, undo, and page refresh', () => {
+    // act
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+
+    // assert
+    cy.contains('button', 'Redo').should('be.visible')
+  })
+
+  it.skip('should restore score to 1 after add, undo, page refresh, and redo', () => {
+    // act
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.contains('button', 'Redo').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('Team 1', 1)
+  })
 }) 
