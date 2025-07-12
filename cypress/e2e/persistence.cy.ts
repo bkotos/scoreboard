@@ -140,19 +140,55 @@ describe('Scoreboard app - Persistence', () => {
     assertTeamAndScoreDisplayed('Team 1', 2)
   })
 
-  it.skip('should show Team 1 score as 3 after I add 3 times, undo back to 0, refresh page, then click redo', () => {
-    // TODO: implement test
+  it('should show Team 1 score as 3 after I add 3 times, undo back to 0, refresh page, then click redo', () => {
+    // act
+    clickAddButton('Team 1')
+    clickAddButton('Team 1')
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.contains('button', 'Redo').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('Team 1', 3)
   })
 
-  it.skip('should still work if I refresh the page multiple times after clicking undo', () => {
-    // TODO: implement test
+  it('should still work if I refresh the page multiple times after clicking undo', () => {
+    // act
+    clickAddButton('Team 1')
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.reload()
+    cy.reload()
+    cy.contains('button', 'Redo').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('Team 1', 2)
   })
 
-  it.skip('should not show the redo button after I add points, undo, refresh, then click \'New game\'', () => {
-    // TODO: implement test
+  it('should not show the redo button after I add points, undo, refresh, then click \'New game\'', () => {
+    // act
+    clickAddButton('Team 1')
+    clickAddButton('Team 1')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.contains('button', 'New game').click()
+
+    // assert
+    cy.contains('button', 'Redo').should('not.exist')
   })
 
-  it.skip('should restore Team 2\'s score correctly after I add points to Team 2, undo, refresh, then redo', () => {
-    // TODO: implement test
+  it('should restore Team 2 score correctly after I add points to Team 2, undo, refresh, then redo', () => {
+    // act
+    clickAddButton('Team 2')
+    clickAddButton('Team 2')
+    clickAddButton('Team 2')
+    cy.contains('button', 'Undo').click()
+    cy.reload()
+    cy.contains('button', 'Redo').click()
+
+    // assert
+    assertTeamAndScoreDisplayed('Team 2', 3)
   })
 }) 
