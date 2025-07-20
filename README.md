@@ -10,7 +10,7 @@ I built this entire application through test-driven development, using the mantr
 ## TDD-Enabled Framework Migration
 This app serves as a proof of concept for how a comprehensive TDD approach paired with Cypress end-to-end tests can enable developers to completely rewrite applications using different frontend frameworks with confidence and ease.
 
-The app was originally built using vanilla JavaScript and the DOM API. However, thanks to the robust test suite created through TDD, I was able to delete all the source code except for the tests and completely [rewrite the entire application from scratch using React](https://github.com/bkotos/scoreboard/pull/1). This migration was remarkably quick, smooth, and painless because:
+The app was originally built using vanilla JavaScript and the DOM API. However, thanks to the robust test suite created through TDD, I was able to delete all the source code except for the tests and completely [rewrite the entire application from scratch using React](https://github.com/bkotos/scoreboard/pull/1). This migration was efficient and low-risk because:
 
 - The Cypress tests provided a complete specification of expected behavior
 - The tests validated every feature and interaction without being coupled to implementation details
