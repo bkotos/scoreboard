@@ -118,9 +118,11 @@ function App() {
           />
         </div>
       </div>
-      {showUndo && <button className="button" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
-      {showRedo && <button className="button" onClick={handleRedo} disabled={redoHistory.length === 0}>Redo</button>}<br /><br />
-      <button className="button" onClick={handleNewGame}>New game</button>
+      <div aria-label="Game controls" className="has-text-left">
+        {showUndo && <button className="button" onClick={handleUndo} disabled={history.length === 0}>Undo</button>}
+        {showRedo && <button className="button" onClick={handleRedo} disabled={redoHistory.length === 0}>Redo</button>}<br /><br />
+        <button className="button" onClick={handleNewGame}>New game</button>
+      </div>
     </div>
   );
 }
