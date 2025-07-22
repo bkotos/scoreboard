@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-      "baseUrl": "src",
       "sourceMap": true,
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
