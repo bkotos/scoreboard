@@ -1,6 +1,6 @@
 node_modules
 coverage
-public/build
-public/vendor
+**/public/build
+**/public/vendor
 cypress/screenshots
 cypress/downloads

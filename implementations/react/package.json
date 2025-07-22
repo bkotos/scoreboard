@@ -1,0 +1,32 @@
+{
+  "name": "scoreboard-react",
+  "version": "1.0.0",
+  "description": "React implementation of the scoreboard app",
+  "main": "index.js",
+  "scripts": {
+    "copy:vendor": "./copy-vendor.sh",
+    "build": "npm run copy:vendor && ./build.js",
+    "build:watch": "npm run copy:vendor && ./build.js -watch",
+    "serve": "http-server -c-1 ./public",
+    "start": "run-p build:watch serve",
+    "lint:check": "prettier . --check",
+    "lint:fix": "prettier . --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^1.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "estrella": "^1.4.1",
+    "http-server": "^14.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
+  }
+} 

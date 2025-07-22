@@ -24,17 +24,35 @@ This app is written in TypeScript and React, and uses [Bulma](https://bulma.io/)
 
 I wrote E2E tests for the app using [Cypress](https://www.cypress.io/).
 
+## New Multi-Framework Structure
+
+This project has been reorganized to demonstrate TDD across multiple frameworks:
+
+```
+scoreboard/
+├── cypress/              # Cypress E2E tests (shared across all implementations)
+├── implementations/     # Framework-specific implementations
+│   └── react/          # Complete React implementation
+└── package.json        # Root project with shared testing infrastructure
+```
+
 ## Running the app
-After cloning the app locally with Git, you'll need to invoke the following commands to install all NPM dependencies and start the app locally:
+
+### React Implementation
 ```bash
-npm ci
+cd implementations/react
+npm install
 npm start
 ```
 
-To run the suite of E2E tests, first make sure the app is running locally by running the commands above. Then invoke the following command:
+### Running tests
+Tests are run from the root directory and work with any implementation:
 ```bash
-npm test
+npm install  # Install Cypress and shared testing dependencies
+npm test     # Run the full test suite (72 tests)
 ```
+
+The tests expect a server running on port 8080, so make sure to start the implementation first.
 
 ## URLs
 | Environment | URL                                 |
