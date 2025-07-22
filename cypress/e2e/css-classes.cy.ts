@@ -40,4 +40,10 @@ describe('Scoreboard app - CSS Classes', () => {
     cy.get('.card-footer .button.is-small.is-danger').should('not.exist')
     cy.get('.card-footer .button.is-small.is-info').should('not.exist')
   })
+
+  it('should have add and subtract buttons with only the "card-footer-item" class', () => {
+    // Add and subtract buttons should only have the card-footer-item class
+    cy.get('[aria-label*="Add one point for"]').should('have.attr', 'class', 'card-footer-item')
+    cy.get('[aria-label*="Subtract one point for"]').should('have.attr', 'class', 'card-footer-item')
+  })
 }) 
