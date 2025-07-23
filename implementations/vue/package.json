@@ -9,9 +9,7 @@
     "build:watch": "npm run copy:vendor && vite build --watch",
     "serve": "http-server -c-1 ./public",
     "start": "run-p build:watch serve",
-    "type-check": "vue-tsc --noEmit",
-    "lint:check": "prettier . --check",
-    "lint:fix": "prettier . --write"
+    "type-check": "vue-tsc --noEmit"
   },
   "keywords": [],
   "author": "",

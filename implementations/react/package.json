@@ -8,9 +8,7 @@
     "build": "npm run copy:vendor && ./build.js",
     "build:watch": "npm run copy:vendor && ./build.js -watch",
     "serve": "http-server -c-1 ./public",
-    "start": "run-p build:watch serve",
-    "lint:check": "prettier . --check",
-    "lint:fix": "prettier . --write"
+    "start": "run-p build:watch serve"
   },
   "keywords": [],
   "author": "",
