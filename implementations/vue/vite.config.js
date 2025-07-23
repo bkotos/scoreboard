@@ -9,7 +9,7 @@ export default defineConfig({
     outDir: '../public/build',
     emptyOutDir: false,
     rollupOptions: {
-      input: path.resolve(__dirname, 'src/main.js'),
+      input: path.resolve(__dirname, 'src/main.ts'),
       output: {
         entryFileNames: 'index.js',
         chunkFileNames: '[name].js',
