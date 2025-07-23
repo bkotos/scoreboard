@@ -69,4 +69,10 @@ describe('Scoreboard app - Styling', () => {
     getCardForTeam('Team 2').find('[role="heading"][aria-level="1"]').should('contain', 'Team 2')
     getCardForTeam('Team 2').find('[role="heading"][aria-level="2"]').should('contain', '0')
   })
+
+  it('should display team names with inline display', () => {
+    // assert - team names should have display: inline
+    getCardForTeam('Team 1').find('[role="heading"][aria-level="1"]').should('have.css', 'display', 'inline')
+    getCardForTeam('Team 2').find('[role="heading"][aria-level="1"]').should('have.css', 'display', 'inline')
+  })
 }) 

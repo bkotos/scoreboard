@@ -90,7 +90,7 @@ const teamCardClasses = computed(() => {
 })
 
 const teamNameClasses = computed(() => 
-  'subtitle mb-0 p-0 has-text-white'
+  `subtitle mb-0 p-0 has-text-white ${teamManagement.isEditing.value ? '' : 'is-inline'}`
 )
 
 const editButtonClasses = computed(() => {

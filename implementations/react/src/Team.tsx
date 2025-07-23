@@ -47,7 +47,7 @@ const Team = ({ name: initialName, onNameChange, score: initialScore, onScoreCha
     return (
         <div className={getTeamCardClass()} role="listitem">
             <div className="card-content has-text-centered p-4">
-                <p className={`subtitle mb-0 ${isEditing ? 'editing-hidden' : ''}`} role="heading" aria-level={1}>
+                <p className={`subtitle mb-0 ${isEditing ? 'editing-hidden' : 'is-inline'}`} role="heading" aria-level={1}>
                     <span id={teamNameId}>{initialName}</span>&nbsp;
                     <button 
                         className={getEditButtonClass()}
