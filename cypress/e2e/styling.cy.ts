@@ -61,4 +61,12 @@ describe('Scoreboard app - Styling', () => {
     // Team should still have red background color
     getCardForTeam('Red Team').should('have.css', 'background-color').and('be.colored', '#bc2525')
   })
+
+  it('should have aria-level="1" for team names and aria-level="2" for scores', () => {
+    // assert - team names should be aria-level="1" and scores should be aria-level="2"
+    getCardForTeam('Team 1').find('[role="heading"][aria-level="1"]').should('contain', 'Team 1')
+    getCardForTeam('Team 1').find('[role="heading"][aria-level="2"]').should('contain', '0')
+    getCardForTeam('Team 2').find('[role="heading"][aria-level="1"]').should('contain', 'Team 2')
+    getCardForTeam('Team 2').find('[role="heading"][aria-level="2"]').should('contain', '0')
+  })
 }) 

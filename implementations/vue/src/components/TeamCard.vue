@@ -5,7 +5,7 @@
       <h2 
         :class="teamNameClasses" 
         role="heading" 
-        aria-level="2" 
+        aria-level="1" 
         :id="teamNameId"
         v-show="!teamManagement.isEditing.value"
       >
@@ -35,7 +35,7 @@
       />
       
       <!-- Score Display -->
-      <div class="title score has-text-white" :aria-labelledby="teamNameId">
+      <div class="title score has-text-white" role="heading" aria-level="2" :aria-labelledby="teamNameId">
         {{ score }}
       </div>
     </div>
