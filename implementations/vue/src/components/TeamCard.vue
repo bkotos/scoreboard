@@ -29,7 +29,7 @@
         @keyup.enter="teamManagement.saveName"
         @keyup.esc="teamManagement.cancelEditing"
         @blur="teamManagement.saveName"
-        class="input is-small"
+        class="subtitle mb-0 p-0"
         aria-label="Change team name"
         :ref="teamManagement.inputRef"
       />

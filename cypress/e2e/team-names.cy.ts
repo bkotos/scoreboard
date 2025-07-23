@@ -28,6 +28,14 @@ describe('Scoreboard app - Team Names', () => {
     cy.focused().should('have.attr', 'aria-label', 'Change team name')
   })
 
+  it('should have the subtitle class on the name text box when you click edit', () => {
+    // act
+    clickToChangeTeamName('Team 1')
+
+    // assert
+    cy.get('input[aria-label="Change team name"]').should('have.attr', 'class', 'subtitle mb-0 p-0')
+  })
+
   it('should hide the team name text box when I type *ENTER*', () => {
     // arrange
     clickToChangeTeamName('Team 1')
