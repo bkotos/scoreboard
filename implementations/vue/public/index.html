@@ -1,0 +1,75 @@
+<!doctype html>
+<html data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scoreboard</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="vendor/bulma.min.css"
+    />
+    <style>
+      button {
+        touch-action: manipulation;
+      }
+
+      .github-link {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        display: none;
+      }
+
+      .score {
+        font-size: 180px;
+      }
+
+      /* Team-specific styling */
+      .team1-card {
+        background-color: #bc2525;
+      }
+
+      .team2-card {
+        background-color: #2772db;
+      }
+
+      .team1-card [role="heading"], 
+      .team1-card .card-footer-item,
+      .team2-card [role="heading"], 
+      .team2-card .card-footer-item {
+        color: #fff;
+      }
+
+      .team1-card .title.score,
+      .team2-card .title.score {
+        font-size: 180px;
+        color: #fff;
+      }
+
+      .team1-edit-button {
+        color: rgb(26, 0, 5) !important;
+        background-color: rgb(255, 102, 133) !important;
+      }
+
+      .team2-edit-button {
+        color: rgb(0, 36, 51) !important;
+        background-color: rgb(102, 209, 255) !important;
+      }
+
+      .editing-hidden {
+        display: none;
+      }
+
+      @media only screen and (max-device-width : 768px) {
+        .container {
+          padding-top: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="build/index.js"></script>
+  </body>
+</html>

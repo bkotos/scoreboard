@@ -32,15 +32,23 @@ This project has been reorganized to demonstrate TDD across multiple frameworks:
 scoreboard/
 ├── cypress/              # Cypress E2E tests (shared across all implementations)
 ├── implementations/     # Framework-specific implementations
-│   └── react/          # Complete React implementation
+│   ├── react/          # Complete React implementation
+│   └── vue/            # Vue.js implementation
 └── package.json        # Root project with shared testing infrastructure
 ```
 
 ## Running the app
 
-### React Implementation
+### React Implementation 
 ```bash
 cd implementations/react
+npm install
+npm start
+```
+
+### Vue.js Implementation
+```bash
+cd implementations/vue
 npm install
 npm start
 ```
