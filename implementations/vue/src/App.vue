@@ -119,14 +119,14 @@ const handleNewGame = (): void => {
   background-color: #2772db !important;
 }
 
-.team1-card .subtitle,
-.team1-card .title,
+.team1-card .subtitle:not(input),
+.team1-card .title:not(input),
 .team1-card .card-footer button {
   color: #ffffff !important;
 }
 
-.team2-card .subtitle,
-.team2-card .title,
+.team2-card .subtitle:not(input),
+.team2-card .title:not(input),
 .team2-card .card-footer button {
   color: #ffffff !important;
 }
